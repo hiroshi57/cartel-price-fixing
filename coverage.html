@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cartel Watch — 業界カバレッジ / ヌケモレ洗い出し</title>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#161b22; --panel2:#1c232d; --line:#2a323d;
+    --txt:#e6edf3; --muted:#9aa7b4; --accent:#58a6ff;
+    --ok:#3fb950; --cand:#ffa657; --gap:#ff6b6b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font-family:"Segoe UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;font-size:14px;line-height:1.55}
+  header{padding:18px 22px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#11161d,#0e1116)}
+  header h1{margin:0;font-size:20px}
+  header .sub{color:var(--muted);font-size:12.5px;margin-top:4px}
+  nav{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
+  nav a{font-size:12.5px;color:var(--accent);text-decoration:none;border:1px solid var(--line);
+    padding:5px 11px;border-radius:7px;background:var(--panel)}
+  nav a.active{background:var(--accent);color:#04101f;border-color:var(--accent);font-weight:700}
+  .src{margin:10px 22px 0;padding:8px 12px;border:1px solid #1d3a5a;background:#0d1726;color:#9fc7ff;border-radius:8px;font-size:12px}
+  .wrap{padding:18px 22px;display:grid;gap:18px;max-width:1340px;margin:0 auto}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .panel h2{margin:0 0 4px;font-size:16px}
+  .panel .desc{color:var(--muted);font-size:12px;margin:0 0 12px}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+  .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .kpi .v{font-size:26px;font-weight:700}
+  .kpi .l{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .bar{height:10px;border-radius:6px;background:var(--panel2);overflow:hidden;margin-top:8px}
+  .bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--ok),#2ea043)}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th,td{padding:8px 9px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:11px;white-space:nowrap}
+  tr.gap{background:rgba(255,107,107,.07)}
+  .code{display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;border-radius:5px;
+    background:var(--panel2);border:1px solid var(--line);font-weight:700;font-size:11px}
+  .st{font-weight:700;font-size:11px;padding:2px 9px;border-radius:999px;white-space:nowrap}
+  .st-ok{background:rgba(63,185,80,.16);color:var(--ok);border:1px solid rgba(63,185,80,.4)}
+  .st-cand{background:rgba(255,166,87,.16);color:var(--cand);border:1px solid rgba(255,166,87,.4)}
+  .st-gap{background:rgba(255,107,107,.16);color:var(--gap);border:1px solid rgba(255,107,107,.4)}
+  .st-na{background:var(--panel2);color:var(--muted);border:1px solid var(--line)}
+  .ex{color:var(--muted);font-size:11.5px}
+  .tag{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:0 6px;margin:1px;font-size:11px}
+  .gapcard{border:1px solid rgba(255,107,107,.4);background:rgba(255,107,107,.06);border-radius:10px;padding:12px 14px;margin-bottom:10px}
+  .gapcard h3{margin:0 0 6px;font-size:14px;color:var(--gap)}
+  .legend{font-size:11.5px;color:var(--muted);margin-top:10px;display:flex;gap:16px;flex-wrap:wrap}
+  footer{padding:16px 22px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--line)}
+  code{background:var(--panel2);padding:1px 5px;border-radius:4px}
+  b{color:var(--txt)}
+</style>
+</head>
+<body>
+<header>
+  <h1>🧭 Cartel Watch — 業界カバレッジ / ヌケモレ洗い出し</h1>
+  <div class="sub">公的な産業分類（日本標準産業分類 全20大分類）を正典に、「取り上げていない業界・業種・サービス」を機械的に洗い出します。</div>
+  <nav>
+    <a href="overview.html">⓪ 総合ダッシュボード</a>
+    <a href="index.html">① 公表値上げの横並び</a>
+    <a href="procurement.html">② 仕入れコスト構造</a>
+    <a href="cases.html">③ 確定カルテル事件</a>
+    <a href="coverage.html" class="active">④ 業界カバレッジ</a>
+  </nav>
+</header>
+<div class="src" id="src">分類正典: 読み込み中…</div>
+
+<div class="wrap">
+
+  <section class="panel">
+    <h2>📊 カバレッジ</h2>
+    <div class="kpis" id="kpis"></div>
+    <div class="bar"><i id="bar" style="width:0%"></i></div>
+    <div class="legend">
+      <span>✅ 確定あり=公取委の摘発実績</span>
+      <span>🟡 候補のみ=未摘発の疑い候補あり</span>
+      <span>⛔ ヌケモレ=データ未収録（要追加）</span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>⛔ ヌケモレ業界（最優先で追加すべき領域）</h2>
+    <p class="desc">下記は確定事件・候補のいずれも無い大分類。代表的な業種・サービスを追加対象として提示します。</p>
+    <div id="gaps"></div>
+  </section>
+
+  <section class="panel">
+    <h2>🗂 全20大分類 カバレッジ一覧（日本標準産業分類）</h2>
+    <p class="desc">各大分類の確定件数・状態・代表業種・代表サービス。⛔行が抜け漏れ。</p>
+    <table id="tbl">
+      <thead><tr><th>分類</th><th>大分類</th><th>確定</th><th>状態</th><th>代表的な業種</th><th>代表的なサービス・商品</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+</div>
+
+<footer>
+  Cartel Watch · 分類正典=<code>taxonomy.js</code>（総務省 日本標準産業分類）· 確定=<code>cases-data.js</code> · 候補=<code>data.js</code>
+</footer>
+
+<script src="taxonomy.js"></script>
+<script src="cases-data.js"></script>
+<script>
+const T=window.INDUSTRY_TAXONOMY, C=window.JFTC_CASES||[];
+const $=s=>document.querySelector(s);
+
+// 確定件数を大分類ごとに集計
+const conf={};
+C.forEach(c=>{(T.tagToDivision[c.industry]||["T"]).forEach(d=>conf[d]=(conf[d]||0)+1);});
+// 未摘発候補がある大分類
+const candDiv=new Set(Object.values(T.candidateToDivision).flat());
+
+function statusOf(code){
+  if(code==="T") return {key:"na",label:"—",cls:"st-na"};
+  if((conf[code]||0)>0) return {key:"ok",label:"✅ 確定あり",cls:"st-ok"};
+  if(candDiv.has(code)) return {key:"cand",label:"🟡 候補のみ",cls:"st-cand"};
+  return {key:"gap",label:"⛔ ヌケモレ",cls:"st-gap"};
+}
+
+const real=T.divisions.filter(d=>d.code!=="T");
+const okN=real.filter(d=>statusOf(d.code).key==="ok").length;
+const candN=real.filter(d=>statusOf(d.code).key==="cand").length;
+const gapN=real.filter(d=>statusOf(d.code).key==="gap").length;
+const coveredN=okN+candN;
+
+function kpis(){
+  const pct=Math.round(coveredN/real.length*100);
+  $("#bar").style.width=pct+"%";
+  const data=[
+    {v:real.length,l:"全大分類(JSIC)"},
+    {v:`${coveredN}/${real.length}`,l:"カバー済み"},
+    {v:pct+"%",l:"カバー率"},
+    {v:okN,l:"✅ 確定あり"},
+    {v:gapN,l:"⛔ ヌケモレ"},
+  ];
+  $("#kpis").innerHTML=data.map(d=>`<div class="kpi"><div class="v">${d.v}</div><div class="l">${d.l}</div></div>`).join("");
+}
+
+function renderGaps(){
+  const gaps=real.filter(d=>statusOf(d.code).key==="gap");
+  $("#gaps").innerHTML=gaps.map(d=>`
+    <div class="gapcard">
+      <h3><span class="code">${d.code}</span> ${d.name}</h3>
+      <div class="ex"><b>業種:</b> ${d.examples.map(x=>`<span class="tag">${x}</span>`).join("")}</div>
+      <div class="ex" style="margin-top:4px"><b>サービス:</b> ${d.services.map(x=>`<span class="tag">${x}</span>`).join("")||"—"}</div>
+    </div>`).join("") || `<div class="ex">ヌケモレはありません。</div>`;
+}
+
+function renderTable(){
+  $("#tbl tbody").innerHTML=T.divisions.map(d=>{
+    const s=statusOf(d.code), n=conf[d.code]||0;
+    return `<tr class="${s.key==='gap'?'gap':''}">
+      <td><span class="code">${d.code}</span></td>
+      <td><b>${d.name}</b></td>
+      <td>${n||"—"}</td>
+      <td><span class="st ${s.cls}">${s.label}</span></td>
+      <td class="ex">${d.examples.map(x=>`<span class="tag">${x}</span>`).join("")}</td>
+      <td class="ex">${d.services.map(x=>`<span class="tag">${x}</span>`).join("")||"—"}</td>
+    </tr>`;
+  }).join("");
+}
+
+function init(){
+  $("#src").innerHTML=`分類正典: <b>${T.source}</b> 全${real.length}大分類 ／ 確定事件 ${C.length}件をマッピング`;
+  kpis(); renderGaps(); renderTable();
+}
+init();
+</script>
+</body>
+</html>
