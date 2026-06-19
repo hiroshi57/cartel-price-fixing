@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cartel Watch — 仕入れコスト構造 / 見えない値上げ分析</title>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#161b22; --panel2:#1c232d; --line:#2a323d;
+    --txt:#e6edf3; --muted:#9aa7b4; --accent:#58a6ff;
+    --hi:#ff6b6b; --mid:#ffa657; --lo:#3fb950; --cost:#a371f7; --gap:#ff6b6b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font-family:"Segoe UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;font-size:14px;line-height:1.5}
+  header{padding:18px 22px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#11161d,#0e1116)}
+  header h1{margin:0;font-size:20px}
+  header .sub{color:var(--muted);font-size:12.5px;margin-top:4px}
+  nav{margin-top:10px;display:flex;gap:10px}
+  nav a{font-size:12.5px;color:var(--accent);text-decoration:none;border:1px solid var(--line);
+    padding:5px 11px;border-radius:7px;background:var(--panel)}
+  nav a.active{background:var(--accent);color:#04101f;border-color:var(--accent);font-weight:700}
+  .disclaimer{margin:10px 22px 0;padding:8px 12px;border:1px solid #5a3a1a;background:#26190d;
+    color:#ffce99;border-radius:8px;font-size:12px}
+  .wrap{padding:18px 22px;display:grid;gap:18px;max-width:1320px;margin:0 auto}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .panel h2{margin:0 0 6px;font-size:15px}
+  .panel .hint{color:var(--muted);font-size:12px;margin:0 0 12px}
+  .controls{display:flex;flex-wrap:wrap;gap:14px;align-items:end;margin-bottom:12px}
+  .ctrl{display:flex;flex-direction:column;gap:4px}
+  .ctrl label{font-size:11.5px;color:var(--muted)}
+  select{background:var(--panel2);color:var(--txt);border:1px solid var(--line);border-radius:7px;padding:7px 9px;font-size:13px}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+  .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .kpi .v{font-size:24px;font-weight:700}
+  .kpi .l{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .kpi .badge{font-size:11px;margin-top:6px;display:inline-block}
+  .badge{padding:2px 9px;border-radius:999px;font-weight:700}
+  .b-hi{background:rgba(255,107,107,.16);color:var(--hi);border:1px solid rgba(255,107,107,.4)}
+  .b-mid{background:rgba(255,166,87,.16);color:var(--mid);border:1px solid rgba(255,166,87,.4)}
+  .b-lo{background:rgba(63,185,80,.16);color:var(--lo);border:1px solid rgba(63,185,80,.4)}
+  svg{width:100%;height:auto;display:block}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:11.5px;color:var(--muted)}
+  .legend span{display:inline-flex;align-items:center;gap:5px}
+  .dot{width:10px;height:10px;border-radius:2px}
+  .row2{display:grid;grid-template-columns:1.3fr 1fr;gap:16px}
+  @media(max-width:900px){.row2{grid-template-columns:1fr}}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left}
+  th{color:var(--muted);font-weight:600;font-size:11px}
+  .hm td{text-align:center;font-size:11px;border:1px solid var(--bg)}
+  .hm th{text-align:center;font-size:10.5px;color:var(--muted)}
+  .note{font-size:12px;color:var(--muted);margin-top:8px}
+  .corr{font-size:16px;font-weight:700}
+  footer{padding:16px 22px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--line)}
+  code{background:var(--panel2);padding:1px 5px;border-radius:4px}
+  b{color:var(--txt)}
+</style>
+</head>
+<body>
+<header>
+  <h1>🧾 Cartel Watch — 仕入れコスト構造 / 見えない値上げ分析</h1>
+  <div class="sub">飲食・クリーニング・八百屋など値上げが公表されない業態を、「仕入れコストから計算した理論値上げ」と実売価格の<b>乖離</b>で炙り出します。</div>
+  <nav>
+    <a href="overview.html">⓪ 総合ダッシュボード</a>
+    <a href="index.html">① 公表値上げの横並び</a>
+    <a href="procurement.html" class="active">② 仕入れコスト構造（見えない値上げ）</a>
+    <a href="cases.html">③ 確定カルテル事件(一次情報)</a>
+  </nav>
+</header>
+<div class="disclaimer" id="disclaimer">⚠️ 読み込み中…</div>
+
+<div class="wrap">
+
+  <!-- KPI -->
+  <section class="panel">
+    <h2>📊 業態別「コストで説明できない上乗せ」</h2>
+    <p class="hint">乖離 = 実売価格指数 − 理論コスト指数（仕入れバスケット）。大きいほど、原材料・人件費だけでは説明できない値上げ。</p>
+    <div class="kpis" id="kpis"></div>
+  </section>
+
+  <!-- コスト構造 vs 実売 -->
+  <section class="panel">
+    <h2>📈 コスト構造 vs 実売価格</h2>
+    <p class="hint">青=実売価格 / 紫=仕入れから計算した理論コスト / 赤帯=コストで説明できない乖離。</p>
+    <div class="controls">
+      <div class="ctrl"><label>業態</label><select id="c-cat"></select></div>
+    </div>
+    <div class="row2">
+      <div>
+        <div id="costchart"></div>
+        <div class="legend">
+          <span><span class="dot" style="background:var(--accent)"></span>実売価格指数</span>
+          <span><span class="dot" style="background:var(--cost)"></span>理論コスト指数(仕入れ)</span>
+          <span><span class="dot" style="background:var(--gap);opacity:.5"></span>説明できない乖離</span>
+        </div>
+      </div>
+      <div>
+        <h2 style="font-size:13px;margin:0 0 4px">コストバスケット内訳</h2>
+        <p class="hint" style="margin-bottom:8px">どの仕入れ品目が、どれだけ値上げに寄与しているか（構成比 × 品目の上昇率）。</p>
+        <div id="basket"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 仕入れ品目 連動マトリクス -->
+  <section class="panel">
+    <h2>🔗 仕入れ品目 連動マトリクス（川上＝仕入れ先談合の候補）</h2>
+    <p class="hint">仕入れ品目どうしの価格相関。本来無関係なはずの品目が強く連動（赤）していれば、共通の仕入れ先・市況以外の要因（談合・寡占）を疑う出発点になります。</p>
+    <div id="heatmap"></div>
+    <div class="legend">
+      <span><span class="dot" style="background:#ff6b6b"></span>強い連動 (≥0.8)</span>
+      <span><span class="dot" style="background:#ffa657"></span>中 (0.5–0.8)</span>
+      <span><span class="dot" style="background:#30363d"></span>弱い (&lt;0.5)</span>
+    </div>
+  </section>
+
+  <!-- クロス品目 -->
+  <section class="panel">
+    <h2>🔀 クロス品目検証（例: 小麦粉 × 野菜）</h2>
+    <p class="hint">2つの仕入れ品目を重ね、連動の強さと「両方を仕入れている業態」を確認します。</p>
+    <div class="controls">
+      <div class="ctrl"><label>品目 A</label><select id="x-a"></select></div>
+      <div class="ctrl"><label>品目 B</label><select id="x-b"></select></div>
+    </div>
+    <div class="row2">
+      <div>
+        <div id="crosschart"></div>
+        <div class="legend">
+          <span><span class="dot" style="background:var(--accent)"></span>A</span>
+          <span><span class="dot" style="background:var(--mid)"></span>B</span>
+        </div>
+      </div>
+      <div>
+        <div class="hint">相関係数</div>
+        <div class="corr" id="x-corr">—</div>
+        <div class="note" id="x-note"></div>
+        <div class="note" id="x-exposed"></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  Cartel Watch · 仕入れコスト構造分析 · データは <code>data.js</code> の <code>procurement</code> を編集して追記できます。
+  指数はサンプル参考値で、乖離や連動は協調の「候補」を示すもの。違法の証拠ではありません。
+</footer>
+
+<script src="data.js"></script>
+<script>
+const D=window.CARTEL_DATA, P=D.procurement;
+const $=s=>document.querySelector(s);
+const INPUT=Object.fromEntries(P.inputs.map(i=>[i.id,i]));
+const M=P.months, N=M.length;
+
+/* コスト指数系列を計算 */
+function costSeries(cat){
+  const out=new Array(N).fill(0);
+  cat.basket.forEach(b=>{ const s=INPUT[b.input].series; for(let t=0;t<N;t++) out[t]+=s[t]*b.w; });
+  return out.map(v=>+v.toFixed(1));
+}
+function gapBadge(gap){
+  let cls="b-lo",lbl="低";
+  if(gap>=20){cls="b-hi";lbl="高";} else if(gap>=8){cls="b-mid";lbl="中";}
+  return `<span class="badge ${cls}">説明不能 ${lbl}</span>`;
+}
+function pearson(a,b){
+  const m=x=>x.reduce((p,q)=>p+q,0)/x.length, ma=m(a),mb=m(b);
+  let nu=0,da=0,db=0;
+  for(let i=0;i<a.length;i++){nu+=(a[i]-ma)*(b[i]-mb);da+=(a[i]-ma)**2;db+=(b[i]-mb)**2;}
+  return (da===0||db===0)?0:nu/Math.sqrt(da*db);
+}
+
+/* ---- 折れ線（実売 vs コスト、乖離帯つき） ---- */
+function lineChart(elId, seriesA, seriesB, colA, colB, fillGap){
+  const W=560,H=240,pL=38,pR=12,pT=14,pB=26;
+  const all=[...seriesA,...seriesB];
+  const lo=Math.min(...all,100), hi=Math.max(...all);
+  const x=i=>pL+i/(N-1)*(W-pL-pR);
+  const y=v=>H-pB-(v-lo)/Math.max(hi-lo,1)*(H-pT-pB);
+  const pts=s=>s.map((v,i)=>`${x(i)},${y(v)}`).join(" ");
+  let svg=`<svg viewBox="0 0 ${W} ${H}">`;
+  // 乖離帯
+  if(fillGap){
+    let area=[];
+    for(let i=0;i<N;i++) area.push(`${x(i)},${y(seriesA[i])}`);
+    for(let i=N-1;i>=0;i--) area.push(`${x(i)},${y(seriesB[i])}`);
+    svg+=`<polygon points="${area.join(" ")}" fill="var(--gap)" opacity="0.18"/>`;
+  }
+  // 軸ラベル(年)
+  for(let i=0;i<N;i++){ if(M[i].endsWith("-04")) svg+=`<text x="${x(i)}" y="${H-8}" fill="#9aa7b4" font-size="10" text-anchor="middle">${M[i].slice(0,4)}</text>`; }
+  svg+=`<line x1="${pL}" y1="${H-pB}" x2="${W-pR}" y2="${H-pB}" stroke="#2a323d"/>`;
+  svg+=`<polyline points="${pts(seriesB)}" fill="none" stroke="${colB}" stroke-width="2"/>`;
+  svg+=`<polyline points="${pts(seriesA)}" fill="none" stroke="${colA}" stroke-width="2.5"/>`;
+  seriesA.forEach((v,i)=>svg+=`<circle cx="${x(i)}" cy="${y(v)}" r="2.5" fill="${colA}"/>`);
+  svg+=`</svg>`;
+  $(elId).innerHTML=svg;
+}
+
+/* ---- バスケット内訳バー ---- */
+function renderBasket(cat){
+  const rows=cat.basket.map(b=>{
+    const s=INPUT[b.input].series;
+    const chg=((s[N-1]-s[0])/s[0]*100);          // 期間全体の上昇率
+    const contrib=b.w*chg;                         // 値上げ寄与(pt)
+    return {name:INPUT[b.input].name, w:b.w, chg, contrib};
+  }).sort((a,b)=>b.contrib-a.contrib);
+  const maxC=Math.max(...rows.map(r=>Math.abs(r.contrib)),1);
+  let html=`<table><thead><tr><th>仕入れ品目</th><th>構成比</th><th>上昇率</th><th>値上げ寄与</th></tr></thead><tbody>`;
+  rows.forEach(r=>{
+    const w=Math.abs(r.contrib)/maxC*100;
+    const col=r.contrib>=0?"var(--mid)":"var(--lo)";
+    html+=`<tr><td>${r.name}</td><td>${(r.w*100).toFixed(0)}%</td><td>${r.chg>=0?"+":""}${r.chg.toFixed(0)}%</td>`+
+      `<td><div style="display:flex;align-items:center;gap:6px"><div style="height:8px;width:${w}%;background:${col};border-radius:3px;min-width:2px"></div>`+
+      `<span style="color:var(--muted)">${r.contrib>=0?"+":""}${r.contrib.toFixed(1)}pt</span></div></td></tr>`;
+  });
+  html+=`</tbody></table>`;
+  $("#basket").innerHTML=html;
+}
+
+/* ---- KPI ---- */
+function renderKPIs(){
+  $("#kpis").innerHTML=P.categories.map(c=>{
+    const cost=costSeries(c), gap=+(c.actual[N-1]-cost[N-1]).toFixed(1);
+    const actChg=(c.actual[N-1]-100).toFixed(0), costChg=(cost[N-1]-100).toFixed(0);
+    return `<div class="kpi"><div class="v">+${gap}<span style="font-size:13px;color:var(--muted)">pt</span></div>`+
+      `<div class="l">${c.name}<br>実売 +${actChg}% / 理論コスト +${costChg}%</div>`+
+      `<div>${gapBadge(gap)}</div></div>`;
+  }).join("");
+}
+
+/* ---- コスト構造ビュー ---- */
+function renderCost(){
+  const cat=P.categories.find(c=>c.id===$("#c-cat").value);
+  lineChart("#costchart", cat.actual, costSeries(cat), "var(--accent)", "var(--cost)", true);
+  renderBasket(cat);
+}
+
+/* ---- 連動ヒートマップ ---- */
+function hmColor(r){
+  if(r>=0.8) return "#ff6b6b"; if(r>=0.65) return "#ff8e72";
+  if(r>=0.5) return "#ffa657"; if(r>=0.3) return "#5a4a3a";
+  if(r>=0) return "#30363d"; return "#1f3a4d";
+}
+function renderHeatmap(){
+  const ids=P.inputs.map(i=>i.id), names=P.inputs.map(i=>i.name);
+  let html=`<table class="hm"><thead><tr><th></th>`+names.map(n=>`<th>${n}</th>`).join("")+`</tr></thead><tbody>`;
+  ids.forEach((a,i)=>{
+    html+=`<tr><th>${names[i]}</th>`;
+    ids.forEach((b,j)=>{
+      const r=pearson(INPUT[a].series,INPUT[b].series);
+      const c=i===j?"#222b35":hmColor(r);
+      const txt=i===j?"":r.toFixed(2);
+      html+=`<td style="background:${c};color:${r>=0.5&&i!==j?'#1a0e0e':'#cdd6df'}">${txt}</td>`;
+    });
+    html+=`</tr>`;
+  });
+  html+=`</tbody></table>`;
+  $("#heatmap").innerHTML=html;
+}
+
+/* ---- クロス品目 ---- */
+function renderCross(){
+  const a=$("#x-a").value, b=$("#x-b").value;
+  const sa=INPUT[a].series, sb=INPUT[b].series;
+  lineChart("#crosschart", sa, sb, "var(--accent)", "var(--mid)", false);
+  const r=pearson(sa,sb);
+  $("#x-corr").textContent=r.toFixed(2)+(r>=0.8?"（強い連動）":r>=0.5?"（中程度）":"（弱い）");
+  $("#x-corr").style.color=r>=0.8?"var(--hi)":r>=0.5?"var(--mid)":"var(--lo)";
+  $("#x-note").innerHTML = r>=0.8
+    ? `本来別市況のはずの品目が強く連動。<b>共通の仕入れ先や寡占</b>を疑う出発点になります。`
+    : r>=0.5 ? `ある程度連動しています。共通の上流要因（原油など）の可能性も。`
+    : `連動は弱く、別々の要因で動いています。`;
+  const exposed=P.categories.filter(c=>{
+    const set=new Set(c.basket.map(x=>x.input)); return set.has(a)&&set.has(b);
+  }).map(c=>c.name);
+  $("#x-exposed").innerHTML = exposed.length
+    ? `両品目を仕入れている業態: <b>${exposed.join("・")}</b>（この2品目が同時に上がると、これらの業態の値上げ口実になりやすい）`
+    : `両品目を同時に仕入れている業態は、登録データ上ありません。`;
+}
+
+/* ---- init ---- */
+function fill(el,arr,sel){ el.innerHTML=arr.map((o,i)=>`<option value="${o.id}"${i===sel?" selected":""}>${o.name}</option>`).join(""); }
+function init(){
+  $("#disclaimer").textContent="⚠️ "+D.meta.disclaimer+"（仕入れ指数はサンプル）";
+  fill($("#c-cat"), P.categories, 1);            // 既定: クリーニング(乖離が大きい)
+  fill($("#x-a"), P.inputs, P.inputs.findIndex(i=>i.id==="flour"));
+  fill($("#x-b"), P.inputs, P.inputs.findIndex(i=>i.id==="vegetable"));
+  $("#c-cat").addEventListener("change",renderCost);
+  $("#x-a").addEventListener("change",renderCross);
+  $("#x-b").addEventListener("change",renderCross);
+  renderKPIs(); renderCost(); renderHeatmap(); renderCross();
+}
+init();
+</script>
+</body>
+</html>

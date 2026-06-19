@@ -1,0 +1,292 @@
+series_id,series_name,group,step,type,value,q10,q50,q90
+commodity:wheat,輸入小麦 政府売渡価格,commodity,2021-04,history,100.0,,,
+commodity:wheat,輸入小麦 政府売渡価格,commodity,2021-10,history,119.0,,,
+commodity:wheat,輸入小麦 政府売渡価格,commodity,2022-04,history,137.0,,,
+commodity:wheat,輸入小麦 政府売渡価格,commodity,2022-10,history,142.0,,,
+commodity:wheat,輸入小麦 政府売渡価格,commodity,2023-04,history,132.0,,,
+commodity:wheat,輸入小麦 政府売渡価格,commodity,2023-10,history,122.0,,,
+commodity:wheat,輸入小麦 政府売渡価格,commodity,2024-04,history,118.0,,,
+commodity:wheat,輸入小麦 政府売渡価格,commodity,2024-10,history,116.0,,,
+commodity:wheat,輸入小麦 政府売渡価格,commodity,2025-04,history,114.0,,,
+commodity:wheat,輸入小麦 政府売渡価格,commodity,+1,forecast,112.12,100.7,112.12,126.42
+commodity:wheat,輸入小麦 政府売渡価格,commodity,+2,forecast,112.23,98.26,112.23,129.42
+commodity:wheat,輸入小麦 政府売渡価格,commodity,+3,forecast,112.54,96.71,112.54,131.52
+commodity:wheat,輸入小麦 政府売渡価格,commodity,+4,forecast,114.53,97.61,114.53,134.87
+commodity:crude,原油 (物流・包装コスト),commodity,2021-04,history,100.0,,,
+commodity:crude,原油 (物流・包装コスト),commodity,2021-10,history,128.0,,,
+commodity:crude,原油 (物流・包装コスト),commodity,2022-04,history,165.0,,,
+commodity:crude,原油 (物流・包装コスト),commodity,2022-10,history,150.0,,,
+commodity:crude,原油 (物流・包装コスト),commodity,2023-04,history,118.0,,,
+commodity:crude,原油 (物流・包装コスト),commodity,2023-10,history,130.0,,,
+commodity:crude,原油 (物流・包装コスト),commodity,2024-04,history,125.0,,,
+commodity:crude,原油 (物流・包装コスト),commodity,2024-10,history,120.0,,,
+commodity:crude,原油 (物流・包装コスト),commodity,2025-04,history,118.0,,,
+commodity:crude,原油 (物流・包装コスト),commodity,+1,forecast,119.93,99.75,119.93,145.48
+commodity:crude,原油 (物流・包装コスト),commodity,+2,forecast,122.18,98.97,122.18,151.62
+commodity:crude,原油 (物流・包装コスト),commodity,+3,forecast,120.83,96.39,120.83,152.13
+commodity:crude,原油 (物流・包装コスト),commodity,+4,forecast,120.56,94.98,120.56,153.32
+commodity:sugar,砂糖 (粗糖),commodity,2021-04,history,100.0,,,
+commodity:sugar,砂糖 (粗糖),commodity,2022-04,history,112.0,,,
+commodity:sugar,砂糖 (粗糖),commodity,2023-04,history,138.0,,,
+commodity:sugar,砂糖 (粗糖),commodity,2023-10,history,152.0,,,
+commodity:sugar,砂糖 (粗糖),commodity,2024-04,history,148.0,,,
+commodity:sugar,砂糖 (粗糖),commodity,2025-04,history,134.0,,,
+commodity:sugar,砂糖 (粗糖),commodity,+1,forecast,124.58,99.4,124.58,149.61
+commodity:sugar,砂糖 (粗糖),commodity,+2,forecast,121.89,92.58,121.89,151.43
+commodity:sugar,砂糖 (粗糖),commodity,+3,forecast,122.72,89.98,122.72,155.23
+commodity:sugar,砂糖 (粗糖),commodity,+4,forecast,124.13,89.28,124.13,158.7
+commodity:cacao,カカオ豆,commodity,2021-04,history,100.0,,,
+commodity:cacao,カカオ豆,commodity,2022-04,history,108.0,,,
+commodity:cacao,カカオ豆,commodity,2023-04,history,130.0,,,
+commodity:cacao,カカオ豆,commodity,2023-10,history,175.0,,,
+commodity:cacao,カカオ豆,commodity,2024-04,history,290.0,,,
+commodity:cacao,カカオ豆,commodity,2024-10,history,250.0,,,
+commodity:cacao,カカオ豆,commodity,2025-04,history,230.0,,,
+commodity:cacao,カカオ豆,commodity,+1,forecast,207.4,134.2,207.4,294.48
+commodity:cacao,カカオ豆,commodity,+2,forecast,183.86,103.11,183.86,285.56
+commodity:cacao,カカオ豆,commodity,+3,forecast,176.18,88.76,176.18,287.23
+commodity:cacao,カカオ豆,commodity,+4,forecast,162.53,70.75,162.53,281.75
+commodity:milk,生乳,commodity,2021-04,history,100.0,,,
+commodity:milk,生乳,commodity,2022-04,history,104.0,,,
+commodity:milk,生乳,commodity,2022-11,history,113.0,,,
+commodity:milk,生乳,commodity,2023-08,history,121.0,,,
+commodity:milk,生乳,commodity,2024-04,history,122.0,,,
+commodity:milk,生乳,commodity,2025-04,history,123.0,,,
+commodity:milk,生乳,commodity,+1,forecast,123.11,113.56,123.11,128.21
+commodity:milk,生乳,commodity,+2,forecast,121.34,109.77,121.34,128.21
+commodity:milk,生乳,commodity,+3,forecast,119.95,106.95,119.95,128.13
+commodity:milk,生乳,commodity,+4,forecast,118.85,104.68,118.85,128.39
+input:rice,米,input,2021-04,history,100.0,,,
+input:rice,米,input,2021-10,history,100.0,,,
+input:rice,米,input,2022-04,history,101.0,,,
+input:rice,米,input,2022-10,history,103.0,,,
+input:rice,米,input,2023-04,history,104.0,,,
+input:rice,米,input,2023-10,history,106.0,,,
+input:rice,米,input,2024-04,history,112.0,,,
+input:rice,米,input,2024-10,history,135.0,,,
+input:rice,米,input,2025-04,history,150.0,,,
+input:rice,米,input,+1,forecast,142.55,125.2,142.55,161.95
+input:rice,米,input,+2,forecast,135.38,116.67,135.38,158.34
+input:rice,米,input,+3,forecast,129.21,110.26,129.21,154.65
+input:rice,米,input,+4,forecast,123.59,104.18,123.59,151.12
+input:vegetable,野菜,input,2021-04,history,100.0,,,
+input:vegetable,野菜,input,2021-10,history,108.0,,,
+input:vegetable,野菜,input,2022-04,history,103.0,,,
+input:vegetable,野菜,input,2022-10,history,115.0,,,
+input:vegetable,野菜,input,2023-04,history,98.0,,,
+input:vegetable,野菜,input,2023-10,history,120.0,,,
+input:vegetable,野菜,input,2024-04,history,110.0,,,
+input:vegetable,野菜,input,2024-10,history,125.0,,,
+input:vegetable,野菜,input,2025-04,history,118.0,,,
+input:vegetable,野菜,input,+1,forecast,118.55,105.16,118.55,132.05
+input:vegetable,野菜,input,+2,forecast,116.19,101.44,116.19,131.23
+input:vegetable,野菜,input,+3,forecast,117.51,102.01,117.51,133.76
+input:vegetable,野菜,input,+4,forecast,113.79,97.87,113.79,130.86
+input:meat,食肉,input,2021-04,history,100.0,,,
+input:meat,食肉,input,2021-10,history,104.0,,,
+input:meat,食肉,input,2022-04,history,110.0,,,
+input:meat,食肉,input,2022-10,history,114.0,,,
+input:meat,食肉,input,2023-04,history,116.0,,,
+input:meat,食肉,input,2023-10,history,118.0,,,
+input:meat,食肉,input,2024-04,history,120.0,,,
+input:meat,食肉,input,2024-10,history,122.0,,,
+input:meat,食肉,input,2025-04,history,124.0,,,
+input:meat,食肉,input,+1,forecast,125.16,120.4,125.16,127.06
+input:meat,食肉,input,+2,forecast,126.35,119.37,126.35,129.81
+input:meat,食肉,input,+3,forecast,126.15,117.35,126.15,131.36
+input:meat,食肉,input,+4,forecast,126.0,115.1,126.0,133.15
+input:oil,食用油,input,2021-04,history,100.0,,,
+input:oil,食用油,input,2021-10,history,118.0,,,
+input:oil,食用油,input,2022-04,history,140.0,,,
+input:oil,食用油,input,2022-10,history,138.0,,,
+input:oil,食用油,input,2023-04,history,128.0,,,
+input:oil,食用油,input,2023-10,history,120.0,,,
+input:oil,食用油,input,2024-04,history,116.0,,,
+input:oil,食用油,input,2024-10,history,114.0,,,
+input:oil,食用油,input,2025-04,history,112.0,,,
+input:oil,食用油,input,+1,forecast,110.98,102.19,110.98,123.46
+input:oil,食用油,input,+2,forecast,111.13,100.26,111.13,126.35
+input:oil,食用油,input,+3,forecast,111.62,99.05,111.62,128.5
+input:oil,食用油,input,+4,forecast,113.98,100.65,113.98,132.13
+input:flour,小麦粉,input,2021-04,history,100.0,,,
+input:flour,小麦粉,input,2021-10,history,110.0,,,
+input:flour,小麦粉,input,2022-04,history,128.0,,,
+input:flour,小麦粉,input,2022-10,history,132.0,,,
+input:flour,小麦粉,input,2023-04,history,125.0,,,
+input:flour,小麦粉,input,2023-10,history,118.0,,,
+input:flour,小麦粉,input,2024-04,history,116.0,,,
+input:flour,小麦粉,input,2024-10,history,115.0,,,
+input:flour,小麦粉,input,2025-04,history,114.0,,,
+input:flour,小麦粉,input,+1,forecast,112.33,105.3,112.33,120.92
+input:flour,小麦粉,input,+2,forecast,110.99,102.31,110.99,121.5
+input:flour,小麦粉,input,+3,forecast,110.86,101.0,110.86,122.61
+input:flour,小麦粉,input,+4,forecast,113.17,102.68,113.17,125.89
+input:detergent,洗剤・溶剤,input,2021-04,history,100.0,,,
+input:detergent,洗剤・溶剤,input,2021-10,history,112.0,,,
+input:detergent,洗剤・溶剤,input,2022-04,history,130.0,,,
+input:detergent,洗剤・溶剤,input,2022-10,history,128.0,,,
+input:detergent,洗剤・溶剤,input,2023-04,history,120.0,,,
+input:detergent,洗剤・溶剤,input,2023-10,history,118.0,,,
+input:detergent,洗剤・溶剤,input,2024-04,history,116.0,,,
+input:detergent,洗剤・溶剤,input,2024-10,history,115.0,,,
+input:detergent,洗剤・溶剤,input,2025-04,history,114.0,,,
+input:detergent,洗剤・溶剤,input,+1,forecast,113.4,107.19,113.4,121.22
+input:detergent,洗剤・溶剤,input,+2,forecast,112.85,105.53,112.85,121.99
+input:detergent,洗剤・溶剤,input,+3,forecast,111.8,103.92,111.8,121.96
+input:detergent,洗剤・溶剤,input,+4,forecast,111.61,103.26,111.61,122.73
+input:energy,光熱費(電気・ガス),input,2021-04,history,100.0,,,
+input:energy,光熱費(電気・ガス),input,2021-10,history,115.0,,,
+input:energy,光熱費(電気・ガス),input,2022-04,history,140.0,,,
+input:energy,光熱費(電気・ガス),input,2022-10,history,158.0,,,
+input:energy,光熱費(電気・ガス),input,2023-04,history,150.0,,,
+input:energy,光熱費(電気・ガス),input,2023-10,history,138.0,,,
+input:energy,光熱費(電気・ガス),input,2024-04,history,130.0,,,
+input:energy,光熱費(電気・ガス),input,2024-10,history,128.0,,,
+input:energy,光熱費(電気・ガス),input,2025-04,history,126.0,,,
+input:energy,光熱費(電気・ガス),input,+1,forecast,122.78,108.65,122.78,140.57
+input:energy,光熱費(電気・ガス),input,+2,forecast,120.23,102.25,120.23,141.5
+input:energy,光熱費(電気・ガス),input,+3,forecast,121.02,100.34,121.02,144.72
+input:energy,光熱費(電気・ガス),input,+4,forecast,124.41,101.88,124.41,149.87
+input:water,水道,input,2021-04,history,100.0,,,
+input:water,水道,input,2021-10,history,100.0,,,
+input:water,水道,input,2022-04,history,101.0,,,
+input:water,水道,input,2022-10,history,102.0,,,
+input:water,水道,input,2023-04,history,104.0,,,
+input:water,水道,input,2023-10,history,105.0,,,
+input:water,水道,input,2024-04,history,107.0,,,
+input:water,水道,input,2024-10,history,108.0,,,
+input:water,水道,input,2025-04,history,110.0,,,
+input:water,水道,input,+1,forecast,110.56,108.24,110.56,113.26
+input:water,水道,input,+2,forecast,109.95,107.25,109.95,112.85
+input:water,水道,input,+3,forecast,109.46,106.46,109.46,112.85
+input:water,水道,input,+4,forecast,108.68,105.11,108.68,112.35
+input:labor,人件費,input,2021-04,history,100.0,,,
+input:labor,人件費,input,2021-10,history,102.0,,,
+input:labor,人件費,input,2022-04,history,104.0,,,
+input:labor,人件費,input,2022-10,history,107.0,,,
+input:labor,人件費,input,2023-04,history,110.0,,,
+input:labor,人件費,input,2023-10,history,113.0,,,
+input:labor,人件費,input,2024-04,history,116.0,,,
+input:labor,人件費,input,2024-10,history,120.0,,,
+input:labor,人件費,input,2025-04,history,124.0,,,
+input:labor,人件費,input,+1,forecast,128.34,125.96,128.34,129.19
+input:labor,人件費,input,+2,forecast,131.7,128.18,131.7,132.62
+input:labor,人件費,input,+3,forecast,132.5,128.0,132.5,134.02
+input:labor,人件費,input,+4,forecast,136.26,129.7,136.26,138.91
+input:rent,家賃,input,2021-04,history,100.0,,,
+input:rent,家賃,input,2021-10,history,100.0,,,
+input:rent,家賃,input,2022-04,history,101.0,,,
+input:rent,家賃,input,2022-10,history,101.0,,,
+input:rent,家賃,input,2023-04,history,102.0,,,
+input:rent,家賃,input,2023-10,history,102.0,,,
+input:rent,家賃,input,2024-04,history,103.0,,,
+input:rent,家賃,input,2024-10,history,103.0,,,
+input:rent,家賃,input,2025-04,history,104.0,,,
+input:rent,家賃,input,+1,forecast,104.08,103.18,104.08,105.02
+input:rent,家賃,input,+2,forecast,104.5,102.41,104.5,106.31
+input:rent,家賃,input,+3,forecast,104.57,102.07,104.57,106.71
+input:rent,家賃,input,+4,forecast,104.73,101.87,104.73,106.95
+input:packaging,包装・物流,input,2021-04,history,100.0,,,
+input:packaging,包装・物流,input,2021-10,history,110.0,,,
+input:packaging,包装・物流,input,2022-04,history,122.0,,,
+input:packaging,包装・物流,input,2022-10,history,124.0,,,
+input:packaging,包装・物流,input,2023-04,history,120.0,,,
+input:packaging,包装・物流,input,2023-10,history,122.0,,,
+input:packaging,包装・物流,input,2024-04,history,120.0,,,
+input:packaging,包装・物流,input,2024-10,history,119.0,,,
+input:packaging,包装・物流,input,2025-04,history,118.0,,,
+input:packaging,包装・物流,input,+1,forecast,118.06,111.06,118.06,124.44
+input:packaging,包装・物流,input,+2,forecast,117.61,109.32,117.61,125.05
+input:packaging,包装・物流,input,+3,forecast,117.35,107.98,117.35,125.52
+input:packaging,包装・物流,input,+4,forecast,117.44,107.38,117.44,125.9
+input:misc,その他,input,2021-04,history,100.0,,,
+input:misc,その他,input,2021-10,history,103.0,,,
+input:misc,その他,input,2022-04,history,106.0,,,
+input:misc,その他,input,2022-10,history,108.0,,,
+input:misc,その他,input,2023-04,history,110.0,,,
+input:misc,その他,input,2023-10,history,112.0,,,
+input:misc,その他,input,2024-04,history,114.0,,,
+input:misc,その他,input,2024-10,history,116.0,,,
+input:misc,その他,input,2025-04,history,118.0,,,
+input:misc,その他,input,+1,forecast,119.35,115.71,119.35,121.58
+input:misc,その他,input,+2,forecast,120.71,115.27,120.71,124.58
+input:misc,その他,input,+3,forecast,121.49,114.16,121.49,127.28
+input:misc,その他,input,+4,forecast,122.38,112.81,122.38,130.9
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2021-04,history,100.0,,,
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2021-10,history,103.0,,,
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2022-04,history,108.0,,,
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2022-10,history,113.0,,,
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2023-04,history,116.0,,,
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2023-10,history,120.0,,,
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2024-04,history,124.0,,,
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2024-10,history,130.0,,,
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2025-04,history,134.0,,,
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,+1,forecast,135.75,132.95,135.75,139.92
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,+2,forecast,141.0,137.07,141.0,146.86
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,+3,forecast,144.84,139.6,144.84,151.52
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,+4,forecast,147.33,140.73,147.33,154.96
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2021-04,history,100.0,,,
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2021-10,history,104.77,,,
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2022-04,history,110.15,,,
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2022-10,history,115.17,,,
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2023-04,history,113.52,,,
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2023-10,history,115.38,,,
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2024-04,history,115.33,,,
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2024-10,history,120.81,,,
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2025-04,history,123.26,,,
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,+1,forecast,122.19,115.0,122.19,127.83
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,+2,forecast,120.56,111.68,120.56,128.03
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,+3,forecast,118.78,108.47,118.78,127.3
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,+4,forecast,119.33,108.0,119.33,128.95
+actual:cleaning,クリーニング 実売,actual,2021-04,history,100.0,,,
+actual:cleaning,クリーニング 実売,actual,2021-10,history,104.0,,,
+actual:cleaning,クリーニング 実売,actual,2022-04,history,112.0,,,
+actual:cleaning,クリーニング 実売,actual,2022-10,history,120.0,,,
+actual:cleaning,クリーニング 実売,actual,2023-04,history,126.0,,,
+actual:cleaning,クリーニング 実売,actual,2023-10,history,132.0,,,
+actual:cleaning,クリーニング 実売,actual,2024-04,history,138.0,,,
+actual:cleaning,クリーニング 実売,actual,2024-10,history,144.0,,,
+actual:cleaning,クリーニング 実売,actual,2025-04,history,150.0,,,
+actual:cleaning,クリーニング 実売,actual,+1,forecast,156.02,146.35,156.02,161.64
+actual:cleaning,クリーニング 実売,actual,+2,forecast,159.22,145.76,159.22,169.43
+actual:cleaning,クリーニング 実売,actual,+3,forecast,160.21,142.06,160.21,174.82
+actual:cleaning,クリーニング 実売,actual,+4,forecast,161.08,138.46,161.08,180.69
+cost:cleaning,クリーニング 理論コスト,cost,2021-04,history,100.0,,,
+cost:cleaning,クリーニング 理論コスト,cost,2021-10,history,107.14,,,
+cost:cleaning,クリーニング 理論コスト,cost,2022-04,history,118.28,,,
+cost:cleaning,クリーニング 理論コスト,cost,2022-10,history,124.65,,,
+cost:cleaning,クリーニング 理論コスト,cost,2023-04,history,122.38,,,
+cost:cleaning,クリーニング 理論コスト,cost,2023-10,history,119.75,,,
+cost:cleaning,クリーニング 理論コスト,cost,2024-04,history,118.3,,,
+cost:cleaning,クリーニング 理論コスト,cost,2024-10,history,118.99,,,
+cost:cleaning,クリーニング 理論コスト,cost,2025-04,history,119.86,,,
+cost:cleaning,クリーニング 理論コスト,cost,+1,forecast,118.55,110.7,118.55,125.2
+cost:cleaning,クリーニング 理論コスト,cost,+2,forecast,116.9,107.23,116.9,124.94
+cost:cleaning,クリーニング 理論コスト,cost,+3,forecast,116.21,105.33,116.21,125.37
+cost:cleaning,クリーニング 理論コスト,cost,+4,forecast,116.49,104.82,116.49,126.49
+actual:greengrocer,八百屋・生鮮小売 実売,actual,2021-04,history,100.0,,,
+actual:greengrocer,八百屋・生鮮小売 実売,actual,2021-10,history,107.0,,,
+actual:greengrocer,八百屋・生鮮小売 実売,actual,2022-04,history,104.0,,,
+actual:greengrocer,八百屋・生鮮小売 実売,actual,2022-10,history,114.0,,,
+actual:greengrocer,八百屋・生鮮小売 実売,actual,2023-04,history,100.0,,,
+actual:greengrocer,八百屋・生鮮小売 実売,actual,2023-10,history,119.0,,,
+actual:greengrocer,八百屋・生鮮小売 実売,actual,2024-04,history,111.0,,,
+actual:greengrocer,八百屋・生鮮小売 実売,actual,2024-10,history,124.0,,,
+actual:greengrocer,八百屋・生鮮小売 実売,actual,2025-04,history,119.0,,,
+actual:greengrocer,八百屋・生鮮小売 実売,actual,+1,forecast,117.69,104.19,117.69,130.68
+actual:greengrocer,八百屋・生鮮小売 実売,actual,+2,forecast,115.74,100.84,115.74,130.21
+actual:greengrocer,八百屋・生鮮小売 実売,actual,+3,forecast,117.01,101.44,117.01,132.5
+actual:greengrocer,八百屋・生鮮小売 実売,actual,+4,forecast,114.8,98.76,114.8,131.08
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2021-04,history,100.0,,,
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2021-10,history,106.78,,,
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2022-04,history,104.98,,,
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2022-10,history,113.8,,,
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2023-04,history,102.36,,,
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2023-10,history,117.98,,,
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2024-04,history,111.5,,,
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2024-10,history,122.2,,,
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2025-04,history,118.0,,,
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,+1,forecast,116.78,104.58,116.78,128.9
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,+2,forecast,114.36,101.14,114.36,127.93
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,+3,forecast,116.07,102.36,116.07,130.55
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,+4,forecast,114.47,100.28,114.47,129.64

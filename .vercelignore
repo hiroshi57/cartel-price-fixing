@@ -1,0 +1,9 @@
+# デプロイ不要（巨大 / 静的サイトに不要）
+timesfm/
+forecast/
+sources/raw/
+Skills/
+.git/
+node_modules/
+*.output
+**/__pycache__/

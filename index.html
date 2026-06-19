@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cartel Watch — 横並び値上げ監視ダッシュボード</title>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#161b22; --panel2:#1c232d; --line:#2a323d;
+    --txt:#e6edf3; --muted:#9aa7b4; --accent:#58a6ff;
+    --hi:#ff6b6b; --mid:#ffa657; --lo:#3fb950; --cost:#a371f7;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font-family:"Segoe UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;font-size:14px;line-height:1.5}
+  header{padding:18px 22px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#11161d,#0e1116)}
+  header h1{margin:0;font-size:20px}
+  header .sub{color:var(--muted);font-size:12.5px;margin-top:4px}
+  nav{margin-top:10px;display:flex;gap:10px}
+  nav a{font-size:12.5px;color:var(--accent);text-decoration:none;border:1px solid var(--line);
+    padding:5px 11px;border-radius:7px;background:var(--panel)}
+  nav a.active{background:var(--accent);color:#04101f;border-color:var(--accent);font-weight:700}
+  .disclaimer{margin:10px 22px 0;padding:8px 12px;border:1px solid #5a3a1a;background:#26190d;
+    color:#ffce99;border-radius:8px;font-size:12px}
+  .wrap{padding:18px 22px;display:grid;gap:18px;max-width:1320px;margin:0 auto}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .panel h2{margin:0 0 12px;font-size:15px;display:flex;align-items:center;gap:8px}
+  .panel h2 .tag{font-size:11px;color:var(--muted);font-weight:400}
+  .controls{display:flex;flex-wrap:wrap;gap:14px;align-items:end}
+  .ctrl{display:flex;flex-direction:column;gap:4px}
+  .ctrl label{font-size:11.5px;color:var(--muted)}
+  select,input{background:var(--panel2);color:var(--txt);border:1px solid var(--line);
+    border-radius:7px;padding:7px 9px;font-size:13px}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+  .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .kpi .v{font-size:24px;font-weight:700}
+  .kpi .l{font-size:11.5px;color:var(--muted);margin-top:2px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:11.5px;text-transform:none;cursor:pointer;user-select:none}
+  tbody tr:hover{background:#19212b}
+  .badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:700}
+  .b-hi{background:rgba(255,107,107,.16);color:var(--hi);border:1px solid rgba(255,107,107,.4)}
+  .b-mid{background:rgba(255,166,87,.16);color:var(--mid);border:1px solid rgba(255,166,87,.4)}
+  .b-lo{background:rgba(63,185,80,.16);color:var(--lo);border:1px solid rgba(63,185,80,.4)}
+  .cost-flag{display:inline-block;margin-left:6px;font-size:10.5px;color:var(--cost);
+    border:1px solid rgba(163,113,247,.45);border-radius:5px;padding:1px 6px}
+  .companies{color:var(--muted);font-size:12px}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:11.5px;color:var(--muted)}
+  .legend span{display:inline-flex;align-items:center;gap:5px}
+  .dot{width:10px;height:10px;border-radius:50%}
+  svg{width:100%;height:auto;display:block}
+  .muted{color:var(--muted)}
+  .note{font-size:12px;color:var(--muted);margin-top:8px}
+  .corr{font-size:15px;font-weight:700}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:820px){.row2{grid-template-columns:1fr}}
+  footer{padding:16px 22px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--line)}
+  code{background:var(--panel2);padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<header>
+  <h1>🧊 Cartel Watch — 横並び値上げ監視ダッシュボード</h1>
+  <div class="sub">業界 × 商品 × 企業 × 値段 × 値上げ時期 を可視化し、「同時値上げ＝協調の候補」を検出。原材料コストと突き合わせて"正当な値上げ"を切り分けます。</div>
+  <nav>
+    <a href="overview.html">⓪ 総合ダッシュボード</a>
+    <a href="index.html" class="active">① 公表値上げの横並び</a>
+    <a href="procurement.html">② 仕入れコスト構造（見えない値上げ）</a>
+    <a href="cases.html">③ 確定カルテル事件(一次情報)</a>
+  </nav>
+</header>
+<div class="disclaimer" id="disclaimer">⚠️ 読み込み中…</div>
+
+<div class="wrap">
+
+  <!-- フィルタ -->
+  <section class="panel">
+    <h2>🔍 フィルタ <span class="tag">分析条件</span></h2>
+    <div class="controls">
+      <div class="ctrl">
+        <label>業界</label>
+        <select id="f-industry"></select>
+      </div>
+      <div class="ctrl">
+        <label>商品カテゴリ</label>
+        <select id="f-category"></select>
+      </div>
+      <div class="ctrl">
+        <label>期間 開始 (YYYY-MM)</label>
+        <input id="f-from" type="month" />
+      </div>
+      <div class="ctrl">
+        <label>期間 終了 (YYYY-MM)</label>
+        <input id="f-to" type="month" />
+      </div>
+      <div class="ctrl">
+        <label>同時とみなす窓 (ヶ月)</label>
+        <select id="f-window">
+          <option value="1">1</option><option value="2" selected>2</option>
+          <option value="3">3</option><option value="4">4</option><option value="6">6</option>
+        </select>
+      </div>
+      <div class="ctrl">
+        <label>最小 参加企業数</label>
+        <select id="f-min">
+          <option value="2">2社</option><option value="3" selected>3社</option>
+          <option value="4">4社</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPI -->
+  <section class="panel">
+    <h2>📊 サマリ</h2>
+    <div class="kpis" id="kpis"></div>
+  </section>
+
+  <!-- 疑い度ランキング -->
+  <section class="panel">
+    <h2>🚨 同時値上げ疑いランキング <span class="tag">疑い度スコア = 参加率×0.5 + 時間の近さ×0.3 + 値上げ率の揃い×0.2</span></h2>
+    <table id="rank">
+      <thead><tr>
+        <th data-k="score">疑い度 ▼</th><th data-k="category">カテゴリ</th>
+        <th data-k="period">時期</th><th data-k="companies">参加企業</th>
+        <th data-k="avgPct">平均値上げ率</th><th data-k="cost">コスト要因</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+    <div class="note">※「コスト連動」＝直前6ヶ月に関連原材料が+10%以上 → 共通コスト要因で説明できる可能性。協調の疑いは相対的に低下します。</div>
+  </section>
+
+  <!-- タイムライン -->
+  <section class="panel">
+    <h2>🗓 値上げタイムライン (スイムレーン) <span class="tag">縦に揃う＝同時値上げ</span></h2>
+    <div class="controls" style="margin-bottom:10px">
+      <div class="ctrl">
+        <label>表示カテゴリ</label>
+        <select id="tl-category"></select>
+      </div>
+      <div class="ctrl">
+        <label><input type="checkbox" id="tl-cost" checked /> 原材料コスト線を重ねる</label>
+      </div>
+    </div>
+    <div id="timeline"></div>
+    <div class="legend">
+      <span><span class="dot" style="background:var(--hi)"></span>同時クラスタ内のイベント</span>
+      <span><span class="dot" style="background:var(--accent)"></span>単独/小規模</span>
+      <span>● の大きさ = 値上げ率</span>
+      <span><span class="dot" style="background:var(--cost)"></span>原材料コスト指標</span>
+    </div>
+  </section>
+
+  <!-- クロス分析 -->
+  <section class="panel">
+    <h2>🔀 クロス分析 <span class="tag">異なるカテゴリの値上げ時期がどれだけ連動しているか</span></h2>
+    <div class="controls" style="margin-bottom:10px">
+      <div class="ctrl"><label>カテゴリ A</label><select id="x-a"></select></div>
+      <div class="ctrl"><label>カテゴリ B</label><select id="x-b"></select></div>
+    </div>
+    <div class="row2">
+      <div>
+        <div id="cross-chart"></div>
+        <div class="legend">
+          <span><span class="dot" style="background:var(--accent)"></span>A の値上げ社数/月</span>
+          <span><span class="dot" style="background:var(--mid)"></span>B の値上げ社数/月</span>
+        </div>
+      </div>
+      <div>
+        <div class="muted" style="font-size:12px">時期相関係数 (月次の値上げ社数)</div>
+        <div class="corr" id="cross-corr">—</div>
+        <div class="note" id="cross-note"></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  Cartel Watch v<span id="ver"></span> · データ最終更新 <span id="upd"></span> ·
+  データは <code>data.js</code> を編集して追記できます（追記方法は <code>README.md</code>）。
+  本ツールは調査の出発点を示すもので、横並び値上げは違法の証拠ではありません。
+</footer>
+
+<script src="data.js"></script>
+<script>
+/* ============================ ユーティリティ ============================ */
+const D = window.CARTEL_DATA;
+const $ = (s)=>document.querySelector(s);
+const compName = (id)=> (D.companies.find(c=>c.id===id)||{}).name || id;
+const catById  = (id)=> D.categories.find(c=>c.id===id);
+
+function mIndex(str){ const [y,m]=str.split("-").map(Number); return y*12+(m-1); }
+function mLabel(idx){ const y=Math.floor(idx/12), m=idx%12+1; return `${y}-${String(m).padStart(2,"0")}`; }
+
+// データ全体の月レンジ
+const allMonths = [
+  ...D.events.map(e=>mIndex(e.date)),
+  ...D.commodities.flatMap(c=>c.series.map(s=>mIndex(s.date)))
+];
+const RANGE_MIN = Math.min(...allMonths), RANGE_MAX = Math.max(...allMonths);
+
+// 原材料: ある月以前の最新indexを段階補間で取得
+function commodityAt(id, idx){
+  const c = D.commodities.find(x=>x.id===id); if(!c) return null;
+  let val=null;
+  for(const s of c.series){ if(mIndex(s.date)<=idx) val=s.index; else break; }
+  return val;
+}
+
+/* ============================ クラスタ検出 ============================ */
+// カテゴリ内で window ヶ月以内に連鎖した値上げイベントの塊を作る
+function detectClusters(events, windowM, minComp){
+  const byCat = {};
+  events.forEach(e=>{ (byCat[e.categoryId] ||= []).push(e); });
+  const clusters = [];
+
+  for(const catId in byCat){
+    const evs = byCat[catId].slice().sort((a,b)=>mIndex(a.date)-mIndex(b.date));
+    let group = [];
+    const flush = ()=>{
+      if(!group.length) return;
+      const comps = [...new Set(group.map(g=>g.companyId))];
+      if(comps.length >= minComp){
+        clusters.push(buildCluster(catId, group, comps, windowM));
+      }
+      group = [];
+    };
+    for(const e of evs){
+      if(!group.length){ group=[e]; continue; }
+      const last = mIndex(group[group.length-1].date);
+      if(mIndex(e.date)-last <= windowM) group.push(e);
+      else { flush(); group=[e]; }
+    }
+    flush();
+  }
+  return clusters.sort((a,b)=>b.score-a.score);
+}
+
+function buildCluster(catId, group, comps, windowM){
+  const cat = catById(catId);
+  // カテゴリ内の総企業数（このカテゴリで何らかのイベントを持つ社）
+  const totalComps = new Set(D.events.filter(e=>e.categoryId===catId).map(e=>e.companyId)).size;
+  const idxs = group.map(g=>mIndex(g.date));
+  const spanM = Math.max(...idxs)-Math.min(...idxs);
+  const pcts = group.map(g=>g.changePct);
+  const mean = pcts.reduce((a,b)=>a+b,0)/pcts.length;
+  const sd = Math.sqrt(pcts.reduce((a,b)=>a+(b-mean)**2,0)/pcts.length);
+
+  const participation = comps.length/Math.max(totalComps,1);            // 0..1
+  const tightness     = 1 - Math.min(spanM, windowM)/Math.max(windowM,1); // 0..1
+  const magnitudeSim  = mean>0 ? Math.max(0, 1 - sd/mean) : 0;            // 0..1
+  const score = Math.round(100*(0.5*participation + 0.3*tightness + 0.2*magnitudeSim));
+
+  // コスト連動判定: 関連原材料が直前6ヶ月で+10%以上
+  const start = Math.min(...idxs);
+  let costLinked=false, costName="";
+  (cat.commodities||[]).forEach(cid=>{
+    const now = commodityAt(cid, start), prev = commodityAt(cid, start-6);
+    if(now!=null && prev!=null && (now-prev)/prev >= 0.10){
+      costLinked=true; costName=(D.commodities.find(c=>c.id===cid)||{}).name||cid;
+    }
+  });
+
+  return {
+    categoryId:catId, categoryName:cat.name, score,
+    from:Math.min(...idxs), to:Math.max(...idxs),
+    companies:comps, companyNames:comps.map(compName),
+    avgPct:+mean.toFixed(1), spanM, costLinked, costName,
+    participation:+(participation*100).toFixed(0),
+  };
+}
+
+function riskBadge(score, costLinked){
+  let cls="b-lo",lbl="低";
+  if(score>=70){cls="b-hi";lbl="高";} else if(score>=40){cls="b-mid";lbl="中";}
+  let extra = costLinked ? `<span class="cost-flag">コスト連動の可能性</span>` : "";
+  return `<span class="badge ${cls}">${lbl} ${score}</span>${extra}`;
+}
+
+/* ============================ フィルタ適用 ============================ */
+function currentFilters(){
+  return {
+    industry: $("#f-industry").value,
+    category: $("#f-category").value,
+    from: mIndex($("#f-from").value || mLabel(RANGE_MIN)),
+    to:   mIndex($("#f-to").value   || mLabel(RANGE_MAX)),
+    windowM: +$("#f-window").value,
+    minComp: +$("#f-min").value,
+  };
+}
+function filteredEvents(f){
+  return D.events.filter(e=>{
+    const cat = catById(e.categoryId);
+    if(f.industry!=="all" && cat.industryId!==f.industry) return false;
+    if(f.category!=="all" && e.categoryId!==f.category) return false;
+    const mi=mIndex(e.date);
+    return mi>=f.from && mi<=f.to;
+  });
+}
+
+/* ============================ 描画 ============================ */
+let sortKey="score", sortDir=-1;
+
+function render(){
+  const f=currentFilters();
+  const evs=filteredEvents(f);
+  const clusters=detectClusters(evs, f.windowM, f.minComp);
+  renderKPIs(evs, clusters);
+  renderRank(clusters);
+  renderTimeline();
+  renderCross();
+}
+
+function renderKPIs(evs, clusters){
+  const hi=clusters.filter(c=>c.score>=70 && !c.costLinked).length;
+  const top=clusters[0];
+  const cats=new Set(evs.map(e=>e.categoryId)).size;
+  const html=[
+    {v:evs.length, l:"対象 値上げイベント数"},
+    {v:cats, l:"対象カテゴリ数"},
+    {v:clusters.length, l:"検出された同時値上げクラスタ"},
+    {v:hi, l:"高リスク (コスト要因なし)"},
+    {v:top?`${top.score}`:"—", l:top?`最高疑い度: ${top.categoryName}`:"最高疑い度"},
+  ].map(k=>`<div class="kpi"><div class="v">${k.v}</div><div class="l">${k.l}</div></div>`).join("");
+  $("#kpis").innerHTML=html;
+}
+
+function renderRank(clusters){
+  const sorters={
+    score:c=>c.score, category:c=>c.categoryName, period:c=>c.from,
+    companies:c=>c.companies.length, avgPct:c=>c.avgPct, cost:c=>c.costLinked?1:0,
+  };
+  const arr=clusters.slice().sort((a,b)=>{
+    const va=sorters[sortKey](a), vb=sorters[sortKey](b);
+    if(va<vb) return -1*sortDir; if(va>vb) return 1*sortDir; return 0;
+  });
+  const rows=arr.map(c=>`
+    <tr>
+      <td>${riskBadge(c.score,c.costLinked)}</td>
+      <td>${c.categoryName}</td>
+      <td>${mLabel(c.from)}${c.from!==c.to?` 〜 ${mLabel(c.to)}`:""}</td>
+      <td>${c.companies.length}社 <span class="companies">(${c.companyNames.join("・")})</span></td>
+      <td>${c.avgPct}%</td>
+      <td>${c.costLinked?`<span class="muted">${c.costName} 高騰</span>`:`<span class="muted">—</span>`}</td>
+    </tr>`).join("");
+  $("#rank tbody").innerHTML = rows || `<tr><td colspan="6" class="muted">条件に該当するクラスタはありません。窓・最小企業数・期間を緩めてください。</td></tr>`;
+}
+
+/* --- スイムレーン タイムライン --- */
+function renderTimeline(){
+  const catId=$("#tl-category").value;
+  const showCost=$("#tl-cost").checked;
+  const cat=catById(catId);
+  const f=currentFilters();
+  const evs=D.events.filter(e=>e.categoryId===catId && mIndex(e.date)>=f.from && mIndex(e.date)<=f.to);
+  const clusters=detectClusters(evs, f.windowM, f.minComp);
+  // クラスタに含まれる (company,month) を厳密に判定
+  const clusterPairs=new Set();
+  clusters.forEach(c=>{
+    D.events.filter(e=>e.categoryId===catId && mIndex(e.date)>=c.from && mIndex(e.date)<=c.to)
+      .forEach(e=>clusterPairs.add(e.companyId+"@"+e.date));
+  });
+
+  const comps=[...new Set(evs.map(e=>e.companyId))];
+  const W=960, padL=150, padR=20, padT=20, rowH=30;
+  const padB=showCost?70:34;
+  const H=padT + comps.length*rowH + padB;
+  const x=(idx)=> padL + (idx-f.from)/Math.max(f.to-f.from,1)*(W-padL-padR);
+
+  let svg=`<svg viewBox="0 0 ${W} ${H}" role="img">`;
+  // 月グリッド (年初)
+  for(let m=f.from;m<=f.to;m++){
+    if(m%12===0){
+      svg+=`<line x1="${x(m)}" y1="${padT-6}" x2="${x(m)}" y2="${H-padB}" stroke="#222b35"/>`;
+      svg+=`<text x="${x(m)}" y="${H-padB+16}" fill="#9aa7b4" font-size="11" text-anchor="middle">${Math.floor(m/12)}</text>`;
+    }
+  }
+  // 行 + イベント
+  comps.forEach((cid,i)=>{
+    const y=padT+i*rowH+rowH/2;
+    svg+=`<text x="${padL-10}" y="${y+4}" fill="#e6edf3" font-size="12" text-anchor="end">${compName(cid)}</text>`;
+    svg+=`<line x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}" stroke="#1c232d"/>`;
+    evs.filter(e=>e.companyId===cid).forEach(e=>{
+      const r=4+e.changePct*0.7;
+      const isC=clusterPairs.has(e.companyId+"@"+e.date);
+      const col=isC?"var(--hi)":"var(--accent)";
+      svg+=`<circle cx="${x(mIndex(e.date))}" cy="${y}" r="${r}" fill="${col}" fill-opacity="0.8" stroke="${col}">`+
+           `<title>${compName(cid)} / ${e.product} / ${e.date} / +${e.changePct}%</title></circle>`;
+    });
+  });
+  // 原材料コスト線
+  if(showCost){
+    const baseY=H-padB+34, amp=24;
+    const cids=cat.commodities||[];
+    const allIdx=cids.flatMap(id=>D.commodities.find(c=>c.id===id).series.map(s=>s.index));
+    const lo=Math.min(...allIdx,100), hi=Math.max(...allIdx,100);
+    cids.forEach(id=>{
+      const c=D.commodities.find(x=>x.id===id);
+      let pts=[];
+      for(let m=f.from;m<=f.to;m++){ const v=commodityAt(id,m); if(v!=null) pts.push(`${x(m)},${baseY-(v-lo)/Math.max(hi-lo,1)*amp}`); }
+      if(pts.length>1) svg+=`<polyline points="${pts.join(" ")}" fill="none" stroke="var(--cost)" stroke-width="1.5" opacity="0.85"><title>${c.name}</title></polyline>`;
+    });
+    svg+=`<text x="${padL}" y="${baseY+14}" fill="#a371f7" font-size="10.5">原材料コスト指標: ${(cids.map(id=>(D.commodities.find(c=>c.id===id)||{}).name)).join(" / ")||"なし"}</text>`;
+  }
+  svg+=`</svg>`;
+  $("#timeline").innerHTML = comps.length? svg : `<div class="muted">この期間にイベントがありません。</div>`;
+}
+
+/* --- クロス分析 --- */
+function monthlyCount(catId, from, to){
+  const arr=new Array(to-from+1).fill(0);
+  D.events.filter(e=>e.categoryId===catId).forEach(e=>{
+    const mi=mIndex(e.date); if(mi>=from&&mi<=to) arr[mi-from]++;
+  });
+  return arr;
+}
+function pearson(a,b){
+  const n=a.length, ma=a.reduce((x,y)=>x+y,0)/n, mb=b.reduce((x,y)=>x+y,0)/n;
+  let num=0,da=0,db=0;
+  for(let i=0;i<n;i++){ num+=(a[i]-ma)*(b[i]-mb); da+=(a[i]-ma)**2; db+=(b[i]-mb)**2; }
+  if(da===0||db===0) return 0;
+  return num/Math.sqrt(da*db);
+}
+function renderCross(){
+  const from=RANGE_MIN, to=RANGE_MAX;
+  const A=$("#x-a").value, B=$("#x-b").value;
+  const ca=monthlyCount(A,from,to), cb=monthlyCount(B,from,to);
+  const r=pearson(ca,cb);
+
+  // チャート
+  const W=560,H=200,padL=34,padB=28,padT=12,padR=10;
+  const n=to-from+1, maxV=Math.max(1,...ca,...cb);
+  const bw=(W-padL-padR)/n;
+  const yb=(v)=>H-padB-(v/maxV)*(H-padT-padB);
+  let svg=`<svg viewBox="0 0 ${W} ${H}">`;
+  svg+=`<line x1="${padL}" y1="${H-padB}" x2="${W-padR}" y2="${H-padB}" stroke="#2a323d"/>`;
+  for(let i=0;i<n;i++){
+    const x=padL+i*bw;
+    if(ca[i]) svg+=`<rect x="${x+bw*0.12}" y="${yb(ca[i])}" width="${bw*0.36}" height="${H-padB-yb(ca[i])}" fill="var(--accent)"/>`;
+    if(cb[i]) svg+=`<rect x="${x+bw*0.52}" y="${yb(cb[i])}" width="${bw*0.36}" height="${H-padB-yb(cb[i])}" fill="var(--mid)"/>`;
+    if((from+i)%12===0) svg+=`<text x="${x}" y="${H-padB+14}" fill="#9aa7b4" font-size="10">${Math.floor((from+i)/12)}</text>`;
+  }
+  svg+=`</svg>`;
+  $("#cross-chart").innerHTML=svg;
+
+  const sharedA=catById(A).commodities||[], sharedB=catById(B).commodities||[];
+  const shared=sharedA.filter(x=>sharedB.includes(x)).map(id=>(D.commodities.find(c=>c.id===id)||{}).name);
+  $("#cross-corr").textContent=r.toFixed(2)+" "+(r>=0.6?"（強い連動）":r>=0.3?"（中程度の連動）":"（弱い）");
+  $("#cross-corr").style.color = r>=0.6?"var(--hi)":r>=0.3?"var(--mid)":"var(--lo)";
+  let note;
+  if(shared.length){
+    note=`両カテゴリは共通の原材料（${shared.join("・")}）を持つため、連動していても共通コスト要因で説明できる可能性があります。`;
+  } else if(r>=0.6){
+    note=`共通の原材料が見当たらないのに値上げ時期が強く連動しています。<b>業界横断の横並び</b>の可能性があり、要注目です。`;
+  } else {
+    note=`値上げ時期の連動は限定的です。`;
+  }
+  $("#cross-note").innerHTML=note;
+}
+
+/* ============================ 初期化 ============================ */
+function fillSelect(el, items, allLabel){
+  el.innerHTML = (allLabel?`<option value="all">${allLabel}</option>`:"") +
+    items.map(i=>`<option value="${i.id}">${i.name}</option>`).join("");
+}
+function init(){
+  $("#disclaimer").textContent="⚠️ "+D.meta.disclaimer;
+  $("#ver").textContent=D.meta.version; $("#upd").textContent=D.meta.updated;
+
+  fillSelect($("#f-industry"), D.industries, "すべての業界");
+  fillSelect($("#f-category"), D.categories, "すべてのカテゴリ");
+  fillSelect($("#tl-category"), D.categories, null);
+  fillSelect($("#x-a"), D.categories, null);
+  fillSelect($("#x-b"), D.categories, null);
+  $("#x-b").selectedIndex = 3; // flour など別カテゴリを初期選択
+
+  $("#f-from").value=mLabel(RANGE_MIN); $("#f-to").value=mLabel(RANGE_MAX);
+
+  // 業界選択でカテゴリを絞る
+  $("#f-industry").addEventListener("change",()=>{
+    const ind=$("#f-industry").value;
+    const cats=D.categories.filter(c=>ind==="all"||c.industryId===ind);
+    fillSelect($("#f-category"), cats, "すべてのカテゴリ");
+    render();
+  });
+
+  ["#f-category","#f-from","#f-to","#f-window","#f-min","#tl-category","#tl-cost","#x-a","#x-b"]
+    .forEach(s=>$(s).addEventListener("change",render));
+
+  document.querySelectorAll("#rank th").forEach(th=>th.addEventListener("click",()=>{
+    const k=th.dataset.k;
+    if(sortKey===k) sortDir*=-1; else { sortKey=k; sortDir=-1; }
+    document.querySelectorAll("#rank th").forEach(t=>t.textContent=t.textContent.replace(/[ ▼▲]+$/,""));
+    th.textContent += sortDir<0?" ▼":" ▲";
+    render();
+  }));
+
+  render();
+}
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+series_id,series_name,group,date,actual,q90_pred,excess_%,上振れ
+commodity:wheat,輸入小麦 政府売渡価格,commodity,2024-10,116.0,133.62,-13.2,
+commodity:wheat,輸入小麦 政府売渡価格,commodity,2025-04,114.0,135.52,-15.9,
+commodity:crude,原油 (物流・包装コスト),commodity,2024-10,120.0,157.47,-23.8,
+commodity:crude,原油 (物流・包装コスト),commodity,2025-04,118.0,161.39,-26.9,
+commodity:sugar,砂糖 (粗糖),commodity,2024-04,148.0,194.77,-24.0,
+commodity:sugar,砂糖 (粗糖),commodity,2025-04,134.0,229.11,-41.5,
+commodity:cacao,カカオ豆,commodity,2024-10,250.0,388.73,-35.7,
+commodity:cacao,カカオ豆,commodity,2025-04,230.0,372.56,-38.3,
+commodity:milk,生乳,commodity,2024-04,122.0,137.46,-11.2,
+commodity:milk,生乳,commodity,2025-04,123.0,145.02,-15.2,
+input:rice,米,input,2024-10,135.0,117.23,15.2,★
+input:rice,米,input,2025-04,150.0,117.09,28.1,★
+input:vegetable,野菜,input,2024-10,125.0,123.91,0.9,★
+input:vegetable,野菜,input,2025-04,118.0,121.73,-3.1,
+input:meat,食肉,input,2024-10,122.0,124.11,-1.7,
+input:meat,食肉,input,2025-04,124.0,125.06,-0.9,
+input:oil,食用油,input,2024-10,114.0,137.44,-17.1,
+input:oil,食用油,input,2025-04,112.0,140.76,-20.4,
+input:flour,小麦粉,input,2024-10,115.0,126.02,-8.7,
+input:flour,小麦粉,input,2025-04,114.0,130.59,-12.7,
+input:detergent,洗剤・溶剤,input,2024-10,115.0,129.02,-10.9,
+input:detergent,洗剤・溶剤,input,2025-04,114.0,131.19,-13.1,
+input:energy,光熱費(電気・ガス),input,2024-10,128.0,145.3,-11.9,
+input:energy,光熱費(電気・ガス),input,2025-04,126.0,148.82,-15.3,
+input:water,水道,input,2024-10,108.0,110.18,-2.0,
+input:water,水道,input,2025-04,110.0,111.14,-1.0,
+input:labor,人件費,input,2024-10,120.0,120.02,-0.0,
+input:labor,人件費,input,2025-04,124.0,123.33,0.5,★
+input:rent,家賃,input,2024-10,103.0,103.75,-0.7,
+input:rent,家賃,input,2025-04,104.0,104.07,-0.1,
+input:packaging,包装・物流,input,2024-10,119.0,126.35,-5.8,
+input:packaging,包装・物流,input,2025-04,118.0,127.35,-7.3,
+input:misc,その他,input,2024-10,116.0,117.27,-1.1,
+input:misc,その他,input,2025-04,118.0,119.84,-1.5,
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2024-10,130.0,127.32,2.1,★
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2025-04,134.0,130.35,2.8,★
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2024-10,120.81,119.56,1.0,★
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2025-04,123.26,120.03,2.7,★
+actual:cleaning,クリーニング 実売,actual,2024-10,144.0,147.52,-2.4,
+actual:cleaning,クリーニング 実売,actual,2025-04,150.0,156.74,-4.3,
+cost:cleaning,クリーニング 理論コスト,cost,2024-10,118.99,125.37,-5.1,
+cost:cleaning,クリーニング 理論コスト,cost,2025-04,119.86,126.6,-5.3,
+actual:greengrocer,八百屋・生鮮小売 実売,actual,2024-10,124.0,124.06,-0.0,
+actual:greengrocer,八百屋・生鮮小売 実売,actual,2025-04,119.0,120.57,-1.3,
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2024-10,122.2,122.59,-0.3,
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2025-04,118.0,119.44,-1.2,

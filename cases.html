@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cartel Watch — 確定カルテル事件（公取委 一次情報）</title>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#161b22; --panel2:#1c232d; --line:#2a323d;
+    --txt:#e6edf3; --muted:#9aa7b4; --accent:#58a6ff;
+    --price:#ff6b6b; --bid:#ffa657; --unfair:#a371f7; --mono:#3fb950; --other:#6e7681;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font-family:"Segoe UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;font-size:14px;line-height:1.55}
+  header{padding:18px 22px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#11161d,#0e1116)}
+  header h1{margin:0;font-size:20px}
+  header .sub{color:var(--muted);font-size:12.5px;margin-top:4px}
+  nav{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
+  nav a{font-size:12.5px;color:var(--accent);text-decoration:none;border:1px solid var(--line);
+    padding:5px 11px;border-radius:7px;background:var(--panel)}
+  nav a.active{background:var(--accent);color:#04101f;border-color:var(--accent);font-weight:700}
+  .src{margin:10px 22px 0;padding:8px 12px;border:1px solid #1d3a5a;background:#0d1726;
+    color:#9fc7ff;border-radius:8px;font-size:12px}
+  .src a{color:#79c0ff}
+  .wrap{padding:18px 22px;display:grid;gap:18px;max-width:1320px;margin:0 auto}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .panel h2{margin:0 0 12px;font-size:15px}
+  .controls{display:flex;flex-wrap:wrap;gap:14px;align-items:end}
+  .ctrl{display:flex;flex-direction:column;gap:4px}
+  .ctrl label{font-size:11.5px;color:var(--muted)}
+  select,input{background:var(--panel2);color:var(--txt);border:1px solid var(--line);border-radius:7px;padding:7px 9px;font-size:13px}
+  input[type=text]{min-width:200px}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .kpi .v{font-size:24px;font-weight:700}
+  .kpi .l{font-size:11.5px;color:var(--muted);margin-top:2px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:11.5px;cursor:pointer;user-select:none;white-space:nowrap}
+  tbody tr:hover{background:#19212b}
+  .badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap}
+  .k-price{background:rgba(255,107,107,.16);color:var(--price);border:1px solid rgba(255,107,107,.4)}
+  .k-bid{background:rgba(255,166,87,.16);color:var(--bid);border:1px solid rgba(255,166,87,.4)}
+  .k-unfair{background:rgba(163,113,247,.16);color:var(--unfair);border:1px solid rgba(163,113,247,.4)}
+  .k-mono{background:rgba(63,185,80,.16);color:var(--mono);border:1px solid rgba(63,185,80,.4)}
+  .k-other{background:rgba(110,118,129,.16);color:var(--other);border:1px solid rgba(110,118,129,.4)}
+  .comp{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:5px;
+    padding:1px 7px;margin:1px 2px;font-size:11.5px}
+  .act{color:var(--muted);font-size:12px;margin-top:4px;max-width:520px}
+  .ind{font-size:11.5px;color:var(--muted)}
+  svg{width:100%;height:auto;display:block}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:11.5px;color:var(--muted)}
+  .legend span{display:inline-flex;align-items:center;gap:5px}
+  .dot{width:10px;height:10px;border-radius:2px}
+  a.jftc{color:var(--accent);font-size:11.5px;text-decoration:none;white-space:nowrap}
+  footer{padding:16px 22px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--line)}
+  code{background:var(--panel2);padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<header>
+  <h1>⚖️ Cartel Watch — 確定カルテル事件（公取委 一次情報）</h1>
+  <div class="sub">公正取引委員会『独占禁止法の法的措置一覧』から自動抽出した、<b>実際に摘発された</b>カルテル・入札談合・不公正取引の一覧。これが"答え合わせ"の一次情報です。</div>
+  <nav>
+    <a href="overview.html">⓪ 総合ダッシュボード</a>
+    <a href="index.html">① 公表値上げの横並び</a>
+    <a href="procurement.html">② 仕入れコスト構造</a>
+    <a href="cases.html" class="active">③ 確定カルテル事件(一次情報)</a>
+  </nav>
+</header>
+<div class="src" id="src">出典: 読み込み中…</div>
+
+<div class="wrap">
+
+  <section class="panel">
+    <h2>🔍 絞り込み</h2>
+    <div class="controls">
+      <div class="ctrl"><label>種別</label><select id="f-kind"></select></div>
+      <div class="ctrl"><label>業種</label><select id="f-ind"></select></div>
+      <div class="ctrl"><label>年</label><select id="f-year"></select></div>
+      <div class="ctrl"><label>キーワード(企業名・品目)</label><input id="f-q" type="text" placeholder="例: 電力 / ごま油 / 保険"/></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>📊 サマリ</h2>
+    <div class="kpis" id="kpis"></div>
+  </section>
+
+  <section class="panel">
+    <h2>🗓 摘発タイムライン <span style="font-size:11px;color:var(--muted)">（措置年月で集計 / 色=種別）</span></h2>
+    <div id="timeline"></div>
+    <div class="legend">
+      <span><span class="dot" style="background:var(--price)"></span>価格カルテル等</span>
+      <span><span class="dot" style="background:var(--bid)"></span>入札談合</span>
+      <span><span class="dot" style="background:var(--unfair)"></span>不公正な取引方法</span>
+      <span><span class="dot" style="background:var(--mono)"></span>私的独占</span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>📋 事件一覧 <span id="count" style="font-size:12px;color:var(--muted)"></span></h2>
+    <table id="tbl">
+      <thead><tr>
+        <th data-k="date">措置年月 ▼</th><th data-k="kind">種別</th>
+        <th data-k="industry">業種</th><th data-k="name">事件名 / 関与企業 / 概要</th>
+        <th data-k="article">法条</th><th>出典</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+</div>
+
+<footer>
+  Cartel Watch · 一次情報は <code>cases-data.js</code>（<code>sources/parse_jftc.js</code> が公取委サイトから自動抽出）·
+  再取得は <code>sources/fetch.sh</code> · 全一次情報の一覧は <code>sources/SOURCES.md</code>
+</footer>
+
+<script src="cases-data.js"></script>
+<script>
+const C = window.JFTC_CASES || [];
+const $ = s=>document.querySelector(s);
+const FY_URL = fy => `https://www.jftc.go.jp/dk/ichiran/dkhaijo_${fy}.html`;
+const kindCls = {"価格カルテル等":"k-price","入札談合":"k-bid","不公正な取引方法":"k-unfair","私的独占":"k-mono","その他":"k-other"};
+const isCompany = s=>/会社|㈱|工業|製油|電力|薬品|製薬|海上|火災|保険|食品|商事|製作所|車輛|トレクス/.test(s)
+  && !/向け|本件|財物|利益|損害保険$/.test(s);
+
+function years(){ return [...new Set(C.map(c=>c.date.slice(0,4)))].sort(); }
+function fill(el, arr, all){ el.innerHTML=(all?`<option value="all">${all}</option>`:"")+arr.map(v=>`<option value="${v}">${v}</option>`).join(""); }
+
+let sortKey="date", sortDir=-1;
+
+function filtered(){
+  const k=$("#f-kind").value, ind=$("#f-ind").value, yr=$("#f-year").value, q=$("#f-q").value.trim();
+  return C.filter(c=>{
+    if(k!=="all"&&c.kind!==k) return false;
+    if(ind!=="all"&&c.industry!==ind) return false;
+    if(yr!=="all"&&c.date.slice(0,4)!==yr) return false;
+    if(q){ const hay=(c.name+" "+c.act+" "+c.companies.join(" ")); if(!hay.includes(q)) return false; }
+    return true;
+  });
+}
+
+function renderKPIs(arr){
+  const price=arr.filter(c=>c.kind==="価格カルテル等").length;
+  const bid=arr.filter(c=>c.kind==="入札談合").length;
+  const ys=years();
+  const data=[
+    {v:arr.length,l:"該当 事件数"},
+    {v:price,l:"価格カルテル等"},
+    {v:bid,l:"入札談合"},
+    {v:new Set(arr.map(c=>c.industry)).size,l:"関係業種数"},
+    {v:ys.length?`${ys[0]}–${ys[ys.length-1]}`:"—",l:"収録期間"},
+  ];
+  $("#kpis").innerHTML=data.map(d=>`<div class="kpi"><div class="v">${d.v}</div><div class="l">${d.l}</div></div>`).join("");
+}
+
+function renderTimeline(arr){
+  const ys=years(); if(!ys.length){$("#timeline").innerHTML="";return;}
+  const kinds=["価格カルテル等","入札談合","不公正な取引方法","私的独占"];
+  const colors={"価格カルテル等":"var(--price)","入札談合":"var(--bid)","不公正な取引方法":"var(--unfair)","私的独占":"var(--mono)"};
+  // 年×種別 集計
+  const cnt={}; ys.forEach(y=>cnt[y]={});
+  arr.forEach(c=>{ const y=c.date.slice(0,4); cnt[y][c.kind]=(cnt[y][c.kind]||0)+1; });
+  const W=960,H=240,pL=36,pR=14,pT=14,pB=28;
+  const maxV=Math.max(1,...ys.map(y=>kinds.reduce((s,k)=>s+(cnt[y][k]||0),0)));
+  const bw=(W-pL-pR)/ys.length;
+  let svg=`<svg viewBox="0 0 ${W} ${H}">`;
+  svg+=`<line x1="${pL}" y1="${H-pB}" x2="${W-pR}" y2="${H-pB}" stroke="#2a323d"/>`;
+  for(let g=0;g<=maxV;g+=Math.ceil(maxV/5)||1){ const y=H-pB-(g/maxV)*(H-pT-pB);
+    svg+=`<line x1="${pL}" y1="${y}" x2="${W-pR}" y2="${y}" stroke="#1c232d"/><text x="${pL-6}" y="${y+3}" fill="#9aa7b4" font-size="10" text-anchor="end">${g}</text>`; }
+  ys.forEach((y,i)=>{
+    let base=H-pB; const x=pL+i*bw+bw*0.2; const w=bw*0.6;
+    kinds.forEach(k=>{ const v=cnt[y][k]||0; if(!v)return; const h=v/maxV*(H-pT-pB);
+      svg+=`<rect x="${x}" y="${base-h}" width="${w}" height="${h}" fill="${colors[k]}"><title>${y} ${k}: ${v}件</title></rect>`; base-=h; });
+    svg+=`<text x="${pL+i*bw+bw/2}" y="${H-pB+15}" fill="#9aa7b4" font-size="10.5" text-anchor="middle">${y}</text>`;
+  });
+  svg+=`</svg>`;
+  $("#timeline").innerHTML=svg;
+}
+
+function renderTable(arr){
+  const sorters={date:c=>c.date,kind:c=>c.kind,industry:c=>c.industry,name:c=>c.name,article:c=>c.article};
+  const a=arr.slice().sort((x,y)=>{const vx=sorters[sortKey](x),vy=sorters[sortKey](y);return vx<vy?-sortDir:vx>vy?sortDir:0;});
+  $("#count").textContent=`(${a.length}件)`;
+  $("#tbl tbody").innerHTML=a.map(c=>{
+    const comps=c.companies.filter(isCompany);
+    const chips=comps.length?comps.map(co=>`<span class="comp">${co}</span>`).join(""):`<span class="ind">（個別企業名は概要/原文を参照）</span>`;
+    const act=c.act?`<div class="act">${c.act.slice(0,140)}${c.act.length>140?"…":""}</div>`:"";
+    return `<tr>
+      <td>${c.date}</td>
+      <td><span class="badge ${kindCls[c.kind]||"k-other"}">${c.kind}</span></td>
+      <td class="ind">${c.industry}</td>
+      <td><b>${c.name}</b><br>${chips}${act}</td>
+      <td class="ind">${c.article||"—"}</td>
+      <td><a class="jftc" href="${FY_URL(c.fy)}" target="_blank" rel="noopener">公取委 ↗</a></td>
+    </tr>`;
+  }).join("") || `<tr><td colspan="6" class="ind">該当なし</td></tr>`;
+}
+
+function render(){ const a=filtered(); renderKPIs(a); renderTimeline(a); renderTable(a); }
+
+function init(){
+  $("#src").innerHTML = `出典(一次情報): 公正取引委員会『<a href="https://www.jftc.go.jp/dk/ichiran/index.html" target="_blank" rel="noopener">独占禁止法の法的措置一覧</a>』 令和元〜7年度 ／ 収録 ${C.length} 件（自動抽出のため要原文確認）`;
+  fill($("#f-kind"), [...new Set(C.map(c=>c.kind))], "すべての種別");
+  fill($("#f-ind"), [...new Set(C.map(c=>c.industry))].sort(), "すべての業種");
+  fill($("#f-year"), years(), "すべての年");
+  ["#f-kind","#f-ind","#f-year"].forEach(s=>$(s).addEventListener("change",render));
+  $("#f-q").addEventListener("input",render);
+  document.querySelectorAll("#tbl th[data-k]").forEach(th=>th.addEventListener("click",()=>{
+    const k=th.dataset.k; if(sortKey===k)sortDir*=-1; else{sortKey=k;sortDir=-1;}
+    document.querySelectorAll("#tbl th").forEach(t=>t.textContent=t.textContent.replace(/[ ▼▲]+$/,""));
+    th.textContent+=sortDir<0?" ▼":" ▲"; render();
+  }));
+  render();
+}
+init();
+</script>
+</body>
+</html>

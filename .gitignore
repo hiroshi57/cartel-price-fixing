@@ -1,0 +1,20 @@
+# 埋め込みクローン（再取得: git clone https://github.com/google-research/timesfm.git timesfm）
+timesfm/
+
+# Vercel
+.vercel
+.vercel/
+
+# 取得した一次情報の生HTML（再取得: bash sources/fetch.sh）
+sources/raw/
+
+# 本プロジェクト外（既存のスキル定義）
+Skills/
+
+# Python / Node
+__pycache__/
+*.pyc
+node_modules/
+
+# バックグラウンドタスクのログ
+*.output
