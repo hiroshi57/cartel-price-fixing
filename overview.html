@@ -166,12 +166,12 @@ function costGaps(){
   });
 }
 
-/* 業種マッピング(候補→公取委業種) */
+/* 業種マッピング(未摘発候補 → 公取委の確定業種名) */
 function precedent(name){
-  // 食品系カテゴリ/業態は「食品・生活」、飲料は同扱い、エネルギーは「エネルギー」
-  let ind="食品・生活";
-  if(/ビール|清涼|飲料/.test(name)) ind="食品・生活";
-  if(/クリーニング/.test(name)) ind="公共調達・サービス";
+  let ind=null;
+  if(/アイス|即席麺|食パン|小麦粉|冷凍|マヨネーズ|牛乳|乳|ビール|清涼|飲料|八百屋|生鮮/.test(name)) ind="食品";
+  if(/飲食|定食/.test(name)) ind="飲食・外食";
+  if(/クリーニング/.test(name)) ind="サービス・自治体業務";
   return doneIndustries.has(ind)?ind:null;
 }
 
