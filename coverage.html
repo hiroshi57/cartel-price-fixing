@@ -101,6 +101,7 @@
 </footer>
 
 <script src="taxonomy.js"></script>
+<script src="data.js"></script>
 <script src="cases-data.js"></script>
 <script>
 const T=window.INDUSTRY_TAXONOMY, C=window.JFTC_CASES||[];
@@ -109,8 +110,9 @@ const $=s=>document.querySelector(s);
 // 確定件数を大分類ごとに集計
 const conf={};
 C.forEach(c=>{(T.tagToDivision[c.industry]||["T"]).forEach(d=>conf[d]=(conf[d]||0)+1);});
-// 未摘発候補がある大分類
-const candDiv=new Set(Object.values(T.candidateToDivision).flat());
+// 未摘発候補がある大分類: ②の業態(div) + ①の食品系候補(E製造)
+const candDiv=new Set(["E"]);
+(window.CARTEL_DATA?.procurement?.categories||[]).forEach(c=>{ if(c.div) candDiv.add(c.div); });
 
 function statusOf(code){
   if(code==="T") return {key:"na",label:"—",cls:"st-na"};
