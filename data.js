@@ -233,6 +233,15 @@ window.CARTEL_DATA = {
       { id:"rent",      name:"家賃",          series:[100,100,101,101,102,102,103,103,104] },
       { id:"packaging", name:"包装・物流",    series:[100,110,122,124,120,122,120,119,118] },
       { id:"misc",      name:"その他",        series:[100,103,106,108,110,112,114,116,118] },
+      { id:"fuel",      name:"燃料(軽油・ガソリン)", series:[100,120,150,145,128,135,130,128,126] },
+      { id:"vehicle",   name:"車両・整備",    series:[100,103,108,112,115,117,119,121,123] },
+      { id:"material",  name:"建材・資材",    series:[100,118,140,135,122,120,118,117,116] },
+      { id:"goods",     name:"商品仕入れ(卸)", series:[100,104,110,114,116,118,120,122,124] },
+      { id:"telecom",   name:"通信費",        series:[100, 99, 98, 97, 96, 96, 95, 95, 95] },
+      { id:"ad",        name:"広告・媒体費",  series:[100,104,108,110,112,115,118,121,124] },
+      { id:"textbook",  name:"教材・コンテンツ", series:[100,101,102,103,104,105,106,107,108] },
+      { id:"finance",   name:"調達金利コスト", series:[100,100,100,101,102,104,108,115,122] },
+      { id:"medsupply", name:"医療・衛生材料", series:[100,108,115,116,114,113,112,111,110] },
     ],
     // series に対応する月（全 inputs / actual 共通）
     months: ["2021-04","2021-10","2022-04","2022-10","2023-04","2023-10","2024-04","2024-10","2025-04"],
@@ -240,7 +249,7 @@ window.CARTEL_DATA = {
     // 業態ごとのコスト構造（仕入れ品目の構成比, 合計=1.0）と 実売価格指数
     categories: [
       {
-        id:"restaurant", name:"飲食(定食・大衆食堂)",
+        id:"restaurant", name:"飲食(定食・大衆食堂)", div:"M",
         basket:[
           {input:"rice",w:0.12},{input:"vegetable",w:0.10},{input:"meat",w:0.13},
           {input:"oil",w:0.05},{input:"energy",w:0.12},{input:"labor",w:0.30},
@@ -249,7 +258,7 @@ window.CARTEL_DATA = {
         actual:[100,103,108,113,116,120,124,130,134],
       },
       {
-        id:"cleaning", name:"クリーニング",
+        id:"cleaning", name:"クリーニング", div:"N",
         basket:[
           {input:"detergent",w:0.12},{input:"energy",w:0.30},{input:"water",w:0.06},
           {input:"labor",w:0.35},{input:"rent",w:0.12},{input:"packaging",w:0.05},
@@ -257,12 +266,92 @@ window.CARTEL_DATA = {
         actual:[100,104,112,120,126,132,138,144,150],
       },
       {
-        id:"greengrocer", name:"八百屋・生鮮小売",
+        id:"greengrocer", name:"八百屋・生鮮小売", div:"I",
         basket:[
           {input:"vegetable",w:0.68},{input:"packaging",w:0.10},{input:"labor",w:0.14},
           {input:"rent",w:0.06},{input:"misc",w:0.02},
         ],
         actual:[100,107,104,114,100,119,111,124,119],
+      },
+      {
+        id:"delivery", name:"運送(宅配・軽貨物)", div:"H",
+        basket:[
+          {input:"fuel",w:0.25},{input:"vehicle",w:0.12},{input:"labor",w:0.45},
+          {input:"packaging",w:0.05},{input:"rent",w:0.05},{input:"misc",w:0.08},
+        ],
+        actual:[100,106,116,120,120,123,124,127,129],
+      },
+      {
+        id:"taxi", name:"タクシー", div:"H",
+        basket:[
+          {input:"fuel",w:0.22},{input:"vehicle",w:0.13},{input:"labor",w:0.50},
+          {input:"rent",w:0.07},{input:"misc",w:0.08},
+        ],
+        actual:[100,104,110,114,116,120,124,128,132],
+      },
+      {
+        id:"reform", name:"工務店・リフォーム", div:"D",
+        basket:[
+          {input:"material",w:0.40},{input:"labor",w:0.38},{input:"fuel",w:0.07},
+          {input:"rent",w:0.07},{input:"misc",w:0.08},
+        ],
+        actual:[100,112,128,130,126,127,128,130,132],
+      },
+      {
+        id:"cramschool", name:"学習塾・予備校", div:"O",
+        basket:[
+          {input:"labor",w:0.55},{input:"rent",w:0.22},{input:"textbook",w:0.08},
+          {input:"energy",w:0.07},{input:"ad",w:0.05},{input:"misc",w:0.03},
+        ],
+        actual:[100,101,103,105,108,112,116,121,127],
+      },
+      {
+        id:"salon", name:"理美容室", div:"N",
+        basket:[
+          {input:"labor",w:0.50},{input:"rent",w:0.20},{input:"detergent",w:0.12},
+          {input:"energy",w:0.08},{input:"misc",w:0.10},
+        ],
+        actual:[100,102,105,108,111,114,117,120,123],
+      },
+      {
+        id:"rental", name:"レンタル・リース", div:"K",
+        basket:[
+          {input:"finance",w:0.20},{input:"goods",w:0.45},{input:"labor",w:0.20},
+          {input:"rent",w:0.07},{input:"misc",w:0.08},
+        ],
+        actual:[100,102,105,108,110,113,117,122,128],
+      },
+      {
+        id:"hotel", name:"ホテル・旅館", div:"M",
+        basket:[
+          {input:"labor",w:0.35},{input:"energy",w:0.15},{input:"goods",w:0.20},
+          {input:"rent",w:0.15},{input:"ad",w:0.07},{input:"misc",w:0.08},
+        ],
+        actual:[100,98,105,112,120,128,135,142,150],
+      },
+      {
+        id:"supermarket", name:"スーパー・小売", div:"I",
+        basket:[
+          {input:"goods",w:0.70},{input:"labor",w:0.15},{input:"energy",w:0.07},
+          {input:"rent",w:0.05},{input:"packaging",w:0.03},
+        ],
+        actual:[100,104,110,114,117,120,123,126,128],
+      },
+      {
+        id:"carecenter", name:"介護(自費サービス)", div:"P",
+        basket:[
+          {input:"labor",w:0.60},{input:"energy",w:0.10},{input:"rent",w:0.12},
+          {input:"medsupply",w:0.08},{input:"misc",w:0.10},
+        ],
+        actual:[100,101,103,105,107,110,112,115,118],
+      },
+      {
+        id:"adagency", name:"広告・制作(専門サービス)", div:"L",
+        basket:[
+          {input:"labor",w:0.45},{input:"ad",w:0.30},{input:"telecom",w:0.07},
+          {input:"rent",w:0.10},{input:"misc",w:0.08},
+        ],
+        actual:[100,103,107,110,113,117,121,125,129],
       },
     ],
   },
