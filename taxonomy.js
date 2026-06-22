@@ -60,8 +60,12 @@ window.INDUSTRY_TAXONOMY = {
     "農林水産・組合":["A","B","Q"], "サービス・自治体業務":["R","S"], "その他":["T"],
   },
 
-  // 未摘発候補(data.js のカテゴリ/業態) → JSIC大分類
+  // 未摘発候補(data.js の procurement.categories[].div から自動生成) → JSIC大分類
+  // ※ coverage.html は procurement.categories[].div を直接参照するため、ここはドキュメント用
   candidateToDivision: {
-    food:["E"], drink:["E"], service_food:["M"], cleaning:["N"], greengrocer:["I"],
+    restaurant:["M"], cleaning:["N"], greengrocer:["I"],
+    delivery:["H"], taxi:["H"], reform:["D"], cramschool:["O"],
+    salon:["N"], rental:["K"], hotel:["M"], supermarket:["I"],
+    carecenter:["P"], adagency:["L"],
   },
 };
