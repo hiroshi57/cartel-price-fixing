@@ -159,7 +159,11 @@ function renderKPIs(arr){
 }
 
 function renderTimeline(arr){
-  const ys=years(); if(!ys.length){$("#timeline").innerHTML="";return;}
+  // フィルタ結果の年のみ表示（空なら全年にフォールバック）
+  const ysAll=years();
+  const ysArr=[...new Set(arr.map(c=>c.date.slice(0,4)))].sort();
+  const ys=ysArr.length?ysArr:ysAll;
+  if(!ys.length){$("#timeline").innerHTML="";return;}
   const kinds=["価格カルテル等","入札談合","不公正な取引方法","私的独占"];
   const colors={"価格カルテル等":"var(--price)","入札談合":"var(--bid)","不公正な取引方法":"var(--unfair)","私的独占":"var(--mono)"};
   // 年×種別 集計

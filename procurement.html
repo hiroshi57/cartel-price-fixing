@@ -48,6 +48,7 @@
   table{width:100%;border-collapse:collapse;font-size:12.5px}
   th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left}
   th{color:var(--muted);font-weight:600;font-size:11px}
+  .hm-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
   .hm td{text-align:center;font-size:11px;border:1px solid var(--bg)}
   .hm th{text-align:center;font-size:10.5px;color:var(--muted)}
   .note{font-size:12px;color:var(--muted);margin-top:8px}
@@ -273,7 +274,7 @@ function renderHeatmap(){
     html+=`</tr>`;
   });
   html+=`</tbody></table>`;
-  $("#heatmap").innerHTML=html;
+  $("#heatmap").innerHTML=`<div class="hm-wrap">${html}</div>`;
 }
 
 /* ---- クロス品目 ---- */
