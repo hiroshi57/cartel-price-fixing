@@ -125,6 +125,12 @@ const C = window.JFTC_CASES || [];
 const $ = s=>document.querySelector(s);
 const FY_URL = fy => `https://www.jftc.go.jp/dk/ichiran/dkhaijo_${fy}.html`;
 const kindCls = {"価格カルテル等":"k-price","入札談合":"k-bid","不公正な取引方法":"k-unfair","私的独占":"k-mono","その他":"k-other"};
+// 業種 → ②仕入れコスト構造の業態ID（ドリルダウン用）
+const IND_TO_CAT = {
+  "飲食・外食":"restaurant", "サービス・自治体業務":"cleaning",
+  "建設・土木":"reform",    "医療，福祉":"carecenter",
+  "農林水産・組合":"greengrocer", "食品":"supermarket",
+};
 const isCompany = s=>/会社|㈱|工業|製油|電力|薬品|製薬|海上|火災|保険|食品|商事|製作所|車輛|トレクス/.test(s)
   && !/向け|本件|財物|利益|損害保険$/.test(s);
 
@@ -200,7 +206,9 @@ function renderTable(arr){
       <td class="ind">${c.industry}</td>
       <td><b>${c.name}</b><br>${chips}${act}</td>
       <td class="ind">${c.article||"—"}</td>
-      <td><a class="jftc" href="${FY_URL(c.fy)}" target="_blank" rel="noopener">公取委 ↗</a></td>
+      <td><a class="jftc" href="${FY_URL(c.fy)}" target="_blank" rel="noopener">公取委 ↗</a>${
+        IND_TO_CAT[c.industry]?`<br><a class="jftc" href="procurement.html#${IND_TO_CAT[c.industry]}" style="color:var(--unfair)">② →</a>`:""
+      }</td>
     </tr>`;
   }).join("") || `<tr><td colspan="6" class="ind">該当なし</td></tr>`;
 }

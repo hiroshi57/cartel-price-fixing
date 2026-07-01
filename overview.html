@@ -75,6 +75,17 @@
     <div class="legend">※ 摘発済み=公正取引委員会の確定処分（一次情報）／ 未摘発=本ツールが①②の手法で検出した疑い候補（違法の証拠ではない）。</div>
   </section>
 
+  <!-- 疑い度トレンド -->
+  <section class="panel">
+    <h2>📈 値上げ活動トレンド <span style="font-size:11px;font-weight:400;color:var(--muted)">四半期別イベント数 / 摘発タイミング</span></h2>
+    <div id="trend-chart"></div>
+    <div class="legend">
+      <span><span class="dot" style="background:var(--susp)"></span>クラスタ内（同時値上げ）</span>
+      <span><span class="dot" style="background:var(--accent)"></span>単独イベント</span>
+      <span>▼ 公取委 摘発年</span>
+    </div>
+  </section>
+
   <div class="split">
     <!-- 摘発済み -->
     <section class="panel done">
@@ -257,7 +268,63 @@ function renderForecast(){
   }).join("");
 }
 
-kpis(); renderDone(); renderSusp(); renderForecast();
+/* ---------- トレンドグラフ ---------- */
+function renderTrend(){
+  // 四半期ラベル生成 (2021-Q2 〜 2025-Q2)
+  const quarters=[];
+  for(let y=2021;y<=2025;y++) for(let q=1;q<=4;q++){
+    if(y===2021&&q===1) continue; if(y===2025&&q>=3) break;
+    quarters.push({label:`${y}-Q${q}`, y, q, fromM:(y*12+(q-1)*3), toM:(y*12+q*3-1)});
+  }
+  // クラスタ検出で同時値上げかどうかを判定
+  const clusters=detectClusters(2,3);
+  const clusterPairs=new Set();
+  clusters.forEach(c=>{
+    D.events.filter(e=>e.categoryId===c.cat.id&&mIndex(e.date)>=c.from&&mIndex(e.date)<=c.to)
+      .forEach(e=>clusterPairs.add(e.companyId+"@"+e.date));
+  });
+  // 四半期ごとにクラスタ/単独を集計
+  quarters.forEach(q=>{
+    q.cluster=0; q.solo=0;
+    D.events.forEach(e=>{
+      const mi=mIndex(e.date);
+      if(mi>=q.fromM&&mi<=q.toM){
+        if(clusterPairs.has(e.companyId+"@"+e.date)) q.cluster++; else q.solo++;
+      }
+    });
+  });
+  // 公取委摘発年の四半期マーカー
+  const jftcYears=[...new Set(CASES.map(c=>c.date.slice(0,4)))];
+  const W=960,H=180,pL=54,pR=16,pT=14,pB=36;
+  const maxV=Math.max(1,...quarters.map(q=>q.cluster+q.solo));
+  const bw=(W-pL-pR)/quarters.length;
+  const yOf=v=>H-pB-(v/maxV)*(H-pT-pB);
+  let svg=`<svg viewBox="0 0 ${W} ${H}" role="img">`;
+  svg+=`<line x1="${pL}" y1="${H-pB}" x2="${W-pR}" y2="${H-pB}" stroke="#2a323d"/>`;
+  // 年グリッド
+  quarters.forEach((q,i)=>{
+    if(q.q===1){ svg+=`<line x1="${pL+i*bw}" y1="${pT}" x2="${pL+i*bw}" y2="${H-pB}" stroke="#1c232d"/>`; }
+    if(q.q===2||q.q===1) svg+=`<text x="${pL+i*bw+bw*1.5}" y="${H-pB+16}" fill="#9aa7b4" font-size="11" text-anchor="middle">${q.y}</text>`;
+  });
+  // 積み上げバー
+  quarters.forEach((q,i)=>{
+    const x=pL+i*bw+bw*0.1, w=bw*0.8;
+    const hs=yOf(q.solo+q.cluster), hc=yOf(q.cluster);
+    if(q.solo){ svg+=`<rect x="${x}" y="${hs}" width="${w}" height="${H-pB-hs}" fill="var(--accent)" opacity="0.7"><title>${q.label} 単独${q.solo}件</title></rect>`; }
+    if(q.cluster){ svg+=`<rect x="${x}" y="${hc}" width="${w}" height="${hs-hc}" fill="var(--susp)" opacity="0.85"><title>${q.label} 同時値上げ${q.cluster}件</title></rect>`; }
+  });
+  // 摘発年マーカー
+  jftcYears.forEach(yr=>{
+    const qi=quarters.findIndex(q=>q.y===+yr&&q.q===1);
+    if(qi<0) return;
+    const x=pL+qi*bw; svg+=`<text x="${x}" y="${pT+8}" fill="var(--done)" font-size="11" text-anchor="middle">▼</text>`;
+    svg+=`<line x1="${x}" y1="${pT+11}" x2="${x}" y2="${H-pB}" stroke="var(--done)" stroke-dasharray="3,3" opacity="0.4"/>`;
+  });
+  svg+=`</svg>`;
+  $("#trend-chart").innerHTML=svg;
+}
+
+kpis(); renderTrend(); renderDone(); renderSusp(); renderForecast();
 </script>
 </body>
 </html>

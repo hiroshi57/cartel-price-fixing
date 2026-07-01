@@ -1,0 +1,57 @@
+name: Update JFTC Cases Data
+
+on:
+  schedule:
+    # 毎月1日 JST 9:00 (UTC 0:00) に自動実行
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (parse only, no commit)'
+        required: false
+        default: 'false'
+
+jobs:
+  update-cases:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch JFTC HTML pages
+        run: |
+          echo "Fetching JFTC 独占禁止法 法的措置一覧..."
+          bash sources/fetch.sh
+        env:
+          # 503回避のため UA を設定
+          FETCH_UA: "Mozilla/5.0 (compatible; CartelWatch-Bot/1.0)"
+
+      - name: Parse and regenerate cases-data.js
+        run: node sources/parse_jftc.js
+
+      - name: Show diff summary
+        run: |
+          git diff --stat cases-data.js || true
+          git diff cases-data.js | head -60 || true
+
+      - name: Commit updated cases-data.js
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add cases-data.js
+          if git diff --staged --quiet; then
+            echo "No changes to cases-data.js — skipping commit."
+          else
+            COUNT=$(node -e "eval(require('fs').readFileSync('cases-data.js','utf8').replace('window.','global.')); console.log(global.JFTC_CASES.length)")
+            git commit -m "chore: auto-update JFTC cases data [$(date +%Y-%m-%d)] (${COUNT}件)"
+            git push
+          fi

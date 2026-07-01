@@ -110,6 +110,17 @@
   <section class="panel">
     <h2>🔗 仕入れ品目 連動マトリクス（川上＝仕入れ先談合の候補）</h2>
     <p class="hint">仕入れ品目どうしの価格相関。本来無関係なはずの品目が強く連動（赤）していれば、共通の仕入れ先・市況以外の要因（談合・寡占）を疑う出発点になります。</p>
+    <div class="controls" style="margin-bottom:10px">
+      <div class="ctrl"><label>品目グループ絞り込み</label>
+        <select id="hm-group">
+          <option value="all">全品目 (21)</option>
+          <option value="food">食材・原材料 (米/野菜/肉/油/小麦粉)</option>
+          <option value="energy">エネルギー・設備 (光熱/燃料/水道/洗剤/包装/車両)</option>
+          <option value="labor">人件費・固定費 (人件費/家賃/その他)</option>
+          <option value="special">業態特化 (資材/商品仕入/通信/広告/教材/金融/医療)</option>
+        </select>
+      </div>
+    </div>
     <div id="heatmap"></div>
     <div class="legend">
       <span><span class="dot" style="background:#ff6b6b"></span>強い連動 (≥0.8)</span>
@@ -255,16 +266,25 @@ function renderCost(){
 }
 
 /* ---- 連動ヒートマップ ---- */
+const HM_GROUPS={
+  food:    ['rice','vegetable','meat','oil','flour'],
+  energy:  ['detergent','energy','water','fuel','vehicle','packaging'],
+  labor:   ['labor','rent','misc'],
+  special: ['material','goods','telecom','ad','textbook','finance','medsupply'],
+};
 function hmColor(r){
   if(r>=0.8) return "#ff6b6b"; if(r>=0.65) return "#ff8e72";
   if(r>=0.5) return "#ffa657"; if(r>=0.3) return "#5a4a3a";
   if(r>=0) return "#30363d"; return "#1f3a4d";
 }
 function renderHeatmap(){
-  const ids=P.inputs.map(i=>i.id), names=P.inputs.map(i=>i.name);
+  const grp=$("#hm-group").value;
+  const visIds=grp==="all"?P.inputs.map(i=>i.id):(HM_GROUPS[grp]||P.inputs.map(i=>i.id));
+  const visInputs=visIds.map(id=>INPUT[id]).filter(Boolean);
+  const ids=visInputs.map(i=>i.id), names=visInputs.map(i=>i.name);
   let html=`<table class="hm"><thead><tr><th></th>`+names.map(n=>`<th>${n}</th>`).join("")+`</tr></thead><tbody>`;
   ids.forEach((a,i)=>{
-    html+=`<tr><th>${names[i]}</th>`;
+    html+=`<tr><th style="white-space:nowrap">${names[i]}</th>`;
     ids.forEach((b,j)=>{
       const r=pearson(INPUT[a].series,INPUT[b].series);
       const c=i===j?"#222b35":hmColor(r);
@@ -285,16 +305,33 @@ function renderCross(){
   const r=pearson(sa,sb);
   $("#x-corr").textContent=r.toFixed(2)+(r>=0.8?"（強い連動）":r>=0.5?"（中程度）":"（弱い）");
   $("#x-corr").style.color=r>=0.8?"var(--hi)":r>=0.5?"var(--mid)":"var(--lo)";
-  $("#x-note").innerHTML = r>=0.8
-    ? `本来別市況のはずの品目が強く連動。<b>共通の仕入れ先や寡占</b>を疑う出発点になります。`
-    : r>=0.5 ? `ある程度連動しています。共通の上流要因（原油など）の可能性も。`
-    : `連動は弱く、別々の要因で動いています。`;
-  const exposed=P.categories.filter(c=>{
-    const set=new Set(c.basket.map(x=>x.input)); return set.has(a)&&set.has(b);
-  }).map(c=>c.name);
+
+  // 共通業態 & 重み集計
+  const exposed=P.categories.filter(c=>{ const s=new Set(c.basket.map(x=>x.input)); return s.has(a)&&s.has(b); });
+  const wA=+(P.categories.reduce((s,c)=>s+(c.basket.find(x=>x.input===a)?.w||0),0)).toFixed(2);
+  const wB=+(P.categories.reduce((s,c)=>s+(c.basket.find(x=>x.input===b)?.w||0),0)).toFixed(2);
+
+  // 談合リスク判定
+  let riskLevel, riskNote;
+  if(r>=0.8 && exposed.length===0){
+    riskLevel="<span style='color:var(--hi);font-weight:700'>⚠ 高リスク</span>";
+    riskNote=`業態上の接点がないのに価格が強く連動 → <b>共通の川上業者による仕入れ先談合</b>の可能性が最も高い組み合わせです。`;
+  } else if(r>=0.8 && exposed.length>0){
+    riskLevel="<span style='color:var(--mid);font-weight:700'>△ 中リスク</span>";
+    riskNote=`強い連動ですが、共通業態（${exposed.map(c=>c.name).join("・")}）がコスト転嫁する<b>正当理由にもなりえます</b>。両面から調査が必要。`;
+  } else if(r>=0.5){
+    riskLevel="<span style='color:var(--lo);font-weight:700'>▽ 低〜中</span>";
+    riskNote=`中程度の連動。共通の上流要因（エネルギー高騰など）による<b>同調値上げの可能性</b>があります。`;
+  } else {
+    riskLevel="<span style='color:var(--muted)'>— 連動なし</span>";
+    riskNote=`価格動向が独立しています。個別の要因で変動しており、川上談合の根拠は弱い。`;
+  }
+  $("#x-note").innerHTML=`<div style="margin-bottom:6px">談合リスク: ${riskLevel}</div>${riskNote}`+
+    `<div style="margin-top:8px;font-size:11.5px;color:var(--muted)">業態への浸透度: <b>${INPUT[a].name}</b> 合計構成比 ${(wA*100).toFixed(0)}% / <b>${INPUT[b].name}</b> ${(wB*100).toFixed(0)}%（13業態合算）</div>`;
+
   $("#x-exposed").innerHTML = exposed.length
-    ? `両品目を仕入れている業態: <b>${exposed.join("・")}</b>（この2品目が同時に上がると、これらの業態の値上げ口実になりやすい）`
-    : `両品目を同時に仕入れている業態は、登録データ上ありません。`;
+    ? `両品目を同時仕入れの業態: <b>${exposed.map(c=>c.name).join("・")}</b><br><span style="font-size:11.5px;color:var(--muted)">→ この2品目が同時高騰すると値上げの口実になりやすい</span>`
+    : `<span style="color:var(--muted)">両品目を同時に仕入れている業態はデータ上なし（川下への影響は分離）。</span>`;
 }
 
 /* ---- init ---- */
@@ -310,10 +347,15 @@ function init(){
   fill($("#c-cat"), P.categories, maxGapIdx);
   fill($("#x-a"), P.inputs, P.inputs.findIndex(i=>i.id==="flour"));
   fill($("#x-b"), P.inputs, P.inputs.findIndex(i=>i.id==="vegetable"));
+  // URL ハッシュで業態を事前選択（例: procurement.html#cleaning）
+  const hashCat=location.hash.replace("#","");
+  if(hashCat && P.categories.find(c=>c.id===hashCat)) $("#c-cat").value=hashCat;
   $("#c-cat").addEventListener("change",renderCost);
   $("#x-a").addEventListener("change",renderCross);
   $("#x-b").addEventListener("change",renderCross);
+  $("#hm-group").addEventListener("change",renderHeatmap);
   renderKPIs(); renderCost(); renderHeatmap(); renderCross(); renderCoverage();
+  if(hashCat) $("#c-cat").scrollIntoView({behavior:"smooth",block:"center"});
 }
 
 /* ②カバレッジ: JSIC大分類ごとに②の業態があるか */
