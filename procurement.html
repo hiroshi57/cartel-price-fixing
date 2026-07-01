@@ -301,7 +301,13 @@ function renderCross(){
 function fill(el,arr,sel){ el.innerHTML=arr.map((o,i)=>`<option value="${o.id}"${i===sel?" selected":""}>${o.name}</option>`).join(""); }
 function init(){
   $("#disclaimer").textContent="⚠️ "+D.meta.disclaimer+"（仕入れ指数はサンプル）";
-  fill($("#c-cat"), P.categories, 1);            // 既定: クリーニング(乖離が大きい)
+  // 既定: 最大ギャップ業態を動的に選択
+  const _IN=Object.fromEntries(P.inputs.map(i=>[i.id,i])), _N=P.months.length;
+  const maxGapIdx=P.categories.reduce((best,c,i)=>{
+    let cost=0; c.basket.forEach(b=>cost+=_IN[b.input].series[_N-1]*b.w);
+    return (c.actual[_N-1]-cost)>best.g?{i,g:c.actual[_N-1]-cost}:best;
+  },{i:0,g:-Infinity}).i;
+  fill($("#c-cat"), P.categories, maxGapIdx);
   fill($("#x-a"), P.inputs, P.inputs.findIndex(i=>i.id==="flour"));
   fill($("#x-b"), P.inputs, P.inputs.findIndex(i=>i.id==="vegetable"));
   $("#c-cat").addEventListener("change",renderCost);
