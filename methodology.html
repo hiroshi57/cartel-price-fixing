@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>検知ロジックの説明 — Cartel Watch</title>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#161b22; --panel2:#1c232d; --line:#2a323d;
+    --txt:#e6edf3; --muted:#9aa7b4; --accent:#58a6ff;
+    --hi:#ff6b6b; --mid:#ffa657; --lo:#3fb950; --cost:#a371f7;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font-family:"Segoe UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;font-size:14px;line-height:1.7}
+  header{padding:18px 22px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#11161d,#0e1116)}
+  header h1{margin:0;font-size:20px}
+  header .sub{color:var(--muted);font-size:12.5px;margin-top:4px}
+  nav{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
+  nav a{font-size:12.5px;color:var(--accent);text-decoration:none;border:1px solid var(--line);
+    padding:5px 11px;border-radius:7px;background:var(--panel)}
+  .wrap{padding:18px 22px;max-width:860px;margin:0 auto}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin-bottom:18px}
+  h2{font-size:16px;margin:0 0 12px;color:var(--accent)}
+  h3{font-size:14px;margin:18px 0 6px}
+  .warn{border:1px solid #5a3a1a;background:#26190d;color:#ffce99;border-radius:8px;padding:12px 14px;font-size:13px;margin-bottom:18px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:11.5px}
+  code{background:var(--panel2);padding:1px 6px;border-radius:4px;font-size:12.5px}
+  pre{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:12.5px}
+  .badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:700}
+  .b-hi{background:rgba(255,107,107,.16);color:var(--hi);border:1px solid rgba(255,107,107,.4)}
+  .b-mid{background:rgba(255,166,87,.16);color:var(--mid);border:1px solid rgba(255,166,87,.4)}
+  .b-lo{background:rgba(63,185,80,.16);color:var(--lo);border:1px solid rgba(63,185,80,.4)}
+  ul{padding-left:20px}
+  li{margin:4px 0}
+  .muted{color:var(--muted);font-size:12.5px}
+  footer{padding:16px 22px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--line);text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <h1>🔬 検知ロジックの説明</h1>
+  <div class="sub">Cartel Watch がどのように「同時値上げ」や「説明できないコスト乖離」を検知しているかを、すべて公開します。</div>
+  <nav>
+    <a href="overview.html">⓪ 総合ダッシュボード</a>
+    <a href="index.html">① 公表値上げの横並び</a>
+    <a href="procurement.html">② 仕入れコスト構造</a>
+    <a href="cases.html">③ 確定カルテル事件</a>
+    <a href="terms.html">📜 利用規約</a>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <div class="warn">
+    ⚠️ 本ページで説明するスコアはすべて<strong>業界単位の統計的観察</strong>です。
+    個別企業の違法行為を指摘するものではなく、高スコアの業界にも
+    原材料高騰・制度改定など正当な共通要因が存在するのが通常です。
+  </div>
+
+  <section class="panel">
+    <h2>1. なぜ「同時値上げ」に注目するのか</h2>
+    <p>公正取引委員会が摘発した価格カルテル事件の多くは、「競合他社が近接した時期に、近い値幅で価格を改定する」という外形を持ちます。
+    もちろん、正当な理由（同じ原材料の高騰）でも同じ外形が生じます。</p>
+    <p>そこで本サービスは、<strong>「同時性」と「コスト要因で説明できるか」を分けて評価</strong>します。
+    コストが上がっていないのに複数社が同時に値上げしている業界は、「調査の出発点」として注目に値する——これが基本思想です。</p>
+  </section>
+
+  <section class="panel">
+    <h2>2. 同時性スコア（①公表値上げの横並び）</h2>
+    <p>各業界について、値上げイベントを月単位でクラスタリングし、以下の3要素で評価します。</p>
+    <table>
+      <tr><th>要素</th><th>定義</th><th>解釈</th></tr>
+      <tr><td><strong>同時性</strong></td><td>同一月〜隣接月に値上げした企業数 ÷ 業界の主要企業数</td><td>高いほど「横並び」の外形が強い</td></tr>
+      <tr><td><strong>値幅一致度</strong></td><td>クラスター内の値上げ率の標準偏差（小さいほど一致）</td><td>率まで揃うのは偶然では起きにくい</td></tr>
+      <tr><td><strong>コスト説明力</strong></td><td>値上げ時期の直前 6ヶ月における関連コスト指数の上昇率</td><td>コストが上がっていれば「説明できる値上げ」</td></tr>
+    </table>
+    <h3>判定の例</h3>
+    <ul>
+      <li><span class="badge b-lo">説明可能</span> 小麦の政府売渡価格が +17% 改定された直後に製粉各社が +5% 値上げ → コストで説明できる</li>
+      <li><span class="badge b-mid">要観察</span> コスト指数が横ばいの期間に 2社が同月値上げ → 単発なら偶然の範囲</li>
+      <li><span class="badge b-hi">注目候補</span> コスト指数が下落しているのに 3社以上が同月・同率で値上げ → 調査の出発点として表示</li>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>3. コスト乖離スコア（②仕入れコスト構造）</h2>
+    <p>値上げが公表されないサービス業（飲食・クリーニング・運送など）は、次の手順で「見えない値上げ」を推定します。</p>
+    <pre>理論コスト指数(t) = Σ [ 仕入れ品目iの価格指数(t) × 業態のコスト構成比w(i) ]
+
+乖離(t) = 実売価格指数(t) − 理論コスト指数(t)   [単位: pt]</pre>
+    <table>
+      <tr><th>乖離</th><th>表示</th><th>解釈</th></tr>
+      <tr><td>&lt; 0 pt</td><td><span class="badge b-lo">コスト内（割安）</span></td><td>コスト上昇を価格転嫁しきれていない</td></tr>
+      <tr><td>0〜5 pt</td><td><span class="badge b-lo">概ね説明可能</span></td><td>正常な転嫁の範囲</td></tr>
+      <tr><td>5〜10 pt</td><td><span class="badge b-mid">要観察</span></td><td>転嫁+マージン改善。単独では問題なし</td></tr>
+      <tr><td>&gt; 10 pt</td><td><span class="badge b-hi">説明不能領域</span></td><td>コスト以外の要因（需要急増・品質向上・または協調）の検証が必要</td></tr>
+    </table>
+    <p class="muted">例: 宿泊業の実売価格はコスト理論値を大きく超えますが、これはインバウンド需要の急増という
+    正当な需要要因で説明されます。乖離スコアは「原因の検証が必要」を意味するだけで、「違法」を意味しません。</p>
+    <h3>コスト構成比（バスケット）の根拠</h3>
+    <p>各業態のコスト構成比は、総務省「経済センサス」・中小企業庁「中小企業実態基本調査」の費用構造を参考にした推定値です（合計=1.0 になるよう正規化）。
+    構成比の妥当性は今後、業界ヒアリングで検証・更新します。</p>
+  </section>
+
+  <section class="panel">
+    <h2>4. 同時異常検知（複数系列の同月超過）</h2>
+    <p>各コスト系列・価格系列について、変化率が過去分布の <code>90パーセンタイル (q90)</code> を超えた月を「異常月」とし、
+    <strong>複数の系列が同じ月に異常を示した場合</strong>にクラスターとして表示します。</p>
+    <p>単一系列の異常は市況変動で頻繁に起きますが、独立なはずの複数系列が同月に動くのは相対的に稀であり、
+    共通ショック（為替・災害・制度改定）か協調のどちらかを疑う出発点になります。</p>
+  </section>
+
+  <section class="panel">
+    <h2>5. 確定事件データ（③）との関係</h2>
+    <p>③のカルテル事件データは公正取引委員会の公表資料（法的措置一覧）のみを収録した<strong>確定事実</strong>で、
+    ①②の統計的観察とは性質が異なります。過去にカルテルが摘発された業界は再発リスクの観点から、
+    同時性スコアの解釈時に参照情報として表示します。</p>
+  </section>
+
+  <section class="panel">
+    <h2>6. 既知の限界（正直に書きます）</h2>
+    <ul>
+      <li>値上げイベントの収録は網羅的ではありません（公表ベース・主要企業中心）。</li>
+      <li>コスト構成比は業態平均の推定であり、個社の実態とは異なります。</li>
+      <li>需要側の要因（ブーム・観光需要など）はモデルに含まれていません。</li>
+      <li>「高スコア = カルテル」ではありません。過去の摘発事例でも、外形だけからの推定精度には限界があります。</li>
+    </ul>
+    <p class="muted">ロジックへの指摘・改善提案は歓迎します（GitHub Issue へ）。</p>
+  </section>
+
+  <p class="muted">最終更新: 2026-07-02 / データ出典の一覧は <a href="terms.html" style="color:var(--accent)">利用規約 第3条</a> を参照。</p>
+</div>
+
+<footer>
+  Cartel Watch — 本表示は統計的観察であり、違法行為の指摘ではありません。
+</footer>
+</body>
+</html>

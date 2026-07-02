@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>業界分析レポート — Cartel Watch</title>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#161b22; --panel2:#1c232d; --line:#2a323d;
+    --txt:#e6edf3; --muted:#9aa7b4; --accent:#58a6ff;
+    --hi:#ff6b6b; --mid:#ffa657; --lo:#3fb950; --cost:#a371f7;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font-family:"Segoe UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;font-size:14px;line-height:1.6}
+  header{padding:18px 22px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#11161d,#0e1116)}
+  header h1{margin:0;font-size:20px}
+  header .sub{color:var(--muted);font-size:12.5px;margin-top:4px}
+  nav{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
+  nav a{font-size:12.5px;color:var(--accent);text-decoration:none;border:1px solid var(--line);
+    padding:5px 11px;border-radius:7px;background:var(--panel)}
+  .toolbar{padding:14px 22px;display:flex;gap:14px;align-items:end;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+  .ctrl{display:flex;flex-direction:column;gap:4px}
+  .ctrl label{font-size:11.5px;color:var(--muted)}
+  select{background:var(--panel2);color:var(--txt);border:1px solid var(--line);border-radius:7px;padding:7px 9px;font-size:13px}
+  button{background:var(--accent);color:#04101f;border:none;border-radius:7px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer}
+  .samples{font-size:12px;color:var(--muted);align-self:center}
+  .samples a{color:var(--accent);text-decoration:none;margin-right:8px}
+  .wrap{padding:22px;max-width:860px;margin:0 auto}
+  .rep-panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin-bottom:16px}
+  h2{font-size:16px;margin:0 0 12px;color:var(--accent)}
+  h3{font-size:14px;margin:14px 0 6px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line)}
+  th{color:var(--muted);font-weight:600;font-size:11.5px}
+  .badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:700}
+  .b-hi{background:rgba(255,107,107,.16);color:var(--hi);border:1px solid rgba(255,107,107,.4)}
+  .b-mid{background:rgba(255,166,87,.16);color:var(--mid);border:1px solid rgba(255,166,87,.4)}
+  .b-lo{background:rgba(63,185,80,.16);color:var(--lo);border:1px solid rgba(63,185,80,.4)}
+  .muted{color:var(--muted);font-size:12px}
+  .warn{border:1px solid #5a3a1a;background:#26190d;color:#ffce99;border-radius:8px;padding:10px 12px;font-size:12px;margin-bottom:14px}
+  svg{width:100%;height:auto;display:block}
+  footer{padding:16px 22px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--line);text-align:center}
+
+  /* ===== 印刷 (PDF 出力) 用: 白背景・インク節約 ===== */
+  @media print{
+    :root{--bg:#fff;--panel:#fff;--panel2:#f4f6f8;--line:#c9d1d9;--txt:#1a1f24;--muted:#57606a;--accent:#0969da}
+    header nav,.toolbar,footer .no-print{display:none!important}
+    body{font-size:12px}
+    .rep-panel{break-inside:avoid;border:1px solid #c9d1d9}
+    a{color:#0969da!important}
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>📄 業界分析レポート</h1>
+  <div class="sub">業界を選んで「PDF に保存」を押すと、印刷ダイアログから PDF レポートとして出力できます。</div>
+  <nav>
+    <a href="overview.html">⓪ 総合ダッシュボード</a>
+    <a href="index.html">① 公表値上げの横並び</a>
+    <a href="methodology.html">🔬 検知ロジックの説明</a>
+    <a href="terms.html">📜 利用規約</a>
+  </nav>
+</header>
+
+<div class="toolbar">
+  <div class="ctrl">
+    <label>業界カテゴリ</label>
+    <select id="cat"></select>
+  </div>
+  <button onclick="window.print()">🖨️ PDF に保存 / 印刷</button>
+  <div class="samples">サンプル:
+    <a href="report.html#ice">アイス業界</a>
+    <a href="report.html#dairy">牛乳・乳製品</a>
+    <a href="report.html#noodle">即席麺</a>
+  </div>
+</div>
+
+<div class="wrap" id="report"><!-- JS で生成 --></div>
+
+<footer>
+  Cartel Watch — 本レポートは統計的観察であり、違法行為の指摘ではありません。
+  出典: 総務省・農林水産省・日本銀行・公正取引委員会 各公表資料を基に当社が指数化・編集・加工。
+</footer>
+
+<script src="data.js"></script>
+<script src="cases-data.js"></script>
+<script>
+"use strict";
+const D = window.CARTEL_DATA;
+const CASES = window.JFTC_CASES || [];
+const $ = s => document.querySelector(s);
+
+/* カテゴリセレクタ */
+const sel = $("#cat");
+D.categories.forEach(c => {
+  const o = document.createElement("option");
+  o.value = c.id; o.textContent = c.name;
+  sel.appendChild(o);
+});
+const hashCat = location.hash.replace("#","");
+if (hashCat && D.categories.some(c => c.id === hashCat)) sel.value = hashCat;
+sel.addEventListener("change", () => { location.hash = sel.value; render(); });
+window.addEventListener("hashchange", () => {
+  const h = location.hash.replace("#","");
+  if (h && D.categories.some(c => c.id === h)) { sel.value = h; render(); }
+});
+
+/* ユーティリティ */
+const monthDiff = (a, b) => {
+  const [ay, am] = a.split("-").map(Number), [by, bm] = b.split("-").map(Number);
+  return Math.abs((ay - by) * 12 + (am - bm));
+};
+const compName = id => (D.companies.find(c => c.id === id) || {name:id}).name;
+
+/* クラスター検出: 同一〜隣接月(±1ヶ月)の値上げをまとめる */
+function clusters(evts) {
+  const sorted = [...evts].sort((a,b) => a.date.localeCompare(b.date));
+  const out = [];
+  for (const e of sorted) {
+    const last = out[out.length-1];
+    if (last && monthDiff(last.dates[last.dates.length-1], e.date) <= 1) {
+      last.events.push(e); last.dates.push(e.date);
+    } else {
+      out.push({ events:[e], dates:[e.date] });
+    }
+  }
+  return out;
+}
+
+/* コスト変化率: クラスター月の直前6ヶ月における関連コスト指数の変化率(%) */
+function costChange(cat, ym) {
+  const changes = [];
+  for (const cid of cat.commodities) {
+    const com = D.commodities.find(c => c.id === cid);
+    if (!com) continue;
+    const before = com.series.filter(s => s.date <= ym);
+    if (before.length < 2) continue;
+    const cur = before[before.length-1];
+    const past = before.find(s => monthDiff(s.date, ym) >= 6) || before[0];
+    changes.push({ name: com.name, pct: Math.round((cur.index / past.index - 1) * 1000) / 10 });
+  }
+  return changes;
+}
+
+function badge(level) {
+  if (level === "hi")  return '<span class="badge b-hi">注目候補</span>';
+  if (level === "mid") return '<span class="badge b-mid">要観察</span>';
+  return '<span class="badge b-lo">説明可能</span>';
+}
+
+/* ミニ SVG チャート: コスト指数 */
+function chart(cat) {
+  const coms = cat.commodities.map(id => D.commodities.find(c => c.id === id)).filter(Boolean);
+  if (!coms.length) return "";
+  const allDates = [...new Set(coms.flatMap(c => c.series.map(s => s.date)))].sort();
+  const allVals = coms.flatMap(c => c.series.map(s => s.index));
+  const mn = Math.min(...allVals) - 10, mx = Math.max(...allVals) + 10;
+  const W = 760, H = 220, PL = 40, PB = 24;
+  const x = d => PL + allDates.indexOf(d) / Math.max(1, allDates.length-1) * (W - PL - 10);
+  const y = v => (H - PB) - (v - mn) / (mx - mn) * (H - PB - 10);
+  const colors = ["#58a6ff","#a371f7","#ffa657","#3fb950","#ff6b6b"];
+  let s = `<svg viewBox="0 0 ${W} ${H}">`;
+  // 100 基準線
+  s += `<line x1="${PL}" y1="${y(100)}" x2="${W-10}" y2="${y(100)}" stroke="#2a323d" stroke-dasharray="4 3"/>`;
+  s += `<text x="4" y="${y(100)+4}" fill="#9aa7b4" font-size="10">100</text>`;
+  coms.forEach((c, i) => {
+    const pts = c.series.map(p => `${x(p.date)},${y(p.index)}`).join(" ");
+    s += `<polyline points="${pts}" fill="none" stroke="${colors[i%colors.length]}" stroke-width="2"/>`;
+    const last = c.series[c.series.length-1];
+    s += `<text x="${x(last.date)-2}" y="${y(last.index)-6}" fill="${colors[i%colors.length]}" font-size="10" text-anchor="end">${c.name.slice(0,12)} ${last.index}</text>`;
+  });
+  // x 軸ラベル (先頭・中央・末尾)
+  [0, Math.floor(allDates.length/2), allDates.length-1].forEach(i => {
+    s += `<text x="${x(allDates[i])}" y="${H-6}" fill="#9aa7b4" font-size="10" text-anchor="middle">${allDates[i]}</text>`;
+  });
+  s += "</svg>";
+  return s;
+}
+
+function render() {
+  const cat = D.categories.find(c => c.id === sel.value) || D.categories[0];
+  const evts = D.events.filter(e => e.categoryId === cat.id);
+  const cls = clusters(evts);
+  const today = new Date().toISOString().slice(0,10);
+
+  /* クラスター表 */
+  let clRows = "";
+  for (const cl of cls) {
+    const n = cl.events.length;
+    const pcts = cl.events.map(e => e.changePct);
+    const spread = Math.max(...pcts) - Math.min(...pcts);
+    const cost = costChange(cat, cl.dates[0]);
+    const maxCost = Math.max(0, ...cost.map(c => c.pct));
+    let level = "lo";
+    if (n >= 3 && maxCost < 3) level = "hi";
+    else if (n >= 3 && spread <= 2 && maxCost < 8) level = "mid";
+    else if (n >= 2 && maxCost < 1) level = "mid";
+    clRows += `<tr>
+      <td>${cl.dates[0]}${cl.dates.length>1 && cl.dates[cl.dates.length-1]!==cl.dates[0] ? "〜"+cl.dates[cl.dates.length-1] : ""}</td>
+      <td>${n}社: <span class="muted">${cl.events.map(e => compName(e.companyId)+" +"+e.changePct+"%").join(" / ")}</span></td>
+      <td>${cost.length ? cost.map(c => `${c.name.split(" ")[0]} ${c.pct>=0?"+":""}${c.pct}%`).join("<br>") : "—"}</td>
+      <td>${badge(level)}</td>
+    </tr>`;
+  }
+
+  /* 関連 JFTC 事例 (同業界キーワード簡易マッチ) */
+  const kw = cat.name.replace(/（.*?）|\(.*?\)/g, "").slice(0,3);
+  const rel = CASES.filter(c => (c.name||c.title||"").includes(kw)).slice(0,5);
+
+  /* サマリー判定 */
+  const hiCount = (clRows.match(/b-hi/g) || []).length;
+  const summary = hiCount > 0
+    ? `コスト指標の動きで説明しにくい同時値上げクラスターが ${hiCount}件 観察されました。一次情報の確認を推奨します。`
+    : `観察されたクラスターは、概ね原材料コストの変動と整合的です。`;
+
+  $("#report").innerHTML = `
+    <div class="warn">⚠️ 本レポートは公開情報の統計的観察であり、いかなる企業の違法行為も指摘・示唆しません。詳細は <a href="terms.html" style="color:#ffce99">利用規約</a> と <a href="methodology.html" style="color:#ffce99">検知ロジックの説明</a> を参照。</div>
+
+    <div class="rep-panel">
+      <h2>${cat.name} 業界 — 値上げ同時性レポート</h2>
+      <p class="muted">作成日: ${today} / データ最終更新: ${D.meta.updated} / 出力: Cartel Watch v${D.meta.version}</p>
+      <h3>エグゼクティブサマリー</h3>
+      <p>${summary}</p>
+      <p class="muted">収録イベント: ${evts.length}件 / 検出クラスター: ${cls.length}件 / 参照コスト指標: ${cat.commodities.length}系列</p>
+    </div>
+
+    <div class="rep-panel">
+      <h2>関連コスト指標の推移（100 = 2021-04）</h2>
+      ${chart(cat)}
+      <p class="muted">出典: 農林水産省・日本銀行・総務省 各公表統計を基に当社指数化。</p>
+    </div>
+
+    <div class="rep-panel">
+      <h2>値上げクラスター一覧</h2>
+      <table>
+        <thead><tr><th>時期</th><th>値上げ企業（公表事実）</th><th>直前6ヶ月のコスト変化</th><th>評価</th></tr></thead>
+        <tbody>${clRows || '<tr><td colspan="4" class="muted">値上げイベントの収録がありません</td></tr>'}</tbody>
+      </table>
+      <p class="muted">評価はコスト変化との整合性による業界単位の統計的観察です（判定基準は検知ロジックの説明を参照）。</p>
+    </div>
+
+    <div class="rep-panel">
+      <h2>参考: 公正取引委員会の確定事件（同種業界・確定事実）</h2>
+      ${rel.length
+        ? `<table><thead><tr><th>公表日</th><th>事件</th></tr></thead><tbody>${rel.map(c => `<tr><td>${c.date}</td><td>${c.name||c.title}</td></tr>`).join("")}</tbody></table>`
+        : '<p class="muted">同種業界での確定事件は収録データ内に見つかりませんでした。</p>'}
+      <p class="muted">出典: 公正取引委員会 公表資料（法的措置一覧）。</p>
+    </div>
+  `;
+}
+render();
+</script>
+</body>
+</html>

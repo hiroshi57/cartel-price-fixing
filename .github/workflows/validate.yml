@@ -1,0 +1,32 @@
+name: Validate Data
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data.js'
+      - 'cases-data.js'
+      - 'forecast-data.js'
+      - 'taxonomy.js'
+      - 'scripts/validate_data.js'
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Syntax check (all JS data files)
+        run: |
+          for f in data.js cases-data.js forecast-data.js taxonomy.js; do
+            node -c "$f" && echo "✅ $f syntax OK"
+          done
+
+      - name: Validate data integrity
+        run: node scripts/validate_data.js
