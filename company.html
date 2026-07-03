@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="manifest" href="manifest.json" />
+<title>企業別ページ — Cartel Watch</title>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#161b22; --panel2:#1c232d; --line:#2a323d;
+    --txt:#e6edf3; --muted:#9aa7b4; --accent:#58a6ff;
+    --hi:#ff6b6b; --mid:#ffa657; --lo:#3fb950; --cost:#a371f7;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font-family:"Segoe UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;font-size:14px;line-height:1.6}
+  header{padding:18px 22px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#11161d,#0e1116)}
+  header h1{margin:0;font-size:20px}
+  header .sub{color:var(--muted);font-size:12.5px;margin-top:4px}
+  nav{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
+  nav a{font-size:12.5px;color:var(--accent);text-decoration:none;border:1px solid var(--line);
+    padding:5px 11px;border-radius:7px;background:var(--panel)}
+  .disclaimer{margin:10px 22px 0;padding:8px 12px;border:1px solid #5a3a1a;background:#26190d;
+    color:#ffce99;border-radius:8px;font-size:12px}
+  .wrap{padding:18px 22px;display:grid;gap:18px;max-width:1100px;margin:0 auto}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .panel h2{margin:0 0 12px;font-size:15px}
+  .controls{display:flex;flex-wrap:wrap;gap:14px;align-items:end}
+  .ctrl{display:flex;flex-direction:column;gap:4px}
+  .ctrl label{font-size:11.5px;color:var(--muted)}
+  select{background:var(--panel2);color:var(--txt);border:1px solid var(--line);border-radius:7px;padding:7px 9px;font-size:13px}
+  button{background:var(--panel2);color:var(--accent);border:1px solid var(--line);border-radius:7px;padding:7px 14px;font-size:13px;cursor:pointer}
+  button.star{font-size:15px}
+  button.primary{background:var(--accent);color:#04101f;font-weight:700;border-color:var(--accent)}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+  .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .kpi .v{font-size:22px;font-weight:700}
+  .kpi .l{font-size:11.5px;color:var(--muted);margin-top:2px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:11.5px}
+  tbody tr:hover{background:#19212b}
+  .badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:700}
+  .b-hi{background:rgba(255,107,107,.16);color:var(--hi);border:1px solid rgba(255,107,107,.4)}
+  .b-mid{background:rgba(255,166,87,.16);color:var(--mid);border:1px solid rgba(255,166,87,.4)}
+  .b-lo{background:rgba(63,185,80,.16);color:var(--lo);border:1px solid rgba(63,185,80,.4)}
+  .muted{color:var(--muted);font-size:12px}
+  a{color:var(--accent)}
+  footer{padding:16px 22px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--line);text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <h1>🏢 企業別ページ</h1>
+  <div class="sub">1社の値上げ履歴と、同時期に値上げした競合（公表事実）を一覧します。</div>
+  <nav>
+    <a href="overview.html">⓪ 総合ダッシュボード</a>
+    <a href="index.html">① 公表値上げの横並び</a>
+    <a href="search.html">🔎 検索</a>
+    <a href="report.html">📄 レポート出力</a>
+    <a href="terms.html">📜 規約</a>
+  </nav>
+</header>
+<div class="disclaimer">⚠️ 本ページの記載はすべて各社の公表情報（事実）です。同時期の値上げの列挙は統計的観察であり、協調行為の指摘ではありません。</div>
+
+<div class="wrap">
+  <section class="panel">
+    <div class="controls">
+      <div class="ctrl">
+        <label>企業を選択</label>
+        <select id="comp"></select>
+      </div>
+      <button class="star" id="watch">☆ ウォッチ</button>
+      <button id="csv">⬇️ CSV エクスポート</button>
+    </div>
+  </section>
+
+  <section class="panel"><div class="kpis" id="kpis"></div></section>
+
+  <section class="panel">
+    <h2>📈 値上げ履歴（公表事実）と同時期の競合値上げ</h2>
+    <table>
+      <thead><tr><th>時期</th><th>カテゴリ</th><th>対象商品</th><th>改定率</th><th>同時期(±1ヶ月)に値上げした競合</th></tr></thead>
+      <tbody id="evts"></tbody>
+    </table>
+    <p class="muted">「同時期の競合」は公表時期の近接（±1ヶ月）を機械的に列挙したものです。多くは共通のコスト要因によります。</p>
+  </section>
+
+  <section class="panel">
+    <h2>🏛️ 参考: 同種業界の確定事件（公正取引委員会 公表）</h2>
+    <div id="cases"></div>
+  </section>
+</div>
+
+<footer>Cartel Watch — 本表示は統計的観察であり、違法行為の指摘ではありません。</footer>
+
+<script src="data.js"></script>
+<script src="cases-data.js"></script>
+<script src="watchlist.js"></script>
+<script>
+"use strict";
+const D = window.CARTEL_DATA, CASES = window.JFTC_CASES || [];
+const $ = s => document.querySelector(s);
+const catName = id => (D.categories.find(c => c.id === id) || {name:id}).name;
+const compName = id => (D.companies.find(c => c.id === id) || {name:id}).name;
+const monthDiff = (a,b) => { const [ay,am]=a.split("-").map(Number),[by,bm]=b.split("-").map(Number); return Math.abs((ay-by)*12+(am-bm)); };
+
+/* セレクタ: 値上げイベントを持つ企業のみ */
+const activeComps = D.companies.filter(c => D.events.some(e => e.companyId === c.id));
+const sel = $("#comp");
+activeComps.forEach(c => { const o = document.createElement("option"); o.value = c.id; o.textContent = c.name; sel.appendChild(o); });
+const hash = location.hash.replace("#","") || new URLSearchParams(location.search).get("id") || "";
+if (hash && activeComps.some(c => c.id === hash)) sel.value = hash;
+sel.addEventListener("change", () => { location.hash = sel.value; render(); });
+window.addEventListener("hashchange", () => { const h = location.hash.replace("#",""); if (activeComps.some(c=>c.id===h)) { sel.value = h; render(); } });
+
+function render() {
+  const id = sel.value;
+  const evts = D.events.filter(e => e.companyId === id).sort((a,b) => b.date.localeCompare(a.date));
+  const cats = [...new Set(evts.map(e => e.categoryId))];
+
+  /* KPI */
+  const avgPct = evts.length ? Math.round(evts.reduce((a,e) => a+e.changePct,0) / evts.length * 10)/10 : 0;
+  let syncCount = 0;
+  for (const e of evts) {
+    const peers = D.events.filter(o => o.categoryId === e.categoryId && o.companyId !== id && monthDiff(o.date, e.date) <= 1);
+    if (peers.length >= 2) syncCount++;
+  }
+  $("#kpis").innerHTML = `
+    <div class="kpi"><div class="v">${evts.length}</div><div class="l">収録値上げイベント</div></div>
+    <div class="kpi"><div class="v">${avgPct}%</div><div class="l">平均改定率</div></div>
+    <div class="kpi"><div class="v">${syncCount}</div><div class="l">競合2社以上と同時期だった回数</div></div>
+    <div class="kpi"><div class="v">${cats.length}</div><div class="l">対象カテゴリ数</div></div>`;
+
+  /* イベント表 */
+  $("#evts").innerHTML = evts.map(e => {
+    const peers = D.events.filter(o => o.categoryId === e.categoryId && o.companyId !== id && monthDiff(o.date, e.date) <= 1);
+    const peerStr = peers.length
+      ? peers.map(p => `<a href="company.html#${p.companyId}">${compName(p.companyId)}</a> +${p.changePct}%`).join(" / ")
+      : '<span class="muted">なし</span>';
+    const b = peers.length >= 3 ? "b-mid" : "b-lo";
+    return `<tr><td>${e.date}</td><td><a href="index.html">${catName(e.categoryId)}</a></td><td>${e.product}</td>
+      <td><span class="badge ${b}">+${e.changePct}%</span></td><td>${peerStr}</td></tr>`;
+  }).join("") || '<tr><td colspan="5" class="muted">収録イベントなし</td></tr>';
+
+  /* 関連確定事件（業界キーワード簡易マッチ） */
+  const kws = cats.map(c => catName(c).replace(/（.*?）|\(.*?\)/g,"").slice(0,3));
+  const rel = CASES.filter(c => kws.some(k => (c.name||c.title||"").includes(k))).slice(0,6);
+  $("#cases").innerHTML = rel.length
+    ? `<table><thead><tr><th>公表日</th><th>事件</th></tr></thead><tbody>${rel.map(c => `<tr><td>${c.date}</td><td>${c.name||c.title}</td></tr>`).join("")}</tbody></table>
+       <p class="muted">出典: 公正取引委員会 公表資料。当該企業とは無関係の同種業界事件を含みます。</p>`
+    : '<p class="muted">同種業界での確定事件は収録データ内に見つかりませんでした。</p>';
+
+  /* ウォッチボタン */
+  updateWatchBtn();
+}
+
+function updateWatchBtn() {
+  const on = CW.has("company", sel.value);
+  $("#watch").textContent = on ? "★ ウォッチ中" : "☆ ウォッチ";
+}
+$("#watch").addEventListener("click", () => { CW.toggle("company", sel.value, compName(sel.value)); updateWatchBtn(); });
+
+/* CSV エクスポート (T041) */
+$("#csv").addEventListener("click", () => {
+  const id = sel.value;
+  const rows = [["date","company","category","product","changePct","source"]];
+  D.events.filter(e => e.companyId === id).forEach(e =>
+    rows.push([e.date, compName(id), catName(e.categoryId), e.product, e.changePct, e.source]));
+  CW.downloadCSV(rows, `cartelwatch_${id}_events.csv`);
+});
+
+render();
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
+</script>
+</body>
+</html>

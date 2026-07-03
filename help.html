@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="manifest" href="manifest.json" />
+<title>ヘルプ・FAQ — Cartel Watch</title>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#161b22; --panel2:#1c232d; --line:#2a323d;
+    --txt:#e6edf3; --muted:#9aa7b4; --accent:#58a6ff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font-family:"Segoe UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;font-size:14px;line-height:1.7}
+  header{padding:18px 22px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#11161d,#0e1116)}
+  header h1{margin:0;font-size:20px}
+  nav{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
+  nav a{font-size:12.5px;color:var(--accent);text-decoration:none;border:1px solid var(--line);
+    padding:5px 11px;border-radius:7px;background:var(--panel)}
+  .wrap{padding:18px 22px;max-width:860px;margin:0 auto}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin-bottom:18px}
+  h2{font-size:16px;margin:0 0 12px;color:var(--accent)}
+  dt{font-weight:700;margin-top:16px;cursor:default}
+  dd{margin:6px 0 0;color:var(--muted)}
+  a{color:var(--accent)}
+  code{background:var(--panel2);padding:1px 6px;border-radius:4px;font-size:12.5px}
+  footer{padding:16px 22px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--line);text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <h1>❓ ヘルプ・FAQ</h1>
+  <nav>
+    <a href="overview.html">⓪ 総合ダッシュボード</a>
+    <a href="search.html">🔎 検索</a>
+    <a href="report.html">📄 レポート出力</a>
+    <a href="methodology.html">🔬 検知ロジック</a>
+    <a href="terms.html">📜 規約</a>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <section class="panel">
+    <h2>はじめての方へ（3ステップ）</h2>
+    <dl>
+      <dt>Step 1: 総合ダッシュボードで全体を見る</dt>
+      <dd><a href="overview.html">⓪ 総合ダッシュボード</a>で、直近の同時値上げクラスターと注目業界を確認します。</dd>
+      <dt>Step 2: 気になる業界を深掘りする</dt>
+      <dd><a href="index.html">① 公表値上げの横並び</a>で業界を選ぶと、企業別の値上げタイムラインと原材料コストの参照線が重なって表示されます。「コストが動いていないのに値上げが揃う」瞬間を探してください。</dd>
+      <dt>Step 3: レポートにして共有する</dt>
+      <dd><a href="report.html">📄 レポート出力</a>で業界を選び「PDF に保存」。出典付きの資料として社内報告・交渉にそのまま使えます。</dd>
+    </dl>
+  </section>
+
+  <section class="panel">
+    <h2>機能について</h2>
+    <dl>
+      <dt>Q. ウォッチリストはどこに保存されますか？</dt>
+      <dd>お使いの端末（ブラウザの localStorage）にのみ保存されます。サーバーには送信されません。端末やブラウザを変えると引き継がれません。</dd>
+      <dt>Q. CSV エクスポートの文字化けを直したい</dt>
+      <dd>BOM 付き UTF-8 で出力しているため Excel でそのまま開けます。文字化けする場合は Excel の「データ &gt; テキストから」で UTF-8 を指定してください。</dd>
+      <dt>Q. PDF レポートの出力方法は？</dt>
+      <dd><a href="report.html">レポートページ</a>で「🖨️ PDF に保存」を押し、印刷ダイアログの送信先で「PDF に保存」を選択します。白背景の印刷用デザインに自動で切り替わります。</dd>
+      <dt>Q. スマホでも使えますか？</dt>
+      <dd>使えます。ブラウザのメニューから「ホーム画面に追加」すると、アプリのように起動できます（PWA 対応）。</dd>
+      <dt>Q. データはいつ更新されますか？</dt>
+      <dd>公正取引委員会の確定事件は毎月1日に自動更新。統計指数・値上げイベントは月次で更新します。各ページの更新日はデータの <code>meta.updated</code> に表示されます。</dd>
+    </dl>
+  </section>
+
+  <section class="panel">
+    <h2>データの見方</h2>
+    <dl>
+      <dt>Q. 「注目候補」と表示されたら、その業界はカルテルなのですか？</dt>
+      <dd>いいえ。「コスト指標の動きだけでは説明しにくい同時値上げがあった」という統計的観察であり、調査の出発点にすぎません。需要増・制度変更など正当な要因は多数あります。判定基準は<a href="methodology.html">検知ロジックの説明</a>で全公開しています。</dd>
+      <dt>Q. 「コスト乖離 +12pt」とはどういう意味ですか？</dt>
+      <dd>その業態の実売価格指数が、仕入れコストから計算した理論値より 12 ポイント高いことを意味します。乖離＝違法ではなく、需要要因・品質向上でも乖離は生じます。</dd>
+      <dt>Q. 「コスト内（割安）」とは？</dt>
+      <dd>実売価格の上昇がコスト上昇より小さい状態です。コスト転嫁が進んでいない（企業側が価格を我慢している）ことを示します。</dd>
+      <dt>Q. 値上げ率の数字はどこから来ていますか？</dt>
+      <dd>各社の公表情報（プレスリリース等）に基づく参考値です。改定率に幅がある発表は代表値を採っています。正確な検証には一次情報をご確認ください。</dd>
+      <dt>Q. 自分の会社/業界の掲載内容に誤りがある</dt>
+      <dd><a href="terms.html">利用規約 第6条</a>の異議申立て手続きに従ってご連絡ください。2営業日以内に根拠を提示し、誤認確認後1営業日以内に修正します。</dd>
+    </dl>
+  </section>
+
+  <section class="panel">
+    <h2>トラブルシューティング</h2>
+    <dl>
+      <dt>Q. 画面が古いデータのまま更新されない</dt>
+      <dd>オフライン用キャッシュ（Service Worker）が効いている可能性があります。ページを再読み込み（Ctrl+Shift+R / スーパーリロード）してください。</dd>
+      <dt>Q. グラフが表示されない</dt>
+      <dd>JavaScript が無効になっていないかご確認ください。本サービスはブラウザ内でのみ動作し、外部へデータを送信しません。</dd>
+    </dl>
+  </section>
+
+</div>
+
+<footer>Cartel Watch — 本表示は統計的観察であり、違法行為の指摘ではありません。</footer>
+<script>if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");</script>
+</body>
+</html>

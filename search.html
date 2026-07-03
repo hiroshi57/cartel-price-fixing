@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="manifest" href="manifest.json" />
+<title>検索・ウォッチリスト — Cartel Watch</title>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#161b22; --panel2:#1c232d; --line:#2a323d;
+    --txt:#e6edf3; --muted:#9aa7b4; --accent:#58a6ff;
+    --hi:#ff6b6b; --mid:#ffa657; --lo:#3fb950;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font-family:"Segoe UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;font-size:14px;line-height:1.6}
+  header{padding:18px 22px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#11161d,#0e1116)}
+  header h1{margin:0;font-size:20px}
+  header .sub{color:var(--muted);font-size:12.5px;margin-top:4px}
+  nav{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
+  nav a{font-size:12.5px;color:var(--accent);text-decoration:none;border:1px solid var(--line);
+    padding:5px 11px;border-radius:7px;background:var(--panel)}
+  nav a.active{background:var(--accent);color:#04101f;border-color:var(--accent);font-weight:700}
+  .wrap{padding:18px 22px;display:grid;gap:18px;max-width:1100px;margin:0 auto}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .panel h2{margin:0 0 12px;font-size:15px}
+  input[type=search]{width:100%;background:var(--panel2);color:var(--txt);border:1px solid var(--line);
+    border-radius:9px;padding:12px 14px;font-size:15px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:11.5px}
+  tbody tr:hover{background:#19212b}
+  .tag{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:5px;
+    padding:0 6px;font-size:11px;color:var(--muted)}
+  .muted{color:var(--muted);font-size:12px}
+  a{color:var(--accent)}
+  button{background:var(--panel2);color:var(--accent);border:1px solid var(--line);border-radius:7px;
+    padding:4px 10px;font-size:12px;cursor:pointer}
+  footer{padding:16px 22px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--line);text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <h1>🔎 検索・ウォッチリスト</h1>
+  <div class="sub">企業・業界・確定事件をフリーワードで横断検索。★でウォッチリストに登録できます。</div>
+  <nav>
+    <a href="overview.html">⓪ 総合ダッシュボード</a>
+    <a href="index.html">① 公表値上げの横並び</a>
+    <a href="cases.html">③ 確定カルテル事件</a>
+    <a href="search.html" class="active">🔎 検索</a>
+    <a href="report.html">📄 レポート出力</a>
+  </nav>
+</header>
+
+<div class="wrap">
+  <section class="panel">
+    <input type="search" id="q" placeholder="例: 明治 / アイス / 段ボール / 入札 …" autofocus />
+    <p class="muted" id="stats"></p>
+  </section>
+
+  <section class="panel">
+    <h2>⭐ ウォッチリスト <span class="tag">この端末に保存</span></h2>
+    <div id="watchlist"></div>
+  </section>
+
+  <section class="panel">
+    <h2>🏢 企業</h2>
+    <div id="r-comp"></div>
+  </section>
+
+  <section class="panel">
+    <h2>🏭 業界カテゴリ</h2>
+    <div id="r-cat"></div>
+  </section>
+
+  <section class="panel">
+    <h2>🏛️ 確定事件（公正取引委員会 公表）</h2>
+    <div id="r-case"></div>
+  </section>
+</div>
+
+<footer>Cartel Watch — 本表示は統計的観察であり、違法行為の指摘ではありません。</footer>
+
+<script src="data.js"></script>
+<script src="cases-data.js"></script>
+<script src="watchlist.js"></script>
+<script>
+"use strict";
+const D = window.CARTEL_DATA, CASES = window.JFTC_CASES || [];
+const $ = s => document.querySelector(s);
+const norm = s => (s || "").toLowerCase();
+
+function starBtn(type, id, name) {
+  const on = CW.has(type, id);
+  return `<button onclick="CW.toggle('${type}','${id}','${name.replace(/'/g,"")}');renderAll()">${on ? "★" : "☆"}</button>`;
+}
+
+function renderWatchlist() {
+  const list = CW.all();
+  if (!list.length) { $("#watchlist").innerHTML = '<p class="muted">未登録です。検索結果の ☆ で登録すると、ここに表示されます。</p>'; return; }
+  $("#watchlist").innerHTML = `<table><thead><tr><th></th><th>種類</th><th>名前</th><th>登録日</th><th>リンク</th></tr></thead><tbody>${
+    list.map(w => `<tr>
+      <td><button onclick="CW.remove('${w.type}','${w.id}');renderAll()">✕</button></td>
+      <td><span class="tag">${w.type === "company" ? "企業" : "業界"}</span></td>
+      <td>${w.name}</td><td class="muted">${w.added}</td>
+      <td>${w.type === "company"
+        ? `<a href="company.html#${w.id}">企業ページ →</a>`
+        : `<a href="index.html">タイムライン →</a> / <a href="report.html#${w.id}">レポート →</a>`}</td>
+    </tr>`).join("")}</tbody></table>`;
+}
+
+function renderSearch() {
+  const q = norm($("#q").value.trim());
+  const compEvts = id => D.events.filter(e => e.companyId === id).length;
+
+  /* 企業 */
+  const comps = q ? D.companies.filter(c => norm(c.name).includes(q) || c.id.includes(q)) : D.companies.slice(0, 8);
+  $("#r-comp").innerHTML = comps.length
+    ? `<table><tbody>${comps.map(c => `<tr>
+        <td style="width:36px">${starBtn("company", c.id, c.name)}</td>
+        <td><a href="company.html#${c.id}">${c.name}</a></td>
+        <td class="muted">値上げイベント ${compEvts(c.id)}件</td></tr>`).join("")}</tbody></table>`
+    : '<p class="muted">該当なし</p>';
+
+  /* 業界カテゴリ */
+  const cats = q ? D.categories.filter(c => norm(c.name).includes(q) || c.id.includes(q)) : D.categories;
+  $("#r-cat").innerHTML = cats.length
+    ? `<table><tbody>${cats.map(c => `<tr>
+        <td style="width:36px">${starBtn("category", c.id, c.name)}</td>
+        <td>${c.name}</td>
+        <td class="muted">${D.events.filter(e => e.categoryId === c.id).length}件のイベント</td>
+        <td><a href="report.html#${c.id}">レポート →</a></td></tr>`).join("")}</tbody></table>`
+    : '<p class="muted">該当なし</p>';
+
+  /* 確定事件 */
+  const hits = q ? CASES.filter(c => norm(
+      (c.name||c.title||"") + " " + (c.industry||"") + " " + (c.kind||"") + " " +
+      (c.act||"") + " " + ((c.companies||[]).join(" "))
+    ).includes(q)) : [];
+  $("#r-case").innerHTML = q
+    ? (hits.length
+        ? `<table><thead><tr><th>公表日</th><th>事件</th></tr></thead><tbody>${
+            hits.slice(0, 20).map(c => `<tr><td style="white-space:nowrap">${c.date}</td><td>${c.name||c.title}</td></tr>`).join("")
+          }</tbody></table>${hits.length > 20 ? `<p class="muted">ほか ${hits.length-20}件 — <a href="cases.html">③で絞り込み →</a></p>` : ""}`
+        : '<p class="muted">該当なし</p>')
+    : '<p class="muted">キーワードを入力すると検索されます（例: 段ボール, 入札, 医薬品）</p>';
+
+  $("#stats").textContent = q
+    ? `「${$("#q").value}」: 企業 ${comps.length}件 / 業界 ${cats.length}件 / 確定事件 ${hits.length}件`
+    : `収録: 企業 ${D.companies.length}社 / 業界 ${D.categories.length}カテゴリ / 確定事件 ${CASES.length}件`;
+}
+
+function renderAll(){ renderWatchlist(); renderSearch(); }
+$("#q").addEventListener("input", renderSearch);
+renderAll();
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
+</script>
+</body>
+</html>

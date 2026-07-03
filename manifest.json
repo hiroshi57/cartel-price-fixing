@@ -1,0 +1,13 @@
+{
+  "name": "Cartel Watch — 横並び値上げ監視ダッシュボード",
+  "short_name": "Cartel Watch",
+  "description": "公式統計と一次情報で、業界の同時値上げとコスト乖離を継続監視する価格インテリジェンス",
+  "start_url": "/overview.html",
+  "display": "standalone",
+  "background_color": "#0e1116",
+  "theme_color": "#0e1116",
+  "lang": "ja",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
