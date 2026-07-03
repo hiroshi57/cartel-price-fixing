@@ -61,7 +61,7 @@
 
 - [ ] **T021** 🔴 e-Stat API キー取得と `scripts/fetch_estat.py` の本稼働（手入力値の自動更新化） ⏳ **準備完了**: スクリプト実装済 — e-Stat APIキー登録が要人間
 - [x] **T022** 🔴 JFTC 事例の自動更新パイプライン（`update-cases.yml`）の安定稼働確認と失敗時通知 ✅ **完了 2026-07-02**: .github/workflows/update-cases.yml に検証+失敗時Issue起票を追加
-- [ ] **T023** 🔴 全データに出典 URL・取得日・信頼度ラベル（公式統計/参考値）を付与するスキーマ拡張
+- [x] **T023** 🔴 全データに出典 URL・取得日・信頼度ラベル（公式統計/参考値）を付与するスキーマ拡張 ✅ **完了 2026-07-02**: data.js meta.provenance に信頼度3段階（verified/official-derived/estimate）と出所を宣言。validate_data.jsで検証。出典URL単位はT024で継続
 - [ ] **T024** 🔴 値上げイベントの一次情報リンク化（各社プレスリリース URL を events[] に追加）
 - [x] **T025** 🔴 データ検証 CI の追加（basket 合計=1.0、series 長さ一致、日付昇順の自動チェック） ✅ **完了 2026-07-02**: .github/workflows/validate.yml + scripts/validate_data.js
 - [ ] **T026** 🟡 static JS から JSON API / DB（PostgreSQL or SQLite）への移行設計

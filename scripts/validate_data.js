@@ -24,6 +24,19 @@ const w = loadWindowJs("data.js");
 const D = w.CARTEL_DATA;
 if (!D) { console.error("❌ CARTEL_DATA が定義されていません"); process.exit(1); }
 
+// 0. provenance（データ出所・信頼度）が宣言されているか
+if (!D.meta || !D.meta.provenance) {
+  warns.push("meta.provenance が未定義（データ信頼度の開示を推奨）");
+} else {
+  const VALID_CONF = new Set(["verified", "official-derived", "estimate"]);
+  for (const [k, v] of Object.entries(D.meta.provenance)) {
+    if (k === "note") continue;
+    if (!v.confidence || !VALID_CONF.has(v.confidence))
+      errors.push(`meta.provenance[${k}] の confidence が不正: ${v.confidence}`);
+    if (!v.source) warns.push(`meta.provenance[${k}] の source 未記載`);
+  }
+}
+
 const DATE_RE = /^\d{4}-(0[1-9]|1[0-2])$/;
 
 // 1. commodities: 日付形式・昇順・index>0

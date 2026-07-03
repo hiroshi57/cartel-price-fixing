@@ -30,10 +30,22 @@
 
 window.CARTEL_DATA = {
   meta: {
-    version: "0.2.0",
-    updated: "2026-07-01",
+    version: "0.3.0",
+    updated: "2026-07-03",
     disclaimer:
-      "コスト指標は農水省・日銀・総務省・ICE先物等の公式統計に基づく実データ（100=2021-04基準）。値上げ率は各社公表資料の参考値。横並び値上げは協調の『候補』であり違法の証拠ではない。",
+      "指数は公的統計の公表傾向に基づく参考値（100=2021-04基準）。一次ソースから機械取得・照合した検証済みデータではない（データ出所は provenance を参照）。値上げ率は各社公表資料の参考値。横並び値上げは協調の『候補』であり違法の証拠ではない。",
+    // ── データ出所と信頼度（正直な自己申告）──
+    // "verified"  = 一次ソースから取得・照合済み（現状: JFTC確定事件のみ）
+    // "official-derived" = 公的統計の公表値・改定傾向に基づく指数化（数値は概ね妥当だが機械照合は未実施）
+    // "estimate"  = 公開報道・各社公表を元にした推定参考値
+    provenance: {
+      note: "正式な検証済みデータへの置換には e-Stat API キー登録（T021）が必要。手順は docs/ops/runbook.md 参照。",
+      cases:       { confidence: "verified",         source: "公正取引委員会 法的措置一覧（月次自動取得）" },
+      commodities: { confidence: "official-derived", source: "農水省/日銀CGPI/ICE先物 の公表傾向を指数化（機械照合は未実施）" },
+      inputs:      { confidence: "official-derived", source: "総務省CPI/日銀PPI/厚労省最賃 の公表傾向を指数化（機械照合は未実施）" },
+      actual:      { confidence: "official-derived", source: "総務省CPI 各品目 の公表傾向を指数化（e-Stat API 取得で検証予定）" },
+      events:      { confidence: "estimate",         source: "各社プレスリリース・公開報道に基づく参考値（率は代表値、一次URL付与は T024 で対応予定）" },
+    },
   },
 
   /* 原材料コスト指標（簡易インデックス, 100 = 基準）。

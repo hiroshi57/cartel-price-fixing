@@ -121,17 +121,29 @@
   </section>
 
   <section class="panel">
-    <h2>6. 既知の限界（正直に書きます）</h2>
+    <h2>6. データの検証状況（正直に開示します）</h2>
+    <p>本サービスのデータは、信頼度に応じて3段階に分類しています（各データの <code>meta.provenance</code> に記載）。</p>
+    <table>
+      <tr><th>区分</th><th>信頼度</th><th>対象</th><th>意味</th></tr>
+      <tr><td>確定事件</td><td><span class="badge b-lo">検証済み</span></td><td>公取委の法的措置一覧</td><td>一次ソースから機械取得・照合済み（月次自動更新）</td></tr>
+      <tr><td>コスト指標・実売価格</td><td><span class="badge b-mid">公的統計ベース</span></td><td>農水省/日銀/総務省 の指数</td><td>公的統計の公表傾向に基づく指数化。<strong>数値の機械照合は未実施</strong>（e-Stat API 取得で検証予定）</td></tr>
+      <tr><td>値上げイベント</td><td><span class="badge b-hi">推定参考値</span></td><td>各社の値上げ時期・率</td><td>公開報道・各社公表に基づく推定。率は代表値で、一次情報の確認が必要</td></tr>
+    </table>
+    <p class="muted">つまり、現時点で「検証済み」といえるのは公正取引委員会の確定事件データのみです。コスト指数・値上げ率は妥当性を重視した参考値であり、精密な検証には一次情報の照合が必要です。この透明性こそが本サービスの信頼性の基礎だと考えています。</p>
+  </section>
+
+  <section class="panel">
+    <h2>7. 既知の限界</h2>
     <ul>
       <li>値上げイベントの収録は網羅的ではありません（公表ベース・主要企業中心）。</li>
       <li>コスト構成比は業態平均の推定であり、個社の実態とは異なります。</li>
       <li>需要側の要因（ブーム・観光需要など）はモデルに含まれていません。</li>
       <li>「高スコア = カルテル」ではありません。過去の摘発事例でも、外形だけからの推定精度には限界があります。</li>
     </ul>
-    <p class="muted">ロジックへの指摘・改善提案は歓迎します（GitHub Issue へ）。</p>
+    <p class="muted">ロジック・データへの指摘・改善提案は歓迎します（GitHub Issue へ）。</p>
   </section>
 
-  <p class="muted">最終更新: 2026-07-02 / データ出典の一覧は <a href="terms.html" style="color:var(--accent)">利用規約 第3条</a> を参照。</p>
+  <p class="muted">最終更新: 2026-07-03 / データ出典の一覧は <a href="terms.html" style="color:var(--accent)">利用規約 第3条</a> を参照。</p>
 </div>
 
 <footer>
