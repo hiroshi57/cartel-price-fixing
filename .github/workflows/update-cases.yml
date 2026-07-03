@@ -63,7 +63,7 @@ jobs:
       # 失敗時: GitHub Issue を自動起票して気づけるようにする (T022)
       - name: Notify failure via GitHub Issue
         if: ${{ failure() }}
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const title = `🚨 JFTC 月次データ更新が失敗 (${new Date().toISOString().slice(0,10)})`;
