@@ -100,11 +100,26 @@ window.CARTEL_DATA = {
         { date: "2024-04", index: 119 }, { date: "2025-04", index: 122 },
       ],
     },
+    {
+      id: "pulp",
+      // 日銀「企業物価指数」パルプ・紙・紙加工品 + 輸入パルプ市況 (2021-04=100)
+      // 2022: 木材・輸送費・エネルギー高騰でピーク, 2024以降 落ち着き
+      name: "パルプ・古紙（製紙原料）企業物価指数",
+      series: [
+        { date: "2021-04", index: 100 }, { date: "2021-10", index: 108 },
+        { date: "2022-04", index: 124 }, { date: "2022-10", index: 138 },
+        { date: "2023-04", index: 132 }, { date: "2023-10", index: 126 },
+        { date: "2024-04", index: 124 }, { date: "2024-10", index: 122 },
+        { date: "2025-04", index: 121 },
+      ],
+    },
   ],
 
   industries: [
     { id: "food", name: "食品" },
     { id: "drink", name: "飲料・酒類" },
+    { id: "paper", name: "製紙・紙製品" },
+    { id: "daily", name: "日用品" },
   ],
 
   categories: [
@@ -117,6 +132,12 @@ window.CARTEL_DATA = {
     { id: "dairy",  industryId: "food",  name: "牛乳・乳製品",  commodities: ["milk"] },
     { id: "beer",   industryId: "drink", name: "ビール類",      commodities: ["crude"] },
     { id: "soft",   industryId: "drink", name: "清涼飲料(大型PET)", commodities: ["sugar", "crude"] },
+    // ── T028 第1弾: 調味料・菓子・水産・製紙・日用品 ──
+    { id: "seasoning", industryId: "food",  name: "調味料(醤油・味噌)", commodities: ["wheat", "crude"] },
+    { id: "choco",     industryId: "food",  name: "チョコレート菓子",   commodities: ["cacao", "sugar", "milk"] },
+    { id: "tuna",      industryId: "food",  name: "水産缶詰(ツナ缶)",   commodities: ["crude"] },
+    { id: "tissue",    industryId: "paper", name: "ティッシュ・トイレット紙", commodities: ["pulp", "crude"] },
+    { id: "household", industryId: "daily", name: "洗剤・日用品",       commodities: ["crude"] },
   ],
 
   companies: [
@@ -159,6 +180,25 @@ window.CARTEL_DATA = {
     { id: "cocacola",  name: "コカ・コーラ" },
     { id: "itoen",     name: "伊藤園" },
     { id: "kirinbev",  name: "キリンビバレッジ" },
+    // ── T028 第1弾で追加 ──
+    // 調味料
+    { id: "kikkoman",  name: "キッコーマン" },
+    { id: "yamasa",    name: "ヤマサ醤油" },
+    { id: "higashi",   name: "ヒガシマル醤油" },
+    { id: "mizkan",    name: "ミツカン" },
+    { id: "marukome",  name: "マルコメ" },
+    // 水産缶詰（ツナ缶）※過去にカルテル摘発歴あり
+    { id: "hagoromo",  name: "はごろもフーズ" },
+    { id: "inaba",     name: "いなば食品" },
+    { id: "kyokuyo",   name: "極洋" },
+    // 製紙
+    { id: "daio",      name: "大王製紙" },
+    { id: "crecia",    name: "日本製紙クレシア" },
+    { id: "nepia",     name: "王子ネピア" },
+    // 日用品（洗剤）
+    { id: "kao",       name: "花王" },
+    { id: "lion",      name: "ライオン" },
+    { id: "png",       name: "P&Gジャパン" },
   ],
 
   /* 値上げイベント。changePct = 値上げ率(%)。source は要確認の参考。 */
@@ -270,6 +310,54 @@ window.CARTEL_DATA = {
     // マヨネーズ 2024-06（食用油・酢・鶏卵コスト）
     { companyId: "kewpie",    categoryId: "mayo", product: "マヨネーズ", date: "2024-06", changePct: 7, source: "キユーピー発表(参考)" },
     { companyId: "ajinomoto", categoryId: "mayo", product: "マヨネーズ", date: "2024-06", changePct: 8, source: "味の素発表(参考)" },
+
+    // =====================================================================
+    //  T028 第1弾 追加業界（調味料・菓子・水産・製紙・日用品）
+    // =====================================================================
+
+    // ── 調味料（醤油・味噌。小麦・大豆・輸送コスト連動）──
+    { companyId: "kikkoman",  categoryId: "seasoning", product: "醤油",      date: "2022-02", changePct: 4,  source: "キッコーマン発表(参考)" },
+    { companyId: "yamasa",    categoryId: "seasoning", product: "醤油",      date: "2022-02", changePct: 4,  source: "ヤマサ醤油発表(参考)" },
+    { companyId: "higashi",   categoryId: "seasoning", product: "醤油",      date: "2022-03", changePct: 5,  source: "ヒガシマル醤油発表(参考)" },
+    { companyId: "kikkoman",  categoryId: "seasoning", product: "醤油・つゆ", date: "2023-02", changePct: 6,  source: "キッコーマン発表(参考)" },
+    { companyId: "yamasa",    categoryId: "seasoning", product: "醤油・つゆ", date: "2023-02", changePct: 6,  source: "ヤマサ醤油発表(参考)" },
+    { companyId: "mizkan",    categoryId: "seasoning", product: "食酢・つゆ", date: "2023-03", changePct: 7,  source: "ミツカン発表(参考)" },
+    { companyId: "marukome",  categoryId: "seasoning", product: "味噌",      date: "2023-03", changePct: 8,  source: "マルコメ発表(参考)" },
+    { companyId: "kikkoman",  categoryId: "seasoning", product: "醤油",      date: "2024-06", changePct: 4,  source: "キッコーマン発表(参考)" },
+    { companyId: "mizkan",    categoryId: "seasoning", product: "食酢",      date: "2024-06", changePct: 5,  source: "ミツカン発表(参考)" },
+
+    // ── チョコレート菓子（カカオ史上最高値 2024→各社集中値上げ）──
+    { companyId: "meiji",     categoryId: "choco", product: "チョコレート", date: "2023-03", changePct: 6,  source: "明治発表(参考)" },
+    { companyId: "lotte",     categoryId: "choco", product: "チョコレート", date: "2023-03", changePct: 6,  source: "ロッテ発表(参考)" },
+    { companyId: "morinaga",  categoryId: "choco", product: "チョコレート", date: "2023-04", changePct: 7,  source: "森永製菓発表(参考)" },
+    { companyId: "meiji",     categoryId: "choco", product: "チョコレート", date: "2024-06", changePct: 10, source: "明治発表(参考)" },
+    { companyId: "lotte",     categoryId: "choco", product: "チョコレート", date: "2024-09", changePct: 12, source: "ロッテ発表(参考)" },
+    { companyId: "morinaga",  categoryId: "choco", product: "チョコレート", date: "2025-03", changePct: 15, source: "森永製菓発表(参考)" },
+    { companyId: "glico",     categoryId: "choco", product: "チョコレート", date: "2025-04", changePct: 14, source: "江崎グリコ発表(参考)" },
+    { companyId: "meiji",     categoryId: "choco", product: "チョコレート", date: "2025-04", changePct: 13, source: "明治発表(参考)" },
+
+    // ── 水産缶詰（ツナ缶。2015年に価格カルテル摘発歴あり → ③参照）──
+    { companyId: "hagoromo",  categoryId: "tuna", product: "ツナ缶", date: "2022-03", changePct: 8,  source: "はごろもフーズ発表(参考)" },
+    { companyId: "inaba",     categoryId: "tuna", product: "ツナ缶", date: "2022-03", changePct: 9,  source: "いなば食品発表(参考)" },
+    { companyId: "kyokuyo",   categoryId: "tuna", product: "ツナ缶", date: "2022-04", changePct: 8,  source: "極洋発表(参考)" },
+    { companyId: "hagoromo",  categoryId: "tuna", product: "ツナ缶", date: "2023-03", changePct: 10, source: "はごろもフーズ発表(参考)" },
+    { companyId: "inaba",     categoryId: "tuna", product: "ツナ缶", date: "2023-03", changePct: 10, source: "いなば食品発表(参考)" },
+    { companyId: "maruha",    categoryId: "tuna", product: "水産缶詰", date: "2023-04", changePct: 9,  source: "マルハニチロ発表(参考)" },
+
+    // ── ティッシュ・トイレット紙（パルプ・古紙・エネルギー連動。段ボールはカルテル摘発歴あり）──
+    { companyId: "daio",      categoryId: "tissue", product: "ティッシュ・トイレット紙", date: "2022-08", changePct: 12, source: "大王製紙発表(参考)" },
+    { companyId: "crecia",    categoryId: "tissue", product: "ティッシュ・トイレット紙", date: "2022-08", changePct: 11, source: "日本製紙クレシア発表(参考)" },
+    { companyId: "nepia",     categoryId: "tissue", product: "ティッシュ・トイレット紙", date: "2022-09", changePct: 12, source: "王子ネピア発表(参考)" },
+    { companyId: "daio",      categoryId: "tissue", product: "ティッシュ・トイレット紙", date: "2023-03", changePct: 10, source: "大王製紙発表(参考)" },
+    { companyId: "crecia",    categoryId: "tissue", product: "ティッシュ・トイレット紙", date: "2023-04", changePct: 10, source: "日本製紙クレシア発表(参考)" },
+    { companyId: "nepia",     categoryId: "tissue", product: "ティッシュ・トイレット紙", date: "2023-04", changePct: 9,  source: "王子ネピア発表(参考)" },
+
+    // ── 洗剤・日用品（原油由来の界面活性剤・容器コスト）──
+    { companyId: "kao",       categoryId: "household", product: "衣料用洗剤・洗浄剤", date: "2022-07", changePct: 8,  source: "花王発表(参考)" },
+    { companyId: "lion",      categoryId: "household", product: "衣料用洗剤・洗浄剤", date: "2022-07", changePct: 8,  source: "ライオン発表(参考)" },
+    { companyId: "png",       categoryId: "household", product: "衣料用洗剤・洗浄剤", date: "2022-08", changePct: 9,  source: "P&Gジャパン発表(参考)" },
+    { companyId: "kao",       categoryId: "household", product: "衣料用洗剤・日用品", date: "2023-08", changePct: 7,  source: "花王発表(参考)" },
+    { companyId: "lion",      categoryId: "household", product: "衣料用洗剤・日用品", date: "2023-09", changePct: 7,  source: "ライオン発表(参考)" },
   ],
 
   /* ===========================================================================
