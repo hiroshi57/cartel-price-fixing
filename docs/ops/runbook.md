@@ -23,12 +23,28 @@
 | milk | 農水省「生乳生産者価格」 | 農水省 牛乳乳製品統計 |
 | inputs / actual（CPI 系） | 総務省 CPI | **e-Stat API**（T021・下記） |
 
-### e-Stat 自動取得（T021 稼働後）
+### 一次CSV 直接取得（推奨・APIキー不要）✅ 2026-07-06 稼働
+
+総務省・日銀は固定URLで一次CSVを公開しており、APIキーなしで機械取得できる。
 
 ```bash
-# APIキーを環境変数にセットして実行
-ESTAT_API_KEY=xxxx python3 scripts/fetch_estat.py           # 取得のみ → scripts/estat_actual.json
-ESTAT_API_KEY=xxxx python3 scripts/fetch_estat.py --apply   # data.js の actual[] を直接更新（data.js.bak を自動生成）
+cd sources/primary
+# 1. 総務省 CPI 品目別 月次（全国・2020基準）
+curl -A "Mozilla/5.0" -o cpi_zmi2020aa.csv "https://www.stat.go.jp/data/cpi/2020/csv/zmi2020aa.csv"
+# 2. 日銀 企業物価指数(CGPI) / 企業向けサービス価格指数(SPPI) 一括DL
+curl -A "Mozilla/5.0" -o cgpi_m_jp.zip "https://www.stat-search.boj.or.jp/info/cgpi_m_jp.zip"
+curl -A "Mozilla/5.0" -o sppi_m_jp.zip "https://www.stat-search.boj.or.jp/info/sppi_m_jp.zip"
+unzip -o cgpi_m_jp.zip -d cgpi && unzip -o sppi_m_jp.zip -d sppi
+cd ../..
+# 3. 検証済み系列を生成して data.js に反映（31系列）
+python3 scripts/build_verified.py           # 比較表示のみ
+python3 scripts/build_verified.py --apply   # data.js を更新（data.js.bak を自動生成）
+```
+
+### e-Stat 自動取得（代替手段・T021）
+
+```bash
+ESTAT_API_KEY=xxxx python3 scripts/fetch_estat.py --apply
 ```
 
 更新後は必ず検証（下記「共通: 反映前チェック」）。

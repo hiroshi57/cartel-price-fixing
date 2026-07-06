@@ -2,11 +2,15 @@
 timesfm/
 
 # Vercel
-.vercel
 .vercel/
 
 # 取得した一次情報の生HTML（再取得: bash sources/fetch.sh）
 sources/raw/
+
+# 一次統計の解凍フォルダ（原本 zip から再生成: unzip sources/primary/*.zip）
+sources/primary/cgpi/
+sources/primary/sppi/
+sources/primary/cpi_mid_utf8.csv
 
 # 本プロジェクト外（既存のスキル定義）
 Skills/
@@ -16,5 +20,6 @@ __pycache__/
 *.pyc
 node_modules/
 
-# バックグラウンドタスクのログ
+# バックアップ・ログ
+data.js.bak
 *.output
