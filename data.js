@@ -62,7 +62,8 @@ window.CARTEL_DATA = {
         { date: "2022-04", index: 130 }, { date: "2022-10", index: 138 },
         { date: "2023-04", index: 126 }, { date: "2023-10", index: 112 },
         { date: "2024-04", index: 112 }, { date: "2024-10", index: 107 },
-        { date: "2025-04", index: 102 },
+        { date: "2025-04", index: 102 }, { date: "2025-10", index: 101 },
+        { date: "2026-04", index: 100 },
       ],
     },
     {
