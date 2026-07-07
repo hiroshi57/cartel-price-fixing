@@ -64,8 +64,12 @@ ESTAT_API_KEY=xxxx python3 scripts/fetch_estat.py --apply
 
 ```bash
 node -c data.js                    # 構文チェック
+node scripts/build_forecast.js     # 異常検知・予測を data.js から再生成（forecast-data.js 上書き）
 node scripts/validate_data.js      # 整合性チェック（basket合計=1.0, 参照整合, series長さ, 日付昇順）
 ```
+
+> **重要**: data.js の系列を変更したら必ず `build_forecast.js` を再実行すること。
+> 忘れると overview の異常検知パネルが古いデータ基準のまま表示される。
 
 - ✅ 「検証成功」を確認してからコミット
 - ❌ ERROR が出たら該当箇所を修正（push すると validate.yml CI でも再チェックされる）

@@ -111,6 +111,8 @@
     <strong>複数の系列が同じ月に異常を示した場合</strong>にクラスターとして表示します。</p>
     <p>単一系列の異常は市況変動で頻繁に起きますが、独立なはずの複数系列が同月に動くのは相対的に稀であり、
     共通ショック（為替・災害・制度改定）か協調のどちらかを疑う出発点になります。</p>
+    <p class="muted">実装: <code>scripts/build_forecast.js</code>（データ更新のたびに再生成。手法・コードとも全公開）。
+    予測上限は「直前値 ×（1 + 過去変化率の90%分位）」で算出し、これを実測が超えた点を★上振れとします。</p>
   </section>
 
   <section class="panel">
@@ -122,14 +124,17 @@
 
   <section class="panel">
     <h2>6. データの検証状況（正直に開示します）</h2>
-    <p>本サービスのデータは、信頼度に応じて3段階に分類しています（各データの <code>meta.provenance</code> に記載）。</p>
+    <p>本サービスのデータは、信頼度に応じて3段階に分類しています（各データの <code>meta.provenance</code> に記載）。
+    2026-07-06 に総務省CPI品目別CSV・日銀CGPI/SPPI一括CSVの<strong>一次ファイルから31系列を機械取得</strong>し、大半の指数が検証済みになりました。</p>
     <table>
       <tr><th>区分</th><th>信頼度</th><th>対象</th><th>意味</th></tr>
-      <tr><td>確定事件</td><td><span class="badge b-lo">検証済み</span></td><td>公取委の法的措置一覧</td><td>一次ソースから機械取得・照合済み（月次自動更新）</td></tr>
-      <tr><td>コスト指標・実売価格</td><td><span class="badge b-mid">公的統計ベース</span></td><td>農水省/日銀/総務省 の指数</td><td>公的統計の公表傾向に基づく指数化。<strong>数値の機械照合は未実施</strong>（e-Stat API 取得で検証予定）</td></tr>
+      <tr><td>確定事件</td><td><span class="badge b-lo">検証済み</span></td><td>公取委の法的措置一覧 76件</td><td>一次ソースから機械取得・照合済み（月次自動更新）</td></tr>
+      <tr><td>実売価格指数</td><td><span class="badge b-lo">検証済み</span></td><td>12/13業態</td><td>総務省CPI・日銀SPPIの一次CSVから機械取得（reform のみ推定）</td></tr>
+      <tr><td>仕入れコスト指数</td><td><span class="badge b-lo">検証済み</span></td><td>17/21系列 + 制度実値2系列</td><td>CPI/CGPI/SPPI 一次CSVから機械取得。labor=最低賃金・finance=短プラは制度公表値。misc/textbook のみ推定</td></tr>
+      <tr><td>商品コスト指標</td><td><span class="badge b-mid">一部検証済み</span></td><td>石油・パルプ=検証済み / 小麦・生乳=公表値 / 砂糖・カカオ=参考指数</td><td>砂糖・カカオは国際先物ベースの参考値（財務省貿易統計への移行を予定）</td></tr>
       <tr><td>値上げイベント</td><td><span class="badge b-hi">推定参考値</span></td><td>各社の値上げ時期・率</td><td>公開報道・各社公表に基づく推定。率は代表値で、一次情報の確認が必要</td></tr>
     </table>
-    <p class="muted">つまり、現時点で「検証済み」といえるのは公正取引委員会の確定事件データのみです。コスト指数・値上げ率は妥当性を重視した参考値であり、精密な検証には一次情報の照合が必要です。この透明性こそが本サービスの信頼性の基礎だと考えています。</p>
+    <p class="muted">取得・変換の全過程はコードで公開しています（<code>scripts/build_verified.py</code>）。生の一次CSVもリポジトリに保存しており（<code>sources/primary/</code>）、誰でも数値を再現・検証できます。残る非検証データ（値上げ率など）も出所を明記しています。この透明性こそが本サービスの信頼性の基礎だと考えています。</p>
   </section>
 
   <section class="panel">
@@ -143,7 +148,7 @@
     <p class="muted">ロジック・データへの指摘・改善提案は歓迎します（GitHub Issue へ）。</p>
   </section>
 
-  <p class="muted">最終更新: 2026-07-03 / データ出典の一覧は <a href="terms.html" style="color:var(--accent)">利用規約 第3条</a> を参照。</p>
+  <p class="muted">最終更新: 2026-07-06 / データ出典の一覧は <a href="terms.html" style="color:var(--accent)">利用規約 第3条</a> を参照。</p>
 </div>
 
 <footer>
