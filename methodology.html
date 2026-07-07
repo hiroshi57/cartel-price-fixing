@@ -131,7 +131,7 @@
       <tr><td>確定事件</td><td><span class="badge b-lo">検証済み</span></td><td>公取委の法的措置一覧 76件</td><td>一次ソースから機械取得・照合済み（月次自動更新）</td></tr>
       <tr><td>実売価格指数</td><td><span class="badge b-lo">検証済み</span></td><td>12/13業態</td><td>総務省CPI・日銀SPPIの一次CSVから機械取得（reform のみ推定）</td></tr>
       <tr><td>仕入れコスト指数</td><td><span class="badge b-lo">検証済み</span></td><td>17/21系列 + 制度実値2系列</td><td>CPI/CGPI/SPPI 一次CSVから機械取得。labor=最低賃金・finance=短プラは制度公表値。misc/textbook のみ推定</td></tr>
-      <tr><td>商品コスト指標</td><td><span class="badge b-mid">一部検証済み</span></td><td>石油・パルプ=検証済み / 小麦・生乳=公表値 / 砂糖・カカオ=参考指数</td><td>砂糖・カカオは国際先物ベースの参考値（財務省貿易統計への移行を予定）</td></tr>
+      <tr><td>商品コスト指標</td><td><span class="badge b-lo">検証済み</span></td><td>6系列中5系列（石油・パルプ・砂糖・カカオ・生乳）</td><td>日銀CGPIの一次CSVから機械取得。砂糖・カカオは輸入物価指数(円ベース)へ移行しICE先物依存を解消。小麦のみ農水省公表値</td></tr>
       <tr><td>値上げイベント</td><td><span class="badge b-hi">推定参考値</span></td><td>各社の値上げ時期・率</td><td>公開報道・各社公表に基づく推定。率は代表値で、一次情報の確認が必要</td></tr>
     </table>
     <p class="muted">取得・変換の全過程はコードで公開しています（<code>scripts/build_verified.py</code>）。生の一次CSVもリポジトリに保存しており（<code>sources/primary/</code>）、誰でも数値を再現・検証できます。残る非検証データ（値上げ率など）も出所を明記しています。この透明性こそが本サービスの信頼性の基礎だと考えています。</p>

@@ -161,6 +161,10 @@ def build():
     # ---- 商品コスト commodities ----
     boj_item("commodity.crude", "cgpi", "PRCG20_2200620001", "石油・石炭製品(類別)")
     boj_item("commodity.pulp",  "cgpi", "PRCG20_2200420001", "パルプ・紙・同製品(類別)")
+    # ICEライセンス問題の恒久対応(T016): 日銀 輸入物価指数(円ベース)へ移行
+    boj_item("commodity.sugar", "cgpi", "PRCG20_2600150007", "粗糖 輸入物価指数(円ベース)")
+    boj_item("commodity.cacao", "cgpi", "PRCG20_2600150025", "コーヒー豆・カカオ豆 輸入物価指数(円ベース)")
+    boj_item("commodity.milk",  "cgpi", "PRCG20_2202050005", "原乳(国内企業物価・品目)")
 
     return out
 
