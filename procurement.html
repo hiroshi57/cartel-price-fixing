@@ -4,77 +4,22 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Cartel Watch — 仕入れコスト構造 / 見えない値上げ分析</title>
+<link rel="stylesheet" href="theme.css" />
 <style>
-  :root{
-    --bg:#0e1116; --panel:#161b22; --panel2:#1c232d; --line:#2a323d;
-    --txt:#e6edf3; --muted:#9aa7b4; --accent:#58a6ff;
-    --hi:#ff6b6b; --mid:#ffa657; --lo:#3fb950; --cost:#a371f7; --gap:#ff6b6b;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--txt);
-    font-family:"Segoe UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;font-size:14px;line-height:1.5}
-  header{padding:18px 22px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#11161d,#0e1116)}
-  header h1{margin:0;font-size:20px}
-  header .sub{color:var(--muted);font-size:12.5px;margin-top:4px}
-  nav{margin-top:10px;display:flex;gap:10px}
-  nav a{font-size:12.5px;color:var(--accent);text-decoration:none;border:1px solid var(--line);
-    padding:5px 11px;border-radius:7px;background:var(--panel)}
-  nav a.active{background:var(--accent);color:#04101f;border-color:var(--accent);font-weight:700}
-  .disclaimer{margin:10px 22px 0;padding:8px 12px;border:1px solid #5a3a1a;background:#26190d;
-    color:#ffce99;border-radius:8px;font-size:12px}
-  .wrap{padding:18px 22px;display:grid;gap:18px;max-width:1320px;margin:0 auto}
-  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
-  .panel h2{margin:0 0 6px;font-size:15px}
-  .panel .hint{color:var(--muted);font-size:12px;margin:0 0 12px}
-  .controls{display:flex;flex-wrap:wrap;gap:14px;align-items:end;margin-bottom:12px}
-  .ctrl{display:flex;flex-direction:column;gap:4px}
-  .ctrl label{font-size:11.5px;color:var(--muted)}
-  select{background:var(--panel2);color:var(--txt);border:1px solid var(--line);border-radius:7px;padding:7px 9px;font-size:13px}
-  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
-  .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
-  .kpi .v{font-size:24px;font-weight:700}
-  .kpi .l{font-size:11.5px;color:var(--muted);margin-top:2px}
-  .kpi .badge{font-size:11px;margin-top:6px;display:inline-block}
-  .badge{padding:2px 9px;border-radius:999px;font-weight:700}
-  .b-hi{background:rgba(255,107,107,.16);color:var(--hi);border:1px solid rgba(255,107,107,.4)}
-  .b-mid{background:rgba(255,166,87,.16);color:var(--mid);border:1px solid rgba(255,166,87,.4)}
-  .b-lo{background:rgba(63,185,80,.16);color:var(--lo);border:1px solid rgba(63,185,80,.4)}
-  svg{width:100%;height:auto;display:block}
-  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:11.5px;color:var(--muted)}
-  .legend span{display:inline-flex;align-items:center;gap:5px}
-  .dot{width:10px;height:10px;border-radius:2px}
-  .row2{display:grid;grid-template-columns:1.3fr 1fr;gap:16px}
+  /* procurement 固有 */
+  .panel .hint{color:var(--muted);font-size:var(--fs-sm);margin:0 0 var(--sp-3)}
+  .row2{display:grid;grid-template-columns:1.3fr 1fr;gap:var(--sp-4)}
   @media(max-width:900px){.row2{grid-template-columns:1fr}}
-  table{width:100%;border-collapse:collapse;font-size:12.5px}
-  th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left}
-  th{color:var(--muted);font-weight:600;font-size:11px}
   .hm-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .hm td{text-align:center;font-size:11px;border:1px solid var(--bg)}
+  .hm td{text-align:center;font-size:var(--fs-xs);border:1px solid var(--bg)}
   .hm th{text-align:center;font-size:10.5px;color:var(--muted)}
-  .note{font-size:12px;color:var(--muted);margin-top:8px}
-  .corr{font-size:16px;font-weight:700}
-  footer{padding:16px 22px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--line)}
-  code{background:var(--panel2);padding:1px 5px;border-radius:4px}
+  .note{font-size:var(--fs-sm);color:var(--muted);margin-top:var(--sp-2)}
+  .corr{font-size:var(--fs-lg);font-weight:700}
+  .legend .dot{border-radius:2px}
   b{color:var(--txt)}
-  .tag{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:0 6px;margin:1px;font-size:11px}
 </style>
 </head>
 <body>
-<header>
-  <h1>🧾 Cartel Watch — 仕入れコスト構造 / 見えない値上げ分析</h1>
-  <div class="sub">飲食・クリーニング・八百屋など値上げが公表されない業態を、「仕入れコストから計算した理論値上げ」と実売価格の<b>乖離</b>で炙り出します。</div>
-  <nav>
-    <a href="overview.html">⓪ 総合ダッシュボード</a>
-    <a href="index.html">① 公表値上げの横並び</a>
-    <a href="procurement.html" class="active">② 仕入れコスト構造（見えない値上げ）</a>
-    <a href="cases.html">③ 確定カルテル事件(一次情報)</a>
-    <a href="coverage.html">④ 業界カバレッジ</a>
-    <a href="search.html">🔎 検索</a>
-    <a href="report.html">📄 レポート出力</a>
-    <a href="methodology.html">🔬 検知ロジック</a>
-    <a href="terms.html">📜 規約</a>
-  </nav>
-</header>
 <div class="disclaimer" id="disclaimer">⚠️ 読み込み中…</div>
 
 <div class="wrap">
@@ -171,14 +116,12 @@
 
 </div>
 
-<footer>
-  Cartel Watch · 仕入れコスト構造分析 · データは <code>data.js</code> の <code>procurement</code> を編集して追記できます。
-  指数はサンプル参考値で、乖離や連動は協調の「候補」を示すもの。違法の証拠ではありません。
-</footer>
-
+<script src="ui.js"></script>
 <script src="taxonomy.js"></script>
 <script src="data.js"></script>
 <script>
+CWUI.header("procurement");
+CWUI.footer("仕入れコスト構造分析 · 指数は一次統計から機械取得した実測値（provenance参照）。乖離は協調の『候補』であり違法の証拠ではありません。");
 const D=window.CARTEL_DATA, P=D.procurement;
 const $=s=>document.querySelector(s);
 const INPUT=Object.fromEntries(P.inputs.map(i=>[i.id,i]));
