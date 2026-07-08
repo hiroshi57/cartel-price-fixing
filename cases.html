@@ -4,76 +4,27 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Cartel Watch — 確定カルテル事件（公取委 一次情報）</title>
+<link rel="stylesheet" href="theme.css" />
 <style>
-  :root{
-    --bg:#0e1116; --panel:#161b22; --panel2:#1c232d; --line:#2a323d;
-    --txt:#e6edf3; --muted:#9aa7b4; --accent:#58a6ff;
-    --price:#ff6b6b; --bid:#ffa657; --unfair:#a371f7; --mono:#3fb950; --other:#6e7681;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--txt);
-    font-family:"Segoe UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;font-size:14px;line-height:1.55}
-  header{padding:18px 22px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#11161d,#0e1116)}
-  header h1{margin:0;font-size:20px}
-  header .sub{color:var(--muted);font-size:12.5px;margin-top:4px}
-  nav{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
-  nav a{font-size:12.5px;color:var(--accent);text-decoration:none;border:1px solid var(--line);
-    padding:5px 11px;border-radius:7px;background:var(--panel)}
-  nav a.active{background:var(--accent);color:#04101f;border-color:var(--accent);font-weight:700}
-  .src{margin:10px 22px 0;padding:8px 12px;border:1px solid #1d3a5a;background:#0d1726;
-    color:#9fc7ff;border-radius:8px;font-size:12px}
-  .src a{color:#79c0ff}
-  .wrap{padding:18px 22px;display:grid;gap:18px;max-width:1320px;margin:0 auto}
-  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
-  .panel h2{margin:0 0 12px;font-size:15px}
-  .controls{display:flex;flex-wrap:wrap;gap:14px;align-items:end}
-  .ctrl{display:flex;flex-direction:column;gap:4px}
-  .ctrl label{font-size:11.5px;color:var(--muted)}
-  select,input{background:var(--panel2);color:var(--txt);border:1px solid var(--line);border-radius:7px;padding:7px 9px;font-size:13px}
-  input[type=text]{min-width:200px}
-  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
-  .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
-  .kpi .v{font-size:24px;font-weight:700}
-  .kpi .l{font-size:11.5px;color:var(--muted);margin-top:2px}
-  table{width:100%;border-collapse:collapse;font-size:13px}
-  th,td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
-  th{color:var(--muted);font-weight:600;font-size:11.5px;cursor:pointer;user-select:none;white-space:nowrap}
-  tbody tr:hover{background:#19212b}
-  .badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap}
-  .k-price{background:rgba(255,107,107,.16);color:var(--price);border:1px solid rgba(255,107,107,.4)}
-  .k-bid{background:rgba(255,166,87,.16);color:var(--bid);border:1px solid rgba(255,166,87,.4)}
-  .k-unfair{background:rgba(163,113,247,.16);color:var(--unfair);border:1px solid rgba(163,113,247,.4)}
-  .k-mono{background:rgba(63,185,80,.16);color:var(--mono);border:1px solid rgba(63,185,80,.4)}
+  /* cases 固有 */
+  :root{ --price:var(--danger); --bid:var(--warn); --unfair:var(--brand-2); --mono:var(--success); --other:#6e7681; }
+  .src{margin:var(--sp-3) var(--sp-6) 0;padding:10px 14px;border:1px solid rgba(91,141,239,.35);
+    background:var(--brand-bg);color:#9fc7ff;border-radius:var(--r-md);font-size:var(--fs-sm)}
+  .src a{color:var(--brand)}
+  #tbl th{cursor:pointer;user-select:none}
+  .k-price{background:var(--danger-bg);color:var(--price);border:1px solid rgba(242,99,126,.4)}
+  .k-bid{background:var(--warn-bg);color:var(--bid);border:1px solid rgba(245,167,66,.4)}
+  .k-unfair{background:var(--brand2-bg);color:var(--unfair);border:1px solid rgba(139,108,240,.4)}
+  .k-mono{background:var(--success-bg);color:var(--mono);border:1px solid rgba(67,197,158,.4)}
   .k-other{background:rgba(110,118,129,.16);color:var(--other);border:1px solid rgba(110,118,129,.4)}
-  .comp{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:5px;
-    padding:1px 7px;margin:1px 2px;font-size:11.5px}
-  .act{color:var(--muted);font-size:12px;margin-top:4px;max-width:520px}
-  .ind{font-size:11.5px;color:var(--muted)}
-  svg{width:100%;height:auto;display:block}
-  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:11.5px;color:var(--muted)}
-  .legend span{display:inline-flex;align-items:center;gap:5px}
-  .dot{width:10px;height:10px;border-radius:2px}
-  a.jftc{color:var(--accent);font-size:11.5px;text-decoration:none;white-space:nowrap}
-  footer{padding:16px 22px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--line)}
-  code{background:var(--panel2);padding:1px 5px;border-radius:4px}
+  .act{color:var(--muted);font-size:var(--fs-sm);margin-top:4px;max-width:520px}
+  .ind{font-size:var(--fs-xs);color:var(--muted)}
+  a.jftc{color:var(--brand);font-size:var(--fs-xs);white-space:nowrap}
+  .badge{font-size:var(--fs-xs)}
+  .legend .dot{border-radius:2px}
 </style>
 </head>
 <body>
-<header>
-  <h1>⚖️ Cartel Watch — 確定カルテル事件（公取委 一次情報）</h1>
-  <div class="sub">公正取引委員会『独占禁止法の法的措置一覧』から自動抽出した、<b>実際に摘発された</b>カルテル・入札談合・不公正取引の一覧。これが"答え合わせ"の一次情報です。</div>
-  <nav>
-    <a href="overview.html">⓪ 総合ダッシュボード</a>
-    <a href="index.html">① 公表値上げの横並び</a>
-    <a href="procurement.html">② 仕入れコスト構造</a>
-    <a href="cases.html" class="active">③ 確定カルテル事件(一次情報)</a>
-    <a href="coverage.html">④ 業界カバレッジ</a>
-    <a href="search.html">🔎 検索</a>
-    <a href="report.html">📄 レポート出力</a>
-    <a href="methodology.html">🔬 検知ロジック</a>
-    <a href="terms.html">📜 規約</a>
-  </nav>
-</header>
 <div class="src" id="src">出典: 読み込み中…</div>
 
 <div class="wrap">
@@ -118,13 +69,11 @@
 
 </div>
 
-<footer>
-  Cartel Watch · 一次情報は <code>cases-data.js</code>（<code>sources/parse_jftc.js</code> が公取委サイトから自動抽出）·
-  再取得は <code>sources/fetch.sh</code> · 全一次情報の一覧は <code>sources/SOURCES.md</code>
-</footer>
-
+<script src="ui.js"></script>
 <script src="cases-data.js"></script>
 <script>
+CWUI.header("cases");
+CWUI.footer("一次情報は <code>cases-data.js</code>（<code>sources/parse_jftc.js</code> が公取委サイトから自動抽出・月次更新）。");
 const C = window.JFTC_CASES || [];
 const $ = s=>document.querySelector(s);
 const FY_URL = fy => `https://www.jftc.go.jp/dk/ichiran/dkhaijo_${fy}.html`;
