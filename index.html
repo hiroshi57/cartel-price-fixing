@@ -3,78 +3,22 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="theme.css" />
 <title>Cartel Watch — 横並び値上げ監視ダッシュボード</title>
 <style>
-  :root{
-    --bg:#0e1116; --panel:#161b22; --panel2:#1c232d; --line:#2a323d;
-    --txt:#e6edf3; --muted:#9aa7b4; --accent:#58a6ff;
-    --hi:#ff6b6b; --mid:#ffa657; --lo:#3fb950; --cost:#a371f7;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--txt);
-    font-family:"Segoe UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;font-size:14px;line-height:1.5}
-  header{padding:18px 22px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#11161d,#0e1116)}
-  header h1{margin:0;font-size:20px}
-  header .sub{color:var(--muted);font-size:12.5px;margin-top:4px}
-  nav{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
-  nav a{font-size:12.5px;color:var(--accent);text-decoration:none;border:1px solid var(--line);
-    padding:5px 11px;border-radius:7px;background:var(--panel)}
-  nav a.active{background:var(--accent);color:#04101f;border-color:var(--accent);font-weight:700}
-  .disclaimer{margin:10px 22px 0;padding:8px 12px;border:1px solid #5a3a1a;background:#26190d;
-    color:#ffce99;border-radius:8px;font-size:12px}
-  .wrap{padding:18px 22px;display:grid;gap:18px;max-width:1320px;margin:0 auto}
-  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
-  .panel h2{margin:0 0 12px;font-size:15px;display:flex;align-items:center;gap:8px}
-  .panel h2 .tag{font-size:11px;color:var(--muted);font-weight:400}
-  .controls{display:flex;flex-wrap:wrap;gap:14px;align-items:end}
-  .ctrl{display:flex;flex-direction:column;gap:4px}
-  .ctrl label{font-size:11.5px;color:var(--muted)}
-  select,input{background:var(--panel2);color:var(--txt);border:1px solid var(--line);
-    border-radius:7px;padding:7px 9px;font-size:13px}
-  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
-  .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
-  .kpi .v{font-size:24px;font-weight:700}
-  .kpi .l{font-size:11.5px;color:var(--muted);margin-top:2px}
-  table{width:100%;border-collapse:collapse;font-size:13px}
-  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
-  th{color:var(--muted);font-weight:600;font-size:11.5px;text-transform:none;cursor:pointer;user-select:none}
-  tbody tr:hover{background:#19212b}
-  .badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:700}
-  .b-hi{background:rgba(255,107,107,.16);color:var(--hi);border:1px solid rgba(255,107,107,.4)}
-  .b-mid{background:rgba(255,166,87,.16);color:var(--mid);border:1px solid rgba(255,166,87,.4)}
-  .b-lo{background:rgba(63,185,80,.16);color:var(--lo);border:1px solid rgba(63,185,80,.4)}
-  .cost-flag{display:inline-block;margin-left:6px;font-size:10.5px;color:var(--cost);
-    border:1px solid rgba(163,113,247,.45);border-radius:5px;padding:1px 6px}
-  .companies{color:var(--muted);font-size:12px}
-  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:11.5px;color:var(--muted)}
-  .legend span{display:inline-flex;align-items:center;gap:5px}
-  .dot{width:10px;height:10px;border-radius:50%}
-  svg{width:100%;height:auto;display:block}
-  .muted{color:var(--muted)}
-  .note{font-size:12px;color:var(--muted);margin-top:8px}
-  .corr{font-size:15px;font-weight:700}
-  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  /* index 固有の微調整 */
+  .panel h2 .tag{font-size:var(--fs-xs);color:var(--muted);font-weight:400}
+  #rank th{cursor:pointer;user-select:none}
+  .companies{color:var(--muted);font-size:var(--fs-sm)}
+  .note{font-size:var(--fs-sm);color:var(--muted);margin-top:var(--sp-2)}
+  .corr{font-size:var(--fs-lg);font-weight:700}
+  .cost-flag{display:inline-block;margin-left:6px;font-size:var(--fs-xs);color:var(--brand-2);
+    border:1px solid rgba(139,108,240,.45);border-radius:var(--r-sm);padding:1px 6px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-4)}
   @media(max-width:820px){.row2{grid-template-columns:1fr}}
-  footer{padding:16px 22px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--line)}
-  code{background:var(--panel2);padding:1px 5px;border-radius:4px}
 </style>
 </head>
 <body>
-<header>
-  <h1>🧊 Cartel Watch — 横並び値上げ監視ダッシュボード</h1>
-  <div class="sub">業界 × 商品 × 企業 × 値段 × 値上げ時期 を可視化し、「同時値上げ＝協調の候補」を検出。原材料コストと突き合わせて"正当な値上げ"を切り分けます。</div>
-  <nav>
-    <a href="overview.html">⓪ 総合ダッシュボード</a>
-    <a href="index.html" class="active">① 公表値上げの横並び</a>
-    <a href="procurement.html">② 仕入れコスト構造（見えない値上げ）</a>
-    <a href="cases.html">③ 確定カルテル事件(一次情報)</a>
-    <a href="coverage.html">④ 業界カバレッジ</a>
-    <a href="search.html">🔎 検索</a>
-    <a href="report.html">📄 レポート出力</a>
-    <a href="methodology.html">🔬 検知ロジック</a>
-    <a href="terms.html">📜 規約</a>
-  </nav>
-</header>
 <div class="disclaimer" id="disclaimer">⚠️ 読み込み中…</div>
 
 <div class="wrap">
@@ -182,14 +126,10 @@
 
 </div>
 
-<footer>
-  Cartel Watch v<span id="ver"></span> · データ最終更新 <span id="upd"></span> ·
-  データは <code>data.js</code> を編集して追記できます（追記方法は <code>README.md</code>）。
-  本ツールは調査の出発点を示すもので、横並び値上げは違法の証拠ではありません。
-</footer>
-
+<script src="ui.js"></script>
 <script src="data.js"></script>
 <script>
+CWUI.header("index");
 /* ============================ ユーティリティ ============================ */
 const D = window.CARTEL_DATA;
 const $ = (s)=>document.querySelector(s);
@@ -472,7 +412,7 @@ function fillSelect(el, items, allLabel){
 }
 function init(){
   $("#disclaimer").textContent="⚠️ "+D.meta.disclaimer;
-  $("#ver").textContent=D.meta.version; $("#upd").textContent=D.meta.updated;
+  CWUI.footer(`Cartel Watch v${D.meta.version} · データ最終更新 ${D.meta.updated}`);
 
   fillSelect($("#f-industry"), D.industries, "すべての業界");
   fillSelect($("#f-category"), D.categories, "すべてのカテゴリ");

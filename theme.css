@@ -59,6 +59,17 @@
 
   /* Layout */
   --maxw: 1360px;
+
+  /* ---- 互換エイリアス（既存ページの旧トークン名を新パレットへ橋渡し）---- */
+  --panel:  var(--surface-1);
+  --panel2: var(--surface-2);
+  --accent: var(--brand);
+  --hi:   var(--danger);
+  --mid:  var(--warn);
+  --lo:   var(--success);
+  --cost: var(--brand-2);
+  --done: var(--danger);
+  --susp: var(--warn);
 }
 
 /* ---------- 2. Base / Reset ---------- */
