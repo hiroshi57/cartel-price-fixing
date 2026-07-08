@@ -1,0 +1,197 @@
+/* =============================================================================
+ *  Cartel Watch — Design System (theme.css)
+ *  Qiita「AIでおしゃれな画面を作るためのデザインシステム」の指針に沿って構築。
+ *  Design Token → Component の2層。全ページで共有し、一貫した見た目を担保する。
+ *  トーン&マナー: 信頼できる / 分析的 / 都会的（B2B インテリジェンス）
+ * ========================================================================== */
+
+/* ---------- 1. Design Tokens ---------- */
+:root{
+  /* Color — Surface（暗色レイヤー） */
+  --bg:        #0b0e14;   /* 最下層 */
+  --surface-1: #11151d;   /* パネル */
+  --surface-2: #171c26;   /* パネル内カード / 入力 */
+  --surface-3: #1e2530;   /* ホバー / 強調 */
+  --line:      #262d3a;   /* 罫線 */
+  --line-soft: #1b212b;   /* 微罫線 */
+
+  /* Color — Text */
+  --txt:       #e8edf4;
+  --txt-2:     #aab4c2;   /* サブ */
+  --muted:     #7b8798;   /* 補足 */
+
+  /* Color — Brand & Accent */
+  --brand:     #5b8def;   /* プライマリ（青） */
+  --brand-ink: #071019;   /* ブランド上の文字 */
+  --brand-2:   #8b6cf0;   /* セカンダリ（紫・予測系） */
+
+  /* Color — Semantic */
+  --danger:    #f2637e;   /* 摘発済み / 高リスク */
+  --warn:      #f5a742;   /* 候補 / 要観察 */
+  --success:   #43c59e;   /* 説明可能 / 安全 */
+  --info:      #5b8def;
+
+  /* 半透明の淡色（バッジ地） */
+  --danger-bg:  rgba(242,99,126,.14);
+  --warn-bg:    rgba(245,167,66,.14);
+  --success-bg: rgba(67,197,158,.14);
+  --brand-bg:   rgba(91,141,239,.14);
+  --brand2-bg:  rgba(139,108,240,.14);
+
+  /* Typography */
+  --font-sans: "Inter","Segoe UI","Hiragino Kaku Gothic ProN","Noto Sans JP",Meiryo,sans-serif;
+  --font-num:  "SF Mono","Roboto Mono",ui-monospace,"Consolas",monospace;
+  --fs-xs: 11.5px; --fs-sm: 12.5px; --fs-md: 14px; --fs-lg: 16px;
+  --fs-xl: 20px;   --fs-2xl: 26px;  --fs-3xl: 34px;
+  --lh: 1.6;
+
+  /* Spacing（4px リズム） */
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:20px;
+  --sp-6:24px; --sp-8:32px; --sp-10:40px; --sp-12:48px;
+
+  /* Radius */
+  --r-sm:6px; --r-md:10px; --r-lg:14px; --r-pill:999px;
+
+  /* Shadow（控えめな立体感） */
+  --shadow-1: 0 1px 2px rgba(0,0,0,.3);
+  --shadow-2: 0 4px 16px rgba(0,0,0,.35);
+  --shadow-glow: 0 0 0 1px rgba(91,141,239,.25), 0 8px 30px rgba(91,141,239,.12);
+
+  /* Layout */
+  --maxw: 1360px;
+}
+
+/* ---------- 2. Base / Reset ---------- */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--txt);
+  font-family:var(--font-sans); font-size:var(--fs-md); line-height:var(--lh);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+/* 背景に淡いグラデーションのアクセント */
+body::before{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:
+    radial-gradient(1100px 500px at 80% -10%, rgba(91,141,239,.10), transparent 60%),
+    radial-gradient(900px 500px at 0% 0%, rgba(139,108,240,.06), transparent 55%);
+}
+a{color:var(--brand); text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3{margin:0; font-weight:700; letter-spacing:.2px}
+code{background:var(--surface-2); padding:1px 6px; border-radius:var(--r-sm); font-family:var(--font-num); font-size:.92em}
+::selection{background:rgba(91,141,239,.3)}
+:focus-visible{outline:2px solid var(--brand); outline-offset:2px; border-radius:var(--r-sm)}
+@media (prefers-reduced-motion: reduce){*{animation:none!important; transition:none!important}}
+
+/* 数字は等幅で桁を揃える（データ表示の見やすさ） */
+.num,.kpi .v,td .num{font-variant-numeric:tabular-nums; font-family:var(--font-num)}
+
+/* ---------- 3. Header / Nav ---------- */
+.site-header{
+  position:sticky; top:0; z-index:50;
+  padding:var(--sp-4) var(--sp-6) var(--sp-3);
+  background:rgba(11,14,20,.82); backdrop-filter:saturate(160%) blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.site-header .brand-row{display:flex; align-items:baseline; gap:var(--sp-3); flex-wrap:wrap}
+.site-header h1{font-size:var(--fs-xl); display:flex; align-items:center; gap:var(--sp-2)}
+.site-header .logo{
+  width:26px; height:26px; border-radius:7px; display:inline-grid; place-items:center;
+  background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#fff; font-size:15px;
+  box-shadow:var(--shadow-1);
+}
+.site-header .sub{color:var(--txt-2); font-size:var(--fs-sm); margin:2px 0 0}
+nav.tabs{margin-top:var(--sp-3); display:flex; gap:6px; flex-wrap:wrap}
+nav.tabs a{
+  font-size:var(--fs-sm); color:var(--txt-2); padding:6px 12px; border-radius:var(--r-pill);
+  border:1px solid transparent; transition:background .15s,color .15s,border-color .15s;
+}
+nav.tabs a:hover{background:var(--surface-2); color:var(--txt); text-decoration:none}
+nav.tabs a.active{background:var(--brand); color:var(--brand-ink); font-weight:700; box-shadow:var(--shadow-1)}
+
+/* ---------- 4. Layout ---------- */
+.wrap{padding:var(--sp-6); display:grid; gap:var(--sp-5); max-width:var(--maxw); margin:0 auto}
+.split{display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-5)}
+.grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--sp-5)}
+@media(max-width:960px){.split,.grid-3{grid-template-columns:1fr}}
+
+/* ---------- 5. Card / Panel ---------- */
+.panel{
+  background:linear-gradient(180deg,var(--surface-1),var(--bg));
+  border:1px solid var(--line); border-radius:var(--r-lg);
+  padding:var(--sp-5) var(--sp-5); box-shadow:var(--shadow-1);
+}
+.panel.accent-danger{border-top:3px solid var(--danger)}
+.panel.accent-warn{border-top:3px solid var(--warn)}
+.panel.accent-brand2{border-top:3px solid var(--brand-2)}
+.panel > h2{font-size:var(--fs-lg); display:flex; align-items:center; gap:var(--sp-2); flex-wrap:wrap}
+.panel .eyebrow{ /* セクション上のラベル */
+  font-size:var(--fs-xs); font-weight:700; letter-spacing:1px; text-transform:uppercase;
+  color:var(--muted); margin-bottom:var(--sp-1);
+}
+.panel .desc{color:var(--txt-2); font-size:var(--fs-sm); margin:var(--sp-1) 0 var(--sp-4)}
+
+/* ---------- 6. KPI Stat ---------- */
+.kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:var(--sp-3)}
+.kpi{
+  background:var(--surface-2); border:1px solid var(--line); border-radius:var(--r-md);
+  padding:var(--sp-4); position:relative; overflow:hidden; transition:transform .15s,border-color .15s;
+}
+.kpi:hover{transform:translateY(-2px); border-color:var(--brand)}
+.kpi .v{font-size:var(--fs-2xl); font-weight:800; line-height:1.1}
+.kpi .l{font-size:var(--fs-xs); color:var(--muted); margin-top:var(--sp-1)}
+.kpi.hot .v{color:var(--danger)} .kpi.warn .v{color:var(--warn)}
+
+/* ---------- 7. Table ---------- */
+table{width:100%; border-collapse:collapse; font-size:var(--fs-sm)}
+th,td{padding:9px 10px; text-align:left; border-bottom:1px solid var(--line-soft); vertical-align:top}
+th{color:var(--muted); font-weight:600; font-size:var(--fs-xs); white-space:nowrap; letter-spacing:.3px}
+tbody tr{transition:background .12s}
+tbody tr:hover{background:var(--surface-2)}
+td .num{color:var(--txt)}
+
+/* ---------- 8. Badge / Pill / Chip ---------- */
+.badge{display:inline-block; padding:2px 9px; border-radius:var(--r-pill); font-size:var(--fs-xs); font-weight:700; white-space:nowrap; line-height:1.5}
+.b-hi,.b-price{background:var(--danger-bg); color:var(--danger); border:1px solid rgba(242,99,126,.4)}
+.b-mid,.b-bid{background:var(--warn-bg); color:var(--warn); border:1px solid rgba(245,167,66,.4)}
+.b-lo{background:var(--success-bg); color:var(--success); border:1px solid rgba(67,197,158,.4)}
+.b-brand{background:var(--brand-bg); color:var(--brand); border:1px solid rgba(91,141,239,.4)}
+.b-type,.tag{background:var(--surface-2); color:var(--muted); border:1px solid var(--line)}
+.pill{font-size:var(--fs-xs); font-weight:700; padding:3px 11px; border-radius:var(--r-pill)}
+.pill.done{background:var(--danger-bg); color:var(--danger); border:1px solid rgba(242,99,126,.4)}
+.pill.susp{background:var(--warn-bg); color:var(--warn); border:1px solid rgba(245,167,66,.4)}
+.pill.brand2{background:var(--brand2-bg); color:var(--brand-2); border:1px solid rgba(139,108,240,.4)}
+.chip,.comp{display:inline-block; background:var(--surface-2); border:1px solid var(--line); border-radius:var(--r-sm); padding:1px 7px; margin:1px; font-size:var(--fs-xs); color:var(--txt-2)}
+.prec{font-size:var(--fs-xs); color:var(--warn); border:1px solid rgba(245,167,66,.4); border-radius:var(--r-sm); padding:0 6px; margin-left:4px}
+
+/* ---------- 9. Button / Form ---------- */
+button,.btn{
+  font-family:inherit; font-size:var(--fs-sm); cursor:pointer;
+  background:var(--surface-2); color:var(--txt); border:1px solid var(--line);
+  border-radius:var(--r-sm); padding:8px 14px; transition:background .15s,border-color .15s,transform .1s;
+}
+button:hover,.btn:hover{background:var(--surface-3); border-color:var(--brand)}
+button:active,.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--brand); color:var(--brand-ink); border-color:var(--brand); font-weight:700}
+.btn-primary:hover{filter:brightness(1.08); background:var(--brand)}
+select,input{
+  background:var(--surface-2); color:var(--txt); border:1px solid var(--line);
+  border-radius:var(--r-sm); padding:8px 10px; font-size:var(--fs-sm); font-family:inherit;
+}
+select:focus,input:focus{border-color:var(--brand); outline:none}
+.ctrl{display:flex; flex-direction:column; gap:var(--sp-1)}
+.ctrl label{font-size:var(--fs-xs); color:var(--muted)}
+.controls{display:flex; flex-wrap:wrap; gap:var(--sp-4); align-items:flex-end}
+
+/* ---------- 10. Misc ---------- */
+.muted{color:var(--muted)}
+.legend{font-size:var(--fs-xs); color:var(--muted); margin-top:var(--sp-2); display:flex; gap:var(--sp-4); flex-wrap:wrap}
+.legend .dot{width:10px; height:10px; border-radius:50%; display:inline-block; margin-right:5px; vertical-align:middle}
+.disclaimer{
+  margin:var(--sp-3) var(--sp-6) 0; padding:10px 14px; border-radius:var(--r-md); font-size:var(--fs-sm);
+  border:1px solid rgba(245,167,66,.35); background:var(--warn-bg); color:#ffd9a6;
+}
+svg{width:100%; height:auto; display:block}
+.site-footer{padding:var(--sp-5) var(--sp-6); color:var(--muted); font-size:var(--fs-xs); border-top:1px solid var(--line); text-align:center}
+.site-footer a{color:var(--txt-2); margin:0 var(--sp-2)}

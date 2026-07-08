@@ -4,141 +4,83 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="manifest" href="manifest.json" />
-<meta name="theme-color" content="#0e1116" />
-<title>Cartel Watch — 総合ダッシュボード（摘発済み / 未摘発）</title>
-<style>
-  :root{
-    --bg:#0e1116; --panel:#161b22; --panel2:#1c232d; --line:#2a323d;
-    --txt:#e6edf3; --muted:#9aa7b4; --accent:#58a6ff;
-    --done:#ff6b6b; --susp:#ffa657; --lo:#3fb950; --cost:#a371f7;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--txt);
-    font-family:"Segoe UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;font-size:14px;line-height:1.55}
-  header{padding:18px 22px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#11161d,#0e1116)}
-  header h1{margin:0;font-size:20px}
-  header .sub{color:var(--muted);font-size:12.5px;margin-top:4px}
-  nav{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
-  nav a{font-size:12.5px;color:var(--accent);text-decoration:none;border:1px solid var(--line);
-    padding:5px 11px;border-radius:7px;background:var(--panel)}
-  nav a.active{background:var(--accent);color:#04101f;border-color:var(--accent);font-weight:700}
-  .wrap{padding:18px 22px;display:grid;gap:18px;max-width:1340px;margin:0 auto}
-  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
-  .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
-  .kpi .v{font-size:26px;font-weight:700}
-  .kpi .l{font-size:11.5px;color:var(--muted);margin-top:2px}
-  .split{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-  @media(max-width:960px){.split{grid-template-columns:1fr}}
-  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
-  .panel.done{border-top:3px solid var(--done)}
-  .panel.susp{border-top:3px solid var(--susp)}
-  .panel h2{margin:0 0 4px;font-size:16px;display:flex;align-items:center;gap:8px}
-  .panel .desc{color:var(--muted);font-size:12px;margin:0 0 12px}
-  .pill{font-size:11px;font-weight:700;padding:2px 10px;border-radius:999px}
-  .pill.done{background:rgba(255,107,107,.16);color:var(--done);border:1px solid rgba(255,107,107,.4)}
-  .pill.susp{background:rgba(255,166,87,.16);color:var(--susp);border:1px solid rgba(255,166,87,.4)}
-  table{width:100%;border-collapse:collapse;font-size:12.5px}
-  th,td{padding:7px 8px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
-  th{color:var(--muted);font-weight:600;font-size:11px;white-space:nowrap}
-  tbody tr:hover{background:#19212b}
-  .badge{display:inline-block;padding:1px 8px;border-radius:999px;font-size:10.5px;font-weight:700;white-space:nowrap}
-  .b-hi{background:rgba(255,107,107,.16);color:var(--done);border:1px solid rgba(255,107,107,.4)}
-  .b-mid{background:rgba(255,166,87,.16);color:var(--susp);border:1px solid rgba(255,166,87,.4)}
-  .b-lo{background:rgba(63,185,80,.16);color:var(--lo);border:1px solid rgba(63,185,80,.4)}
-  .b-price{background:rgba(255,107,107,.16);color:var(--done);border:1px solid rgba(255,107,107,.4)}
-  .b-bid{background:rgba(255,166,87,.16);color:var(--susp);border:1px solid rgba(255,166,87,.4)}
-  .b-type{background:var(--panel2);color:var(--muted);border:1px solid var(--line)}
-  .comp{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:0 6px;margin:1px;font-size:11px}
-  .prec{font-size:10.5px;color:var(--susp);border:1px solid rgba(255,166,87,.4);border-radius:5px;padding:0 6px;margin-left:4px}
-  .muted{color:var(--muted)}
-  .more{font-size:11.5px;color:var(--accent);text-decoration:none}
-  footer{padding:16px 22px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--line)}
-  code{background:var(--panel2);padding:1px 5px;border-radius:4px}
-  .legend{font-size:11px;color:var(--muted);margin-top:8px}
-</style>
+<meta name="theme-color" content="#0b0e14" />
+<link rel="stylesheet" href="theme.css" />
+<title>Cartel Watch — 総合ダッシュボード</title>
 </head>
 <body>
-<header>
-  <h1>🛰 Cartel Watch — 総合ダッシュボード</h1>
-  <div class="sub">価格カルテルの「<b style="color:var(--done)">摘発済み（確定）</b>」と「<b style="color:var(--susp)">未摘発（横並び・コスト乖離の疑い候補）</b>」を分けて俯瞰します。</div>
-  <nav>
-    <a href="overview.html" class="active">⓪ 総合ダッシュボード</a>
-    <a href="index.html">① 公表値上げの横並び</a>
-    <a href="procurement.html">② 仕入れコスト構造</a>
-    <a href="cases.html">③ 確定カルテル事件(一次情報)</a>
-    <a href="coverage.html">④ 業界カバレッジ</a>
-    <a href="search.html">🔎 検索</a>
-    <a href="report.html">📄 レポート出力</a>
-    <a href="methodology.html">🔬 検知ロジック</a>
-    <a href="terms.html">📜 規約</a>
-  </nav>
-</header>
+
+<div class="disclaimer">⚠️ 「摘発済み」=公正取引委員会の確定処分（一次情報）／「未摘発」=本ツールが①②の手法で検出した疑い候補であり、違法の証拠ではありません。</div>
 
 <div class="wrap">
 
   <section class="panel">
+    <div class="eyebrow">Key Metrics</div>
     <div class="kpis" id="kpis"></div>
-    <div class="legend">※ 摘発済み=公正取引委員会の確定処分（一次情報）／ 未摘発=本ツールが①②の手法で検出した疑い候補（違法の証拠ではない）。</div>
   </section>
 
-  <!-- 疑い度トレンド -->
+  <!-- 値上げ活動トレンド -->
   <section class="panel">
-    <h2>📈 値上げ活動トレンド <span style="font-size:11px;font-weight:400;color:var(--muted)">四半期別イベント数 / 摘発タイミング</span></h2>
+    <div class="eyebrow">Activity Trend</div>
+    <h2>📈 値上げ活動トレンド</h2>
+    <p class="desc">四半期別の値上げイベント数と、公取委の摘発タイミングの関係。</p>
     <div id="trend-chart"></div>
     <div class="legend">
-      <span><span class="dot" style="background:var(--susp)"></span>クラスタ内（同時値上げ）</span>
-      <span><span class="dot" style="background:var(--accent)"></span>単独イベント</span>
+      <span><span class="dot" style="background:var(--warn)"></span>クラスタ内（同時値上げ）</span>
+      <span><span class="dot" style="background:var(--brand)"></span>単独イベント</span>
       <span>▼ 公取委 摘発年</span>
     </div>
   </section>
 
   <div class="split">
     <!-- 摘発済み -->
-    <section class="panel done">
+    <section class="panel accent-danger">
+      <div class="eyebrow">Confirmed</div>
       <h2>🔴 摘発済み <span class="pill done">確定・一次情報</span></h2>
       <p class="desc">公正取引委員会が実際に処分したカルテル・談合。これが「答え合わせ」。</p>
       <table id="done-tbl">
         <thead><tr><th>時期</th><th>種別</th><th>業種</th><th>事件 / 企業</th></tr></thead>
         <tbody></tbody>
       </table>
-      <p style="margin-top:10px"><a class="more" href="cases.html">→ 全件を ③確定カルテル事件 で見る</a></p>
+      <p style="margin-top:var(--sp-3)"><a class="more" href="cases.html">→ 全件を ③確定カルテル事件 で見る</a></p>
     </section>
 
     <!-- 未摘発 -->
-    <section class="panel susp">
+    <section class="panel accent-warn">
+      <div class="eyebrow">Candidates</div>
       <h2>🟡 未摘発（疑い候補） <span class="pill susp">要調査</span></h2>
       <p class="desc">①横並び値上げ・②コスト乖離 で検出。摘発されていないが疑い度が高い順。</p>
       <table id="susp-tbl">
         <thead><tr><th>疑い度</th><th>種別</th><th>対象</th><th>時期/根拠</th></tr></thead>
         <tbody></tbody>
       </table>
-      <p style="margin-top:10px"><a class="more" href="index.html">→ ①横並び</a> ・ <a class="more" href="procurement.html">②コスト乖離</a> で詳細</p>
+      <p style="margin-top:var(--sp-3)"><a class="more" href="index.html">→ ①横並び</a> ・ <a class="more" href="procurement.html">②コスト乖離</a> で詳細</p>
     </section>
   </div>
 
-  <!-- 予測 (TimesFM) -->
-  <section class="panel" style="border-top:3px solid var(--cost)">
-    <h2>🔮 予測による上振れ検出 <span class="pill" style="background:rgba(163,113,247,.16);color:var(--cost);border:1px solid rgba(163,113,247,.4)">TimesFM</span></h2>
-    <p class="desc" id="fc-desc">価格系列を機械学習で予測し、<b>予測の90%点(q90)を実測が超えた＝自己履歴では説明できない急騰</b>を検出。同月に複数系列が上振れ＝協調の候補。</p>
-    <div id="fc-sim" style="margin-bottom:14px"></div>
+  <!-- 予測: 2モデル比較 -->
+  <section class="panel accent-brand2">
+    <div class="eyebrow">Forecast · Anomaly Detection</div>
+    <h2>🔮 予測による上振れ検出 <span class="pill brand2" id="fc-model-badge">統計モデル</span></h2>
+    <p class="desc" id="fc-desc">価格系列を予測し、<b>予測の90%点(q90)を実測が超えた＝自己履歴では説明できない急騰</b>を検出。同月に複数系列が上振れ＝協調の候補。</p>
+    <div id="fc-sim" style="margin-bottom:var(--sp-4)"></div>
     <table id="fc-tbl">
       <thead><tr><th>上振れ</th><th>系列</th><th>区分</th><th>時期</th><th>実測</th><th>予測上限(q90)</th><th>超過</th></tr></thead>
       <tbody></tbody>
     </table>
-    <p class="legend">区分: commodity=原材料 / input=仕入れ品目 / actual=実売 / cost=理論コスト。詳細・将来予測は <code>forecast/</code>（README参照）。</p>
+    <p class="legend">区分: commodity=原材料 / input=仕入れ品目 / actual=実売 / cost=理論コスト。</p>
   </section>
 
 </div>
 
-<footer>
-  Cartel Watch · 摘発済み=<code>cases-data.js</code>（公取委）/ 未摘発=<code>data.js</code> から算出 ·
-  「類似業種に摘発前例」=その業種で過去に確定処分あり（注意度↑）
-</footer>
-
+<script src="ui.js"></script>
 <script src="forecast-data.js"></script>
 <script src="data.js"></script>
 <script src="cases-data.js"></script>
 <script>
+CWUI.header("overview");
+CWUI.footer('摘発済み=<code>cases-data.js</code>（公取委）／未摘発=<code>data.js</code> から算出。「類似業種に摘発前例」=その業種で過去に確定処分あり。');
+
 const D=window.CARTEL_DATA, CASES=window.JFTC_CASES||[];
 const $=s=>document.querySelector(s);
 const catById=id=>D.categories.find(c=>c.id===id);
@@ -184,21 +126,18 @@ function costGaps(){
   });
 }
 
-/* 業種マッピング(未摘発候補 → 公取委の確定業種名) */
 function precedent(name){
   const map=[
-    [/アイス|即席麺|食パン|小麦粉|冷凍|マヨネーズ|牛乳|乳|ビール|清涼|飲料|八百屋|生鮮|スーパー|小売/, "食品"],
-    [/飲食|定食|ホテル|旅館|宿泊/,                                                                   "飲食・外食"],
-    [/クリーニング|理美容|サロン|介護/,                                                              "サービス・自治体業務"],
-    [/運送|宅配|タクシー|軽貨物/,                                                                    "サービス・自治体業務"],
-    [/リフォーム|工務店|建設|土木/,                                                                  "建設・土木"],
-    [/学習塾|予備校|教育/,                                                                           "サービス・自治体業務"],
-    [/レンタル|リース/,                                                                              "金融"],
-    [/広告|制作|メディア/,                                                                           "IT・情報サービス"],
+    [/アイス|即席麺|食パン|小麦粉|冷凍|マヨネーズ|牛乳|乳|ビール|清涼|飲料|八百屋|生鮮|スーパー|小売|調味|チョコ|菓子|ツナ|水産/, "食品"],
+    [/飲食|定食|ホテル|旅館|宿泊/, "飲食・外食"],
+    [/クリーニング|理美容|サロン|介護/, "サービス・自治体業務"],
+    [/運送|宅配|タクシー|軽貨物/, "サービス・自治体業務"],
+    [/リフォーム|工務店|建設|土木/, "建設・土木"],
+    [/学習塾|予備校|教育/, "サービス・自治体業務"],
+    [/レンタル|リース/, "金融"],
+    [/広告|制作|メディア/, "IT・情報サービス"],
   ];
-  for(const [re,ind] of map){
-    if(re.test(name) && doneIndustries.has(ind)) return ind;
-  }
+  for(const [re,ind] of map){ if(re.test(name) && doneIndustries.has(ind)) return ind; }
   return null;
 }
 
@@ -212,10 +151,10 @@ function kpis(){
     {v:CASES.length,l:"摘発済み 総数(確定)"},
     {v:price,l:"うち 価格カルテル"},
     {v:bid,l:"うち 入札談合"},
-    {v:clusters.length+gaps.length,l:"未摘発 疑い候補"},
-    {v:suspHi,l:"未摘発 高リスク"},
+    {v:clusters.length+gaps.length,l:"未摘発 疑い候補",c:"warn"},
+    {v:suspHi,l:"未摘発 高リスク",c:"hot"},
   ];
-  $("#kpis").innerHTML=data.map(d=>`<div class="kpi"><div class="v">${d.v}</div><div class="l">${d.l}</div></div>`).join("");
+  $("#kpis").innerHTML=data.map(d=>`<div class="kpi ${d.c||""}"><div class="v num">${d.v}</div><div class="l">${d.l}</div></div>`).join("");
 }
 
 function renderDone(){
@@ -224,7 +163,7 @@ function renderDone(){
     const comps=c.companies.filter(isCompany).slice(0,4);
     const chip=comps.length?comps.map(x=>`<span class="comp">${x}</span>`).join(""):`<span class="muted">${c.name.slice(0,18)}</span>`;
     const kc=c.kind==="価格カルテル等"?"b-price":"b-bid";
-    return `<tr><td>${c.date}</td><td><span class="badge ${kc}">${c.kind.replace("等","")}</span></td>
+    return `<tr><td class="num">${c.date}</td><td><span class="badge ${kc}">${c.kind.replace("等","")}</span></td>
       <td class="muted">${c.industry}</td><td><b>${c.name.replace(/に対する件$/,"")}</b><br>${chip}</td></tr>`;
   }).join("");
 }
@@ -251,80 +190,70 @@ function renderSusp(){
   }).join("");
 }
 
-/* ---------- 予測 (TimesFM) ---------- */
+/* ---------- 予測 ---------- */
 function renderForecast(){
   const F=window.FORECAST_DATA;
   if(!F){ document.querySelector("#fc-tbl").closest(".panel").style.display="none"; return; }
-  $("#fc-desc").innerHTML += ` <span class="muted">（モデル: ${F.meta.model} / 生成 ${F.meta.generated}）</span>`;
-
-  // 同時上振れ = カルテル候補
+  $("#fc-model-badge").textContent=F.meta.model;
+  $("#fc-desc").innerHTML += ` <span class="muted">（生成 ${F.meta.generated}）</span>`;
   $("#fc-sim").innerHTML = F.simultaneous.length
-    ? `<div style="font-weight:700;margin-bottom:6px;color:var(--cost)">⚠ 同時上振れ（協調の候補）</div>` +
+    ? `<div style="font-weight:700;margin-bottom:6px;color:var(--brand-2)">⚠ 同時上振れ（協調の候補）</div>` +
       F.simultaneous.map(s=>`<div style="margin:3px 0"><span class="badge b-mid">${s.date}</span> ${
         s.series.map(x=>`<span class="comp">${x.name}${x.excess>0?` +${x.excess}%`:""}</span>`).join("")}</div>`).join("")
     : `<span class="muted">同時上振れは検出されませんでした。</span>`;
-
-  // ★上振れを上に、その後 超過率降順
-  const rows=F.anomalies.slice().sort((a,b)=>(b.flag-a.flag)||(b.excess-a.excess));
+  const rows=F.anomalies.slice().sort((a,b)=>(b.flag-a.flag)||(b.excess-a.excess)).slice(0,30);
   $("#fc-tbl tbody").innerHTML=rows.map(a=>{
     const flag=a.flag?`<span class="badge b-hi">★ 上振れ</span>`:`<span class="muted">—</span>`;
-    const ex=a.excess>0?`<span style="color:var(--done)">+${a.excess}%</span>`:`<span class="muted">${a.excess}%</span>`;
+    const ex=a.excess>0?`<span style="color:var(--danger)">+${a.excess}%</span>`:`<span class="muted">${a.excess}%</span>`;
     return `<tr><td>${flag}</td><td>${a.name}</td><td class="muted">${a.group}</td>
-      <td>${a.date}</td><td>${a.actual}</td><td class="muted">${a.q90}</td><td>${ex}</td></tr>`;
+      <td class="num">${a.date}</td><td class="num">${a.actual}</td><td class="muted num">${a.q90}</td><td class="num">${ex}</td></tr>`;
   }).join("");
 }
 
 /* ---------- トレンドグラフ ---------- */
 function renderTrend(){
-  // 四半期ラベル生成 (2021-Q2 〜 2025-Q2)
+  const months=D.procurement.months, lastM=mIndex(months[months.length-1]);
   const quarters=[];
-  for(let y=2021;y<=2025;y++) for(let q=1;q<=4;q++){
-    if(y===2021&&q===1) continue; if(y===2025&&q>=3) break;
-    quarters.push({label:`${y}-Q${q}`, y, q, fromM:(y*12+(q-1)*3), toM:(y*12+q*3-1)});
+  for(let y=2021;y<=2026;y++) for(let q=1;q<=4;q++){
+    const fromM=y*12+(q-1)*3;
+    if(fromM<mIndex("2021-04")) continue; if(fromM>lastM) break;
+    quarters.push({label:`${y}-Q${q}`, y, q, fromM, toM:fromM+2});
   }
-  // クラスタ検出で同時値上げかどうかを判定
   const clusters=detectClusters(2,3);
   const clusterPairs=new Set();
   clusters.forEach(c=>{
     D.events.filter(e=>e.categoryId===c.cat.id&&mIndex(e.date)>=c.from&&mIndex(e.date)<=c.to)
       .forEach(e=>clusterPairs.add(e.companyId+"@"+e.date));
   });
-  // 四半期ごとにクラスタ/単独を集計
   quarters.forEach(q=>{
     q.cluster=0; q.solo=0;
     D.events.forEach(e=>{
       const mi=mIndex(e.date);
-      if(mi>=q.fromM&&mi<=q.toM){
-        if(clusterPairs.has(e.companyId+"@"+e.date)) q.cluster++; else q.solo++;
-      }
+      if(mi>=q.fromM&&mi<=q.toM){ if(clusterPairs.has(e.companyId+"@"+e.date)) q.cluster++; else q.solo++; }
     });
   });
-  // 公取委摘発年の四半期マーカー
   const jftcYears=[...new Set(CASES.map(c=>c.date.slice(0,4)))];
-  const W=960,H=180,pL=54,pR=16,pT=14,pB=36;
+  const W=960,H=200,pL=54,pR=16,pT=16,pB=38;
   const maxV=Math.max(1,...quarters.map(q=>q.cluster+q.solo));
   const bw=(W-pL-pR)/quarters.length;
   const yOf=v=>H-pB-(v/maxV)*(H-pT-pB);
-  let svg=`<svg viewBox="0 0 ${W} ${H}" role="img">`;
-  svg+=`<line x1="${pL}" y1="${H-pB}" x2="${W-pR}" y2="${H-pB}" stroke="#2a323d"/>`;
-  // 年グリッド
+  let svg=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="値上げ活動トレンド">`;
+  svg+=`<line x1="${pL}" y1="${H-pB}" x2="${W-pR}" y2="${H-pB}" stroke="var(--line)"/>`;
   quarters.forEach((q,i)=>{
-    if(q.q===1){ svg+=`<line x1="${pL+i*bw}" y1="${pT}" x2="${pL+i*bw}" y2="${H-pB}" stroke="#1c232d"/>`; }
-    if(q.q===2||q.q===1) svg+=`<text x="${pL+i*bw+bw*1.5}" y="${H-pB+16}" fill="#9aa7b4" font-size="11" text-anchor="middle">${q.y}</text>`;
+    if(q.q===1){ svg+=`<line x1="${pL+i*bw}" y1="${pT}" x2="${pL+i*bw}" y2="${H-pB}" stroke="var(--line-soft)"/>`; }
+    if(q.q===1) svg+=`<text x="${pL+i*bw+bw*1.5}" y="${H-pB+16}" fill="var(--muted)" font-size="11" text-anchor="middle">${q.y}</text>`;
   });
-  // 積み上げバー
   quarters.forEach((q,i)=>{
-    const x=pL+i*bw+bw*0.1, w=bw*0.8;
+    const x=pL+i*bw+bw*0.12, w=bw*0.76;
     const hs=yOf(q.solo+q.cluster), hc=yOf(q.cluster);
-    if(q.solo){ svg+=`<rect x="${x}" y="${hs}" width="${w}" height="${H-pB-hs}" fill="var(--accent)" opacity="0.7"><title>${q.label} 単独${q.solo}件</title></rect>`; }
-    if(q.cluster){ svg+=`<rect x="${x}" y="${hc}" width="${w}" height="${hs-hc}" fill="var(--susp)" opacity="0.85"><title>${q.label} 同時値上げ${q.cluster}件</title></rect>`; }
+    if(q.solo){ svg+=`<rect x="${x}" y="${hs}" width="${w}" height="${H-pB-hs}" rx="2" fill="var(--brand)" opacity="0.75"><title>${q.label} 単独${q.solo}件</title></rect>`; }
+    if(q.cluster){ svg+=`<rect x="${x}" y="${hc}" width="${w}" height="${hs-hc}" rx="2" fill="var(--warn)" opacity="0.9"><title>${q.label} 同時値上げ${q.cluster}件</title></rect>`; }
   });
-  // 摘発年マーカー
   jftcYears.forEach(yr=>{
     const qi=quarters.findIndex(q=>q.y===+yr&&q.q===1);
     if(qi<0) return;
-    const x=pL+qi*bw; svg+=`<text x="${x}" y="${pT+8}" fill="var(--done)" font-size="11" text-anchor="middle">▼</text>`;
-    svg+=`<line x1="${x}" y1="${pT+11}" x2="${x}" y2="${H-pB}" stroke="var(--done)" stroke-dasharray="3,3" opacity="0.4"/>`;
+    const x=pL+qi*bw; svg+=`<text x="${x}" y="${pT+6}" fill="var(--danger)" font-size="11" text-anchor="middle">▼</text>`;
+    svg+=`<line x1="${x}" y1="${pT+9}" x2="${x}" y2="${H-pB}" stroke="var(--danger)" stroke-dasharray="3,3" opacity="0.35"/>`;
   });
   svg+=`</svg>`;
   $("#trend-chart").innerHTML=svg;
