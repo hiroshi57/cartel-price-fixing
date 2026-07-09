@@ -3,49 +3,26 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0b0e14" />
+<link rel="stylesheet" href="theme.css" />
 <title>業界分析レポート — Cartel Watch</title>
 <style>
-  :root{
-    --bg:#0e1116; --panel:#161b22; --panel2:#1c232d; --line:#2a323d;
-    --txt:#e6edf3; --muted:#9aa7b4; --accent:#58a6ff;
-    --hi:#ff6b6b; --mid:#ffa657; --lo:#3fb950; --cost:#a371f7;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--txt);
-    font-family:"Segoe UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;font-size:14px;line-height:1.6}
-  header{padding:18px 22px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#11161d,#0e1116)}
-  header h1{margin:0;font-size:20px}
-  header .sub{color:var(--muted);font-size:12.5px;margin-top:4px}
-  nav{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
-  nav a{font-size:12.5px;color:var(--accent);text-decoration:none;border:1px solid var(--line);
-    padding:5px 11px;border-radius:7px;background:var(--panel)}
-  .toolbar{padding:14px 22px;display:flex;gap:14px;align-items:end;flex-wrap:wrap;border-bottom:1px solid var(--line)}
-  .ctrl{display:flex;flex-direction:column;gap:4px}
-  .ctrl label{font-size:11.5px;color:var(--muted)}
-  select{background:var(--panel2);color:var(--txt);border:1px solid var(--line);border-radius:7px;padding:7px 9px;font-size:13px}
-  button{background:var(--accent);color:#04101f;border:none;border-radius:7px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer}
-  .samples{font-size:12px;color:var(--muted);align-self:center}
-  .samples a{color:var(--accent);text-decoration:none;margin-right:8px}
-  .wrap{padding:22px;max-width:860px;margin:0 auto}
-  .rep-panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin-bottom:16px}
-  h2{font-size:16px;margin:0 0 12px;color:var(--accent)}
-  h3{font-size:14px;margin:14px 0 6px}
-  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
-  th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line)}
-  th{color:var(--muted);font-weight:600;font-size:11.5px}
-  .badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:700}
-  .b-hi{background:rgba(255,107,107,.16);color:var(--hi);border:1px solid rgba(255,107,107,.4)}
-  .b-mid{background:rgba(255,166,87,.16);color:var(--mid);border:1px solid rgba(255,166,87,.4)}
-  .b-lo{background:rgba(63,185,80,.16);color:var(--lo);border:1px solid rgba(63,185,80,.4)}
-  .muted{color:var(--muted);font-size:12px}
-  .warn{border:1px solid #5a3a1a;background:#26190d;color:#ffce99;border-radius:8px;padding:10px 12px;font-size:12px;margin-bottom:14px}
-  svg{width:100%;height:auto;display:block}
-  footer{padding:16px 22px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--line);text-align:center}
+  /* report 固有 */
+  .toolbar{padding:14px var(--sp-6);display:flex;gap:var(--sp-4);align-items:flex-end;flex-wrap:wrap;
+    border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(11,14,20,.82);backdrop-filter:blur(12px);z-index:40}
+  .samples{font-size:var(--fs-sm);color:var(--muted);align-self:center}
+  .samples a{margin-right:8px}
+  .wrap{max-width:860px}
+  .rep-panel{background:var(--surface-1);border:1px solid var(--line);border-radius:var(--r-lg);padding:20px 24px;margin-bottom:16px}
+  .rep-panel h2{font-size:var(--fs-lg);margin:0 0 12px;color:var(--brand)}
+  .rep-panel h3{font-size:var(--fs-md);margin:14px 0 6px}
+  .warn{border:1px solid rgba(245,167,66,.35);background:var(--warn-bg);color:#ffd9a6;border-radius:var(--r-md);padding:10px 12px;font-size:var(--fs-sm);margin-bottom:14px}
 
   /* ===== 印刷 (PDF 出力) 用: 白背景・インク節約 ===== */
   @media print{
-    :root{--bg:#fff;--panel:#fff;--panel2:#f4f6f8;--line:#c9d1d9;--txt:#1a1f24;--muted:#57606a;--accent:#0969da}
-    header nav,.toolbar,footer .no-print{display:none!important}
+    :root{--bg:#fff;--surface-1:#fff;--surface-2:#f4f6f8;--line:#c9d1d9;--txt:#1a1f24;--txt-2:#41484f;--muted:#57606a;--brand:#0969da}
+    body::before{display:none}
+    .site-header,.toolbar,.site-footer .no-print{display:none!important}
     body{font-size:12px}
     .rep-panel{break-inside:avoid;border:1px solid #c9d1d9}
     a{color:#0969da!important}
@@ -53,23 +30,13 @@
 </style>
 </head>
 <body>
-<header>
-  <h1>📄 業界分析レポート</h1>
-  <div class="sub">業界を選んで「PDF に保存」を押すと、印刷ダイアログから PDF レポートとして出力できます。</div>
-  <nav>
-    <a href="overview.html">⓪ 総合ダッシュボード</a>
-    <a href="index.html">① 公表値上げの横並び</a>
-    <a href="methodology.html">🔬 検知ロジックの説明</a>
-    <a href="terms.html">📜 利用規約</a>
-  </nav>
-</header>
 
 <div class="toolbar">
   <div class="ctrl">
     <label>業界カテゴリ</label>
     <select id="cat"></select>
   </div>
-  <button onclick="window.print()">🖨️ PDF に保存 / 印刷</button>
+  <button class="btn-primary" onclick="window.print()">🖨️ PDF に保存 / 印刷</button>
   <div class="samples">サンプル:
     <a href="report.html#ice">アイス業界</a>
     <a href="report.html#dairy">牛乳・乳製品</a>
@@ -79,15 +46,12 @@
 
 <div class="wrap" id="report"><!-- JS で生成 --></div>
 
-<footer>
-  Cartel Watch — 本レポートは統計的観察であり、違法行為の指摘ではありません。
-  出典: 総務省・農林水産省・日本銀行・公正取引委員会 各公表資料を基に当社が指数化・編集・加工。
-</footer>
-
+<script src="ui.js"></script>
 <script src="data.js"></script>
 <script src="cases-data.js"></script>
 <script>
 "use strict";
+CWUI.header("report"); CWUI.footer();
 const D = window.CARTEL_DATA;
 const CASES = window.JFTC_CASES || [];
 const $ = s => document.querySelector(s);

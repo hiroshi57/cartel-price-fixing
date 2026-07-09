@@ -4,53 +4,20 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>検知ロジックの説明 — Cartel Watch</title>
+<meta name="theme-color" content="#0b0e14" />
+<link rel="stylesheet" href="theme.css" />
 <style>
-  :root{
-    --bg:#0e1116; --panel:#161b22; --panel2:#1c232d; --line:#2a323d;
-    --txt:#e6edf3; --muted:#9aa7b4; --accent:#58a6ff;
-    --hi:#ff6b6b; --mid:#ffa657; --lo:#3fb950; --cost:#a371f7;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--txt);
-    font-family:"Segoe UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;font-size:14px;line-height:1.7}
-  header{padding:18px 22px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#11161d,#0e1116)}
-  header h1{margin:0;font-size:20px}
-  header .sub{color:var(--muted);font-size:12.5px;margin-top:4px}
-  nav{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
-  nav a{font-size:12.5px;color:var(--accent);text-decoration:none;border:1px solid var(--line);
-    padding:5px 11px;border-radius:7px;background:var(--panel)}
-  .wrap{padding:18px 22px;max-width:860px;margin:0 auto}
-  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin-bottom:18px}
-  h2{font-size:16px;margin:0 0 12px;color:var(--accent)}
-  h3{font-size:14px;margin:18px 0 6px}
-  .warn{border:1px solid #5a3a1a;background:#26190d;color:#ffce99;border-radius:8px;padding:12px 14px;font-size:13px;margin-bottom:18px}
-  table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
-  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
-  th{color:var(--muted);font-weight:600;font-size:11.5px}
-  code{background:var(--panel2);padding:1px 6px;border-radius:4px;font-size:12.5px}
-  pre{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:12.5px}
-  .badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:700}
-  .b-hi{background:rgba(255,107,107,.16);color:var(--hi);border:1px solid rgba(255,107,107,.4)}
-  .b-mid{background:rgba(255,166,87,.16);color:var(--mid);border:1px solid rgba(255,166,87,.4)}
-  .b-lo{background:rgba(63,185,80,.16);color:var(--lo);border:1px solid rgba(63,185,80,.4)}
-  ul{padding-left:20px}
-  li{margin:4px 0}
-  .muted{color:var(--muted);font-size:12.5px}
-  footer{padding:16px 22px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--line);text-align:center}
+  /* methodology 固有（読み物レイアウト） */
+  .wrap{max-width:860px}
+  .panel{margin-bottom:0}
+  .panel h2{font-size:var(--fs-lg);margin:0 0 12px;color:var(--brand)}
+  .panel h3{font-size:var(--fs-md);margin:18px 0 6px}
+  pre{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px;overflow-x:auto;font-size:var(--fs-sm)}
+  .warn{border:1px solid rgba(245,167,66,.35);background:var(--warn-bg);color:#ffd9a6;border-radius:var(--r-md);padding:12px 14px;font-size:var(--fs-sm);margin-bottom:18px}
+  ul{padding-left:20px} li{margin:4px 0}
 </style>
 </head>
 <body>
-<header>
-  <h1>🔬 検知ロジックの説明</h1>
-  <div class="sub">Cartel Watch がどのように「同時値上げ」や「説明できないコスト乖離」を検知しているかを、すべて公開します。</div>
-  <nav>
-    <a href="overview.html">⓪ 総合ダッシュボード</a>
-    <a href="index.html">① 公表値上げの横並び</a>
-    <a href="procurement.html">② 仕入れコスト構造</a>
-    <a href="cases.html">③ 確定カルテル事件</a>
-    <a href="terms.html">📜 利用規約</a>
-  </nav>
-</header>
 
 <div class="wrap">
 
@@ -148,11 +115,10 @@
     <p class="muted">ロジック・データへの指摘・改善提案は歓迎します（GitHub Issue へ）。</p>
   </section>
 
-  <p class="muted">最終更新: 2026-07-06 / データ出典の一覧は <a href="terms.html" style="color:var(--accent)">利用規約 第3条</a> を参照。</p>
+  <p class="muted">最終更新: 2026-07-06 / データ出典の一覧は <a href="terms.html">利用規約 第3条</a> を参照。</p>
 </div>
 
-<footer>
-  Cartel Watch — 本表示は統計的観察であり、違法行為の指摘ではありません。
-</footer>
+<script src="ui.js"></script>
+<script>CWUI.header("methodology"); CWUI.footer();</script>
 </body>
 </html>
