@@ -1,140 +1,191 @@
 series_id,series_name,group,date,value
 commodity:wheat,輸入小麦 政府売渡価格,commodity,2021-04,100
-commodity:wheat,輸入小麦 政府売渡価格,commodity,2021-10,119
-commodity:wheat,輸入小麦 政府売渡価格,commodity,2022-04,137
-commodity:wheat,輸入小麦 政府売渡価格,commodity,2022-10,142
-commodity:wheat,輸入小麦 政府売渡価格,commodity,2023-04,132
-commodity:wheat,輸入小麦 政府売渡価格,commodity,2023-10,122
-commodity:wheat,輸入小麦 政府売渡価格,commodity,2024-04,118
-commodity:wheat,輸入小麦 政府売渡価格,commodity,2024-10,116
-commodity:wheat,輸入小麦 政府売渡価格,commodity,2025-04,114
-commodity:crude,原油 (物流・包装コスト),commodity,2021-04,100
-commodity:crude,原油 (物流・包装コスト),commodity,2021-10,128
-commodity:crude,原油 (物流・包装コスト),commodity,2022-04,165
-commodity:crude,原油 (物流・包装コスト),commodity,2022-10,150
-commodity:crude,原油 (物流・包装コスト),commodity,2023-04,118
-commodity:crude,原油 (物流・包装コスト),commodity,2023-10,130
-commodity:crude,原油 (物流・包装コスト),commodity,2024-04,125
-commodity:crude,原油 (物流・包装コスト),commodity,2024-10,120
-commodity:crude,原油 (物流・包装コスト),commodity,2025-04,118
-commodity:sugar,砂糖 (粗糖),commodity,2021-04,100
-commodity:sugar,砂糖 (粗糖),commodity,2022-04,112
-commodity:sugar,砂糖 (粗糖),commodity,2023-04,138
-commodity:sugar,砂糖 (粗糖),commodity,2023-10,152
-commodity:sugar,砂糖 (粗糖),commodity,2024-04,148
-commodity:sugar,砂糖 (粗糖),commodity,2025-04,134
-commodity:cacao,カカオ豆,commodity,2021-04,100
-commodity:cacao,カカオ豆,commodity,2022-04,108
-commodity:cacao,カカオ豆,commodity,2023-04,130
-commodity:cacao,カカオ豆,commodity,2023-10,175
-commodity:cacao,カカオ豆,commodity,2024-04,290
-commodity:cacao,カカオ豆,commodity,2024-10,250
-commodity:cacao,カカオ豆,commodity,2025-04,230
-commodity:milk,生乳,commodity,2021-04,100
-commodity:milk,生乳,commodity,2022-04,104
-commodity:milk,生乳,commodity,2022-11,113
-commodity:milk,生乳,commodity,2023-08,121
-commodity:milk,生乳,commodity,2024-04,122
-commodity:milk,生乳,commodity,2025-04,123
+commodity:wheat,輸入小麦 政府売渡価格,commodity,2021-10,121
+commodity:wheat,輸入小麦 政府売渡価格,commodity,2022-04,130
+commodity:wheat,輸入小麦 政府売渡価格,commodity,2022-10,138
+commodity:wheat,輸入小麦 政府売渡価格,commodity,2023-04,126
+commodity:wheat,輸入小麦 政府売渡価格,commodity,2023-10,112
+commodity:wheat,輸入小麦 政府売渡価格,commodity,2024-04,112
+commodity:wheat,輸入小麦 政府売渡価格,commodity,2024-10,107
+commodity:wheat,輸入小麦 政府売渡価格,commodity,2025-04,102
+commodity:wheat,輸入小麦 政府売渡価格,commodity,2025-10,101
+commodity:wheat,輸入小麦 政府売渡価格,commodity,2026-04,100
+commodity:crude,石油・石炭製品 企業物価指数（日銀CGPI実測）,commodity,2021-04,100
+commodity:crude,石油・石炭製品 企業物価指数（日銀CGPI実測）,commodity,2021-10,116.9
+commodity:crude,石油・石炭製品 企業物価指数（日銀CGPI実測）,commodity,2022-04,130.2
+commodity:crude,石油・石炭製品 企業物価指数（日銀CGPI実測）,commodity,2022-10,120.2
+commodity:crude,石油・石炭製品 企業物価指数（日銀CGPI実測）,commodity,2023-04,121.8
+commodity:crude,石油・石炭製品 企業物価指数（日銀CGPI実測）,commodity,2023-10,120.7
+commodity:crude,石油・石炭製品 企業物価指数（日銀CGPI実測）,commodity,2024-04,129.7
+commodity:crude,石油・石炭製品 企業物価指数（日銀CGPI実測）,commodity,2024-10,127.4
+commodity:crude,石油・石炭製品 企業物価指数（日銀CGPI実測）,commodity,2025-04,136.2
+commodity:crude,石油・石炭製品 企業物価指数（日銀CGPI実測）,commodity,2025-10,126.5
+commodity:crude,石油・石炭製品 企業物価指数（日銀CGPI実測）,commodity,2026-04,143.5
+commodity:sugar,粗糖 輸入物価指数（円ベース・日銀CGPI実測）,commodity,2021-04,100
+commodity:sugar,粗糖 輸入物価指数（円ベース・日銀CGPI実測）,commodity,2021-10,124.5
+commodity:sugar,粗糖 輸入物価指数（円ベース・日銀CGPI実測）,commodity,2022-04,142.8
+commodity:sugar,粗糖 輸入物価指数（円ベース・日銀CGPI実測）,commodity,2022-10,165.1
+commodity:sugar,粗糖 輸入物価指数（円ベース・日銀CGPI実測）,commodity,2023-04,166.4
+commodity:sugar,粗糖 輸入物価指数（円ベース・日銀CGPI実測）,commodity,2023-10,210.7
+commodity:sugar,粗糖 輸入物価指数（円ベース・日銀CGPI実測）,commodity,2024-04,189.6
+commodity:sugar,粗糖 輸入物価指数（円ベース・日銀CGPI実測）,commodity,2024-10,170.1
+commodity:sugar,粗糖 輸入物価指数（円ベース・日銀CGPI実測）,commodity,2025-04,163
+commodity:sugar,粗糖 輸入物価指数（円ベース・日銀CGPI実測）,commodity,2025-10,141.3
+commodity:sugar,粗糖 輸入物価指数（円ベース・日銀CGPI実測）,commodity,2026-04,136.7
+commodity:cacao,コーヒー豆・カカオ豆 輸入物価指数（円ベース・日銀CGPI実測）,commodity,2021-04,100
+commodity:cacao,コーヒー豆・カカオ豆 輸入物価指数（円ベース・日銀CGPI実測）,commodity,2021-10,141.2
+commodity:cacao,コーヒー豆・カカオ豆 輸入物価指数（円ベース・日銀CGPI実測）,commodity,2022-04,211.7
+commodity:cacao,コーヒー豆・カカオ豆 輸入物価指数（円ベース・日銀CGPI実測）,commodity,2022-10,229.1
+commodity:cacao,コーヒー豆・カカオ豆 輸入物価指数（円ベース・日銀CGPI実測）,commodity,2023-04,164.9
+commodity:cacao,コーヒー豆・カカオ豆 輸入物価指数（円ベース・日銀CGPI実測）,commodity,2023-10,201.2
+commodity:cacao,コーヒー豆・カカオ豆 輸入物価指数（円ベース・日銀CGPI実測）,commodity,2024-04,244.6
+commodity:cacao,コーヒー豆・カカオ豆 輸入物価指数（円ベース・日銀CGPI実測）,commodity,2024-10,320.8
+commodity:cacao,コーヒー豆・カカオ豆 輸入物価指数（円ベース・日銀CGPI実測）,commodity,2025-04,410.2
+commodity:cacao,コーヒー豆・カカオ豆 輸入物価指数（円ベース・日銀CGPI実測）,commodity,2025-10,357
+commodity:cacao,コーヒー豆・カカオ豆 輸入物価指数（円ベース・日銀CGPI実測）,commodity,2026-04,413.8
+commodity:milk,原乳 企業物価指数（日銀CGPI実測）,commodity,2021-04,100
+commodity:milk,原乳 企業物価指数（日銀CGPI実測）,commodity,2021-10,100.7
+commodity:milk,原乳 企業物価指数（日銀CGPI実測）,commodity,2022-04,100
+commodity:milk,原乳 企業物価指数（日銀CGPI実測）,commodity,2022-10,100.7
+commodity:milk,原乳 企業物価指数（日銀CGPI実測）,commodity,2023-04,109.9
+commodity:milk,原乳 企業物価指数（日銀CGPI実測）,commodity,2023-10,115.7
+commodity:milk,原乳 企業物価指数（日銀CGPI実測）,commodity,2024-04,117.1
+commodity:milk,原乳 企業物価指数（日銀CGPI実測）,commodity,2024-10,117.7
+commodity:milk,原乳 企業物価指数（日銀CGPI実測）,commodity,2025-04,116.5
+commodity:milk,原乳 企業物価指数（日銀CGPI実測）,commodity,2025-10,122.3
+commodity:milk,原乳 企業物価指数（日銀CGPI実測）,commodity,2026-04,121.9
+commodity:pulp,パルプ・紙・同製品 企業物価指数（日銀CGPI実測）,commodity,2021-04,100
+commodity:pulp,パルプ・紙・同製品 企業物価指数（日銀CGPI実測）,commodity,2021-10,100.1
+commodity:pulp,パルプ・紙・同製品 企業物価指数（日銀CGPI実測）,commodity,2022-04,104.4
+commodity:pulp,パルプ・紙・同製品 企業物価指数（日銀CGPI実測）,commodity,2022-10,110.9
+commodity:pulp,パルプ・紙・同製品 企業物価指数（日銀CGPI実測）,commodity,2023-04,120.6
+commodity:pulp,パルプ・紙・同製品 企業物価指数（日銀CGPI実測）,commodity,2023-10,122.6
+commodity:pulp,パルプ・紙・同製品 企業物価指数（日銀CGPI実測）,commodity,2024-04,123.6
+commodity:pulp,パルプ・紙・同製品 企業物価指数（日銀CGPI実測）,commodity,2024-10,124.5
+commodity:pulp,パルプ・紙・同製品 企業物価指数（日銀CGPI実測）,commodity,2025-04,126.3
+commodity:pulp,パルプ・紙・同製品 企業物価指数（日銀CGPI実測）,commodity,2025-10,129
+commodity:pulp,パルプ・紙・同製品 企業物価指数（日銀CGPI実測）,commodity,2026-04,132
 input:rice,米,input,2021-04,100
-input:rice,米,input,2021-10,100
-input:rice,米,input,2022-04,101
-input:rice,米,input,2022-10,103
-input:rice,米,input,2023-04,104
-input:rice,米,input,2023-10,106
-input:rice,米,input,2024-04,112
-input:rice,米,input,2024-10,135
-input:rice,米,input,2025-04,150
+input:rice,米,input,2021-10,97.7
+input:rice,米,input,2022-04,94.4
+input:rice,米,input,2022-10,95.9
+input:rice,米,input,2023-04,97.1
+input:rice,米,input,2023-10,100.8
+input:rice,米,input,2024-04,104.7
+input:rice,米,input,2024-10,160.2
+input:rice,米,input,2025-04,207.8
+input:rice,米,input,2025-10,224.5
+input:rice,米,input,2026-04,209.1
 input:vegetable,野菜,input,2021-04,100
-input:vegetable,野菜,input,2021-10,108
-input:vegetable,野菜,input,2022-04,103
-input:vegetable,野菜,input,2022-10,115
-input:vegetable,野菜,input,2023-04,98
-input:vegetable,野菜,input,2023-10,120
-input:vegetable,野菜,input,2024-04,110
-input:vegetable,野菜,input,2024-10,125
-input:vegetable,野菜,input,2025-04,118
+input:vegetable,野菜,input,2021-10,107.9
+input:vegetable,野菜,input,2022-04,112.2
+input:vegetable,野菜,input,2022-10,115.1
+input:vegetable,野菜,input,2023-04,113.5
+input:vegetable,野菜,input,2023-10,136.5
+input:vegetable,野菜,input,2024-04,128.8
+input:vegetable,野菜,input,2024-10,139.3
+input:vegetable,野菜,input,2025-04,132
+input:vegetable,野菜,input,2025-10,140.3
+input:vegetable,野菜,input,2026-04,129.2
 input:meat,食肉,input,2021-04,100
-input:meat,食肉,input,2021-10,104
-input:meat,食肉,input,2022-04,110
-input:meat,食肉,input,2022-10,114
-input:meat,食肉,input,2023-04,116
-input:meat,食肉,input,2023-10,118
-input:meat,食肉,input,2024-04,120
-input:meat,食肉,input,2024-10,122
-input:meat,食肉,input,2025-04,124
+input:meat,食肉,input,2021-10,101.7
+input:meat,食肉,input,2022-04,102.5
+input:meat,食肉,input,2022-10,107.7
+input:meat,食肉,input,2023-04,112.1
+input:meat,食肉,input,2023-10,113.4
+input:meat,食肉,input,2024-04,114.1
+input:meat,食肉,input,2024-10,119.1
+input:meat,食肉,input,2025-04,120
+input:meat,食肉,input,2025-10,124
+input:meat,食肉,input,2026-04,126.2
 input:oil,食用油,input,2021-04,100
-input:oil,食用油,input,2021-10,118
-input:oil,食用油,input,2022-04,140
-input:oil,食用油,input,2022-10,138
-input:oil,食用油,input,2023-04,128
-input:oil,食用油,input,2023-10,120
-input:oil,食用油,input,2024-04,116
-input:oil,食用油,input,2024-10,114
-input:oil,食用油,input,2025-04,112
+input:oil,食用油,input,2021-10,119.6
+input:oil,食用油,input,2022-04,136.5
+input:oil,食用油,input,2022-10,162.3
+input:oil,食用油,input,2023-04,165.1
+input:oil,食用油,input,2023-10,158.6
+input:oil,食用油,input,2024-04,149.9
+input:oil,食用油,input,2024-10,148.8
+input:oil,食用油,input,2025-04,149.4
+input:oil,食用油,input,2025-10,152.2
+input:oil,食用油,input,2026-04,157.6
 input:flour,小麦粉,input,2021-04,100
-input:flour,小麦粉,input,2021-10,110
-input:flour,小麦粉,input,2022-04,128
-input:flour,小麦粉,input,2022-10,132
-input:flour,小麦粉,input,2023-04,125
-input:flour,小麦粉,input,2023-10,118
-input:flour,小麦粉,input,2024-04,116
-input:flour,小麦粉,input,2024-10,115
-input:flour,小麦粉,input,2025-04,114
+input:flour,小麦粉,input,2021-10,106.2
+input:flour,小麦粉,input,2022-04,115.2
+input:flour,小麦粉,input,2022-10,125.5
+input:flour,小麦粉,input,2023-04,125.6
+input:flour,小麦粉,input,2023-10,130.9
+input:flour,小麦粉,input,2024-04,128.9
+input:flour,小麦粉,input,2024-10,134.2
+input:flour,小麦粉,input,2025-04,140.6
+input:flour,小麦粉,input,2025-10,139
+input:flour,小麦粉,input,2026-04,137.7
 input:detergent,洗剤・溶剤,input,2021-04,100
-input:detergent,洗剤・溶剤,input,2021-10,112
-input:detergent,洗剤・溶剤,input,2022-04,130
-input:detergent,洗剤・溶剤,input,2022-10,128
-input:detergent,洗剤・溶剤,input,2023-04,120
-input:detergent,洗剤・溶剤,input,2023-10,118
-input:detergent,洗剤・溶剤,input,2024-04,116
-input:detergent,洗剤・溶剤,input,2024-10,115
-input:detergent,洗剤・溶剤,input,2025-04,114
+input:detergent,洗剤・溶剤,input,2021-10,98.5
+input:detergent,洗剤・溶剤,input,2022-04,99.9
+input:detergent,洗剤・溶剤,input,2022-10,106.5
+input:detergent,洗剤・溶剤,input,2023-04,119.7
+input:detergent,洗剤・溶剤,input,2023-10,119
+input:detergent,洗剤・溶剤,input,2024-04,120
+input:detergent,洗剤・溶剤,input,2024-10,137.6
+input:detergent,洗剤・溶剤,input,2025-04,136.8
+input:detergent,洗剤・溶剤,input,2025-10,157.1
+input:detergent,洗剤・溶剤,input,2026-04,155
 input:energy,光熱費(電気・ガス),input,2021-04,100
-input:energy,光熱費(電気・ガス),input,2021-10,115
-input:energy,光熱費(電気・ガス),input,2022-04,140
-input:energy,光熱費(電気・ガス),input,2022-10,158
-input:energy,光熱費(電気・ガス),input,2023-04,150
-input:energy,光熱費(電気・ガス),input,2023-10,138
-input:energy,光熱費(電気・ガス),input,2024-04,130
-input:energy,光熱費(電気・ガス),input,2024-10,128
-input:energy,光熱費(電気・ガス),input,2025-04,126
+input:energy,光熱費(電気・ガス),input,2021-10,107
+input:energy,光熱費(電気・ガス),input,2022-04,119.8
+input:energy,光熱費(電気・ガス),input,2022-10,129.1
+input:energy,光熱費(電気・ガス),input,2023-04,114.5
+input:energy,光熱費(電気・ガス),input,2023-10,110.4
+input:energy,光熱費(電気・ガス),input,2024-04,111.9
+input:energy,光熱費(電気・ガス),input,2024-10,114.6
+input:energy,光熱費(電気・ガス),input,2025-04,123.2
+input:energy,光熱費(電気・ガス),input,2025-10,117.4
+input:energy,光熱費(電気・ガス),input,2026-04,119.7
 input:water,水道,input,2021-04,100
-input:water,水道,input,2021-10,100
+input:water,水道,input,2021-10,100.7
 input:water,水道,input,2022-04,101
-input:water,水道,input,2022-10,102
-input:water,水道,input,2023-04,104
-input:water,水道,input,2023-10,105
-input:water,水道,input,2024-04,107
-input:water,水道,input,2024-10,108
-input:water,水道,input,2025-04,110
+input:water,水道,input,2022-10,97.2
+input:water,水道,input,2023-04,101.1
+input:water,水道,input,2023-10,100.4
+input:water,水道,input,2024-04,101.6
+input:water,水道,input,2024-10,103
+input:water,水道,input,2025-04,103.2
+input:water,水道,input,2025-10,102.6
+input:water,水道,input,2026-04,102.3
 input:labor,人件費,input,2021-04,100
-input:labor,人件費,input,2021-10,102
-input:labor,人件費,input,2022-04,104
-input:labor,人件費,input,2022-10,107
-input:labor,人件費,input,2023-04,110
-input:labor,人件費,input,2023-10,113
-input:labor,人件費,input,2024-04,116
-input:labor,人件費,input,2024-10,120
-input:labor,人件費,input,2025-04,124
+input:labor,人件費,input,2021-10,103.1
+input:labor,人件費,input,2022-04,103.1
+input:labor,人件費,input,2022-10,106.5
+input:labor,人件費,input,2023-04,106.5
+input:labor,人件費,input,2023-10,111.3
+input:labor,人件費,input,2024-04,111.3
+input:labor,人件費,input,2024-10,117
+input:labor,人件費,input,2025-04,117
+input:labor,人件費,input,2025-10,124.3
+input:labor,人件費,input,2026-04,124.3
 input:rent,家賃,input,2021-04,100
 input:rent,家賃,input,2021-10,100
-input:rent,家賃,input,2022-04,101
-input:rent,家賃,input,2022-10,101
-input:rent,家賃,input,2023-04,102
-input:rent,家賃,input,2023-10,102
-input:rent,家賃,input,2024-04,103
-input:rent,家賃,input,2024-10,103
-input:rent,家賃,input,2025-04,104
+input:rent,家賃,input,2022-04,100
+input:rent,家賃,input,2022-10,100.1
+input:rent,家賃,input,2023-04,100.1
+input:rent,家賃,input,2023-10,100.2
+input:rent,家賃,input,2024-04,100.3
+input:rent,家賃,input,2024-10,100.4
+input:rent,家賃,input,2025-04,100.6
+input:rent,家賃,input,2025-10,100.9
+input:rent,家賃,input,2026-04,101
 input:packaging,包装・物流,input,2021-04,100
-input:packaging,包装・物流,input,2021-10,110
-input:packaging,包装・物流,input,2022-04,122
-input:packaging,包装・物流,input,2022-10,124
-input:packaging,包装・物流,input,2023-04,120
-input:packaging,包装・物流,input,2023-10,122
-input:packaging,包装・物流,input,2024-04,120
-input:packaging,包装・物流,input,2024-10,119
-input:packaging,包装・物流,input,2025-04,118
+input:packaging,包装・物流,input,2021-10,99.7
+input:packaging,包装・物流,input,2022-04,102.1
+input:packaging,包装・物流,input,2022-10,108.7
+input:packaging,包装・物流,input,2023-04,114.8
+input:packaging,包装・物流,input,2023-10,115.3
+input:packaging,包装・物流,input,2024-04,116.3
+input:packaging,包装・物流,input,2024-10,116.5
+input:packaging,包装・物流,input,2025-04,118.9
+input:packaging,包装・物流,input,2025-10,121.5
+input:packaging,包装・物流,input,2026-04,124
 input:misc,その他,input,2021-04,100
 input:misc,その他,input,2021-10,103
 input:misc,その他,input,2022-04,106
@@ -144,57 +195,390 @@ input:misc,その他,input,2023-10,112
 input:misc,その他,input,2024-04,114
 input:misc,その他,input,2024-10,116
 input:misc,その他,input,2025-04,118
+input:misc,その他,input,2025-10,120
+input:misc,その他,input,2026-04,122
+input:fuel,燃料(軽油・ガソリン),input,2021-04,100
+input:fuel,燃料(軽油・ガソリン),input,2021-10,108.6
+input:fuel,燃料(軽油・ガソリン),input,2022-04,115.7
+input:fuel,燃料(軽油・ガソリン),input,2022-10,111.7
+input:fuel,燃料(軽油・ガソリン),input,2023-04,111.9
+input:fuel,燃料(軽油・ガソリン),input,2023-10,117.3
+input:fuel,燃料(軽油・ガソリン),input,2024-04,116.9
+input:fuel,燃料(軽油・ガソリン),input,2024-10,116.9
+input:fuel,燃料(軽油・ガソリン),input,2025-04,124.5
+input:fuel,燃料(軽油・ガソリン),input,2025-10,116.9
+input:fuel,燃料(軽油・ガソリン),input,2026-04,112.5
+input:vehicle,車両・整備,input,2021-04,100
+input:vehicle,車両・整備,input,2021-10,102.1
+input:vehicle,車両・整備,input,2022-04,103.5
+input:vehicle,車両・整備,input,2022-10,103.3
+input:vehicle,車両・整備,input,2023-04,103.3
+input:vehicle,車両・整備,input,2023-10,105.6
+input:vehicle,車両・整備,input,2024-04,106.9
+input:vehicle,車両・整備,input,2024-10,107.5
+input:vehicle,車両・整備,input,2025-04,110.8
+input:vehicle,車両・整備,input,2025-10,110.5
+input:vehicle,車両・整備,input,2026-04,110
+input:material,建材・資材,input,2021-04,100
+input:material,建材・資材,input,2021-10,125.4
+input:material,建材・資材,input,2022-04,133.5
+input:material,建材・資材,input,2022-10,139.2
+input:material,建材・資材,input,2023-04,133
+input:material,建材・資材,input,2023-10,132.6
+input:material,建材・資材,input,2024-04,133.2
+input:material,建材・資材,input,2024-10,132.9
+input:material,建材・資材,input,2025-04,132.2
+input:material,建材・資材,input,2025-10,133.5
+input:material,建材・資材,input,2026-04,135.6
+input:goods,商品仕入れ(卸),input,2021-04,100
+input:goods,商品仕入れ(卸),input,2021-10,101.3
+input:goods,商品仕入れ(卸),input,2022-04,104
+input:goods,商品仕入れ(卸),input,2022-10,108.9
+input:goods,商品仕入れ(卸),input,2023-04,113.1
+input:goods,商品仕入れ(卸),input,2023-10,115
+input:goods,商品仕入れ(卸),input,2024-04,116
+input:goods,商品仕入れ(卸),input,2024-10,117.4
+input:goods,商品仕入れ(卸),input,2025-04,121.1
+input:goods,商品仕入れ(卸),input,2025-10,123
+input:goods,商品仕入れ(卸),input,2026-04,126.2
+input:telecom,通信費,input,2021-04,100
+input:telecom,通信費,input,2021-10,76.9
+input:telecom,通信費,input,2022-04,77.5
+input:telecom,通信費,input,2022-10,78.3
+input:telecom,通信費,input,2023-04,79.6
+input:telecom,通信費,input,2023-10,86.8
+input:telecom,通信費,input,2024-04,86.8
+input:telecom,通信費,input,2024-10,86.6
+input:telecom,通信費,input,2025-04,89.4
+input:telecom,通信費,input,2025-10,99.2
+input:telecom,通信費,input,2026-04,99.2
+input:ad,広告・媒体費,input,2021-04,100
+input:ad,広告・媒体費,input,2021-10,101.5
+input:ad,広告・媒体費,input,2022-04,103.1
+input:ad,広告・媒体費,input,2022-10,103.8
+input:ad,広告・媒体費,input,2023-04,104.5
+input:ad,広告・媒体費,input,2023-10,106.1
+input:ad,広告・媒体費,input,2024-04,105.4
+input:ad,広告・媒体費,input,2024-10,110.5
+input:ad,広告・媒体費,input,2025-04,107.4
+input:ad,広告・媒体費,input,2025-10,112
+input:ad,広告・媒体費,input,2026-04,108.5
+input:textbook,教材・コンテンツ,input,2021-04,100
+input:textbook,教材・コンテンツ,input,2021-10,101
+input:textbook,教材・コンテンツ,input,2022-04,102
+input:textbook,教材・コンテンツ,input,2022-10,103
+input:textbook,教材・コンテンツ,input,2023-04,104
+input:textbook,教材・コンテンツ,input,2023-10,105
+input:textbook,教材・コンテンツ,input,2024-04,106
+input:textbook,教材・コンテンツ,input,2024-10,107
+input:textbook,教材・コンテンツ,input,2025-04,108
+input:textbook,教材・コンテンツ,input,2025-10,109
+input:textbook,教材・コンテンツ,input,2026-04,110
+input:finance,調達金利コスト,input,2021-04,100
+input:finance,調達金利コスト,input,2021-10,100
+input:finance,調達金利コスト,input,2022-04,100
+input:finance,調達金利コスト,input,2022-10,100
+input:finance,調達金利コスト,input,2023-04,100
+input:finance,調達金利コスト,input,2023-10,100
+input:finance,調達金利コスト,input,2024-04,100
+input:finance,調達金利コスト,input,2024-10,110.2
+input:finance,調達金利コスト,input,2025-04,127.1
+input:finance,調達金利コスト,input,2025-10,127.1
+input:finance,調達金利コスト,input,2026-04,127.1
+input:medsupply,医療・衛生材料,input,2021-04,100
+input:medsupply,医療・衛生材料,input,2021-10,100
+input:medsupply,医療・衛生材料,input,2022-04,99.7
+input:medsupply,医療・衛生材料,input,2022-10,100
+input:medsupply,医療・衛生材料,input,2023-04,105.4
+input:medsupply,医療・衛生材料,input,2023-10,108.3
+input:medsupply,医療・衛生材料,input,2024-04,109.4
+input:medsupply,医療・衛生材料,input,2024-10,111.9
+input:medsupply,医療・衛生材料,input,2025-04,112.4
+input:medsupply,医療・衛生材料,input,2025-10,112.7
+input:medsupply,医療・衛生材料,input,2026-04,111.3
 actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2021-04,100
-actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2021-10,103
-actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2022-04,108
-actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2022-10,113
-actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2023-04,116
-actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2023-10,120
-actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2024-04,124
-actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2024-10,130
-actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2025-04,134
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2021-10,100.3
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2022-04,101.8
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2022-10,105.5
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2023-04,108.5
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2023-10,109.5
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2024-04,110.8
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2024-10,112.6
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2025-04,115.4
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2025-10,117.5
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,2026-04,116.6
 cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2021-04,100
-cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2021-10,104.77
-cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2022-04,110.15
-cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2022-10,115.17
-cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2023-04,113.52
-cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2023-10,115.38
-cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2024-04,115.33
-cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2024-10,120.81
-cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2025-04,123.26
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2021-10,103.64
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2022-04,106.3
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2022-10,110.99
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2023-04,110.03
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2023-10,113.68
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2024-04,113.33
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2024-10,123.78
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2025-04,130.07
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2025-10,135.19
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,2026-04,133.18
 actual:cleaning,クリーニング 実売,actual,2021-04,100
-actual:cleaning,クリーニング 実売,actual,2021-10,104
-actual:cleaning,クリーニング 実売,actual,2022-04,112
-actual:cleaning,クリーニング 実売,actual,2022-10,120
-actual:cleaning,クリーニング 実売,actual,2023-04,126
-actual:cleaning,クリーニング 実売,actual,2023-10,132
-actual:cleaning,クリーニング 実売,actual,2024-04,138
-actual:cleaning,クリーニング 実売,actual,2024-10,144
-actual:cleaning,クリーニング 実売,actual,2025-04,150
+actual:cleaning,クリーニング 実売,actual,2021-10,100.9
+actual:cleaning,クリーニング 実売,actual,2022-04,103.8
+actual:cleaning,クリーニング 実売,actual,2022-10,106.2
+actual:cleaning,クリーニング 実売,actual,2023-04,109.9
+actual:cleaning,クリーニング 実売,actual,2023-10,110.9
+actual:cleaning,クリーニング 実売,actual,2024-04,113
+actual:cleaning,クリーニング 実売,actual,2024-10,114.2
+actual:cleaning,クリーニング 実売,actual,2025-04,118.4
+actual:cleaning,クリーニング 実売,actual,2025-10,119.8
+actual:cleaning,クリーニング 実売,actual,2026-04,122.9
 cost:cleaning,クリーニング 理論コスト,cost,2021-04,100
-cost:cleaning,クリーニング 理論コスト,cost,2021-10,107.14
-cost:cleaning,クリーニング 理論コスト,cost,2022-04,118.28
-cost:cleaning,クリーニング 理論コスト,cost,2022-10,124.65
-cost:cleaning,クリーニング 理論コスト,cost,2023-04,122.38
-cost:cleaning,クリーニング 理論コスト,cost,2023-10,119.75
-cost:cleaning,クリーニング 理論コスト,cost,2024-04,118.3
-cost:cleaning,クリーニング 理論コスト,cost,2024-10,118.99
-cost:cleaning,クリーニング 理論コスト,cost,2025-04,119.86
+cost:cleaning,クリーニング 理論コスト,cost,2021-10,103.03
+cost:cleaning,クリーニング 理論コスト,cost,2022-04,107.18
+cost:cleaning,クリーニング 理論コスト,cost,2022-10,112.06
+cost:cleaning,クリーニング 理論コスト,cost,2023-04,109.81
+cost:cleaning,クリーニング 理論コスト,cost,2023-10,110.17
+cost:cleaning,クリーニング 理論コスト,cost,2024-04,110.87
+cost:cleaning,クリーニング 理論コスト,cost,2024-10,115.89
+cost:cleaning,クリーニング 理論コスト,cost,2025-04,118.53
+cost:cleaning,クリーニング 理論コスト,cost,2025-10,121.92
+cost:cleaning,クリーニング 理論コスト,cost,2026-04,122.47
 actual:greengrocer,八百屋・生鮮小売 実売,actual,2021-04,100
-actual:greengrocer,八百屋・生鮮小売 実売,actual,2021-10,107
-actual:greengrocer,八百屋・生鮮小売 実売,actual,2022-04,104
-actual:greengrocer,八百屋・生鮮小売 実売,actual,2022-10,114
-actual:greengrocer,八百屋・生鮮小売 実売,actual,2023-04,100
-actual:greengrocer,八百屋・生鮮小売 実売,actual,2023-10,119
-actual:greengrocer,八百屋・生鮮小売 実売,actual,2024-04,111
-actual:greengrocer,八百屋・生鮮小売 実売,actual,2024-10,124
-actual:greengrocer,八百屋・生鮮小売 実売,actual,2025-04,119
+actual:greengrocer,八百屋・生鮮小売 実売,actual,2021-10,107.9
+actual:greengrocer,八百屋・生鮮小売 実売,actual,2022-04,112.2
+actual:greengrocer,八百屋・生鮮小売 実売,actual,2022-10,115.1
+actual:greengrocer,八百屋・生鮮小売 実売,actual,2023-04,113.5
+actual:greengrocer,八百屋・生鮮小売 実売,actual,2023-10,136.5
+actual:greengrocer,八百屋・生鮮小売 実売,actual,2024-04,128.8
+actual:greengrocer,八百屋・生鮮小売 実売,actual,2024-10,139.3
+actual:greengrocer,八百屋・生鮮小売 実売,actual,2025-04,132
+actual:greengrocer,八百屋・生鮮小売 実売,actual,2025-10,140.3
+actual:greengrocer,八百屋・生鮮小売 実売,actual,2026-04,129.2
 cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2021-04,100
-cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2021-10,106.78
-cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2022-04,104.98
-cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2022-10,113.8
-cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2023-04,102.36
-cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2023-10,117.98
-cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2024-04,111.5
-cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2024-10,122.2
-cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2025-04,118
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2021-10,105.84
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2022-04,109.06
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2022-10,112.21
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2023-04,111.78
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2023-10,128.18
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2024-04,123.09
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2024-10,131.1
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2025-04,126.43
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2025-10,133.41
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,2026-04,126.16
+actual:delivery,運送(宅配・軽貨物) 実売,actual,2021-04,100
+actual:delivery,運送(宅配・軽貨物) 実売,actual,2021-10,99.8
+actual:delivery,運送(宅配・軽貨物) 実売,actual,2022-04,100.1
+actual:delivery,運送(宅配・軽貨物) 実売,actual,2022-10,100.5
+actual:delivery,運送(宅配・軽貨物) 実売,actual,2023-04,101.3
+actual:delivery,運送(宅配・軽貨物) 実売,actual,2023-10,101.7
+actual:delivery,運送(宅配・軽貨物) 実売,actual,2024-04,104.4
+actual:delivery,運送(宅配・軽貨物) 実売,actual,2024-10,104.7
+actual:delivery,運送(宅配・軽貨物) 実売,actual,2025-04,107.5
+actual:delivery,運送(宅配・軽貨物) 実売,actual,2025-10,107.7
+actual:delivery,運送(宅配・軽貨物) 実売,actual,2026-04,111.2
+cost:delivery,運送(宅配・軽貨物) 理論コスト,cost,2021-04,100
+cost:delivery,運送(宅配・軽貨物) 理論コスト,cost,2021-10,104.02
+cost:delivery,運送(宅配・軽貨物) 理論コスト,cost,2022-04,106.33
+cost:delivery,運送(宅配・軽貨物) 理論コスト,cost,2022-10,107.33
+cost:delivery,運送(宅配・軽貨物) 理論コスト,cost,2023-04,107.84
+cost:delivery,運送(宅配・軽貨物) 理論コスト,cost,2023-10,111.82
+cost:delivery,運送(宅配・軽貨物) 理論コスト,cost,2024-04,112.09
+cost:delivery,運送(宅配・軽貨物) 理論コスト,cost,2024-10,114.9
+cost:delivery,運送(宅配・軽貨物) 理論コスト,cost,2025-04,117.49
+cost:delivery,運送(宅配・軽貨物) 理論コスト,cost,2025-10,119.14
+cost:delivery,運送(宅配・軽貨物) 理論コスト,cost,2026-04,118.27
+actual:taxi,タクシー 実売,actual,2021-04,100
+actual:taxi,タクシー 実売,actual,2021-10,100.1
+actual:taxi,タクシー 実売,actual,2022-04,100.3
+actual:taxi,タクシー 実売,actual,2022-10,100.6
+actual:taxi,タクシー 実売,actual,2023-04,103.8
+actual:taxi,タクシー 実売,actual,2023-10,109
+actual:taxi,タクシー 実売,actual,2024-04,112.2
+actual:taxi,タクシー 実売,actual,2024-10,112.3
+actual:taxi,タクシー 実売,actual,2025-04,112.4
+actual:taxi,タクシー 実売,actual,2025-10,113.4
+actual:taxi,タクシー 実売,actual,2026-04,119.9
+cost:taxi,タクシー 理論コスト,cost,2021-04,100
+cost:taxi,タクシー 理論コスト,cost,2021-10,103.95
+cost:taxi,タクシー 理論コスト,cost,2022-04,105.94
+cost:taxi,タクシー 理論コスト,cost,2022-10,106.9
+cost:taxi,タクシー 理論コスト,cost,2023-04,107.1
+cost:taxi,タクシー 理論コスト,cost,2023-10,111.16
+cost:taxi,タクシー 理論コスト,cost,2024-04,111.41
+cost:taxi,タクシー 理論コスト,cost,2024-10,114.5
+cost:taxi,タクシー 理論コスト,cost,2025-04,116.78
+cost:taxi,タクシー 理論コスト,cost,2025-10,118.9
+cost:taxi,タクシー 理論コスト,cost,2026-04,118.03
+actual:reform,工務店・リフォーム 実売,actual,2021-04,100
+actual:reform,工務店・リフォーム 実売,actual,2021-10,108
+actual:reform,工務店・リフォーム 実売,actual,2022-04,122
+actual:reform,工務店・リフォーム 実売,actual,2022-10,128
+actual:reform,工務店・リフォーム 実売,actual,2023-04,126
+actual:reform,工務店・リフォーム 実売,actual,2023-10,127
+actual:reform,工務店・リフォーム 実売,actual,2024-04,130
+actual:reform,工務店・リフォーム 実売,actual,2024-10,133
+actual:reform,工務店・リフォーム 実売,actual,2025-04,136
+actual:reform,工務店・リフォーム 実売,actual,2025-10,138
+actual:reform,工務店・リフォーム 実売,actual,2026-04,140
+cost:reform,工務店・リフォーム 理論コスト,cost,2021-04,100
+cost:reform,工務店・リフォーム 理論コスト,cost,2021-10,112.18
+cost:reform,工務店・リフォーム 理論コスト,cost,2022-04,116.16
+cost:reform,工務店・リフォーム 理論コスト,cost,2022-10,119.62
+cost:reform,工務店・リフォーム 理論コスト,cost,2023-04,117.31
+cost:reform,工務店・リフォーム 理論コスト,cost,2023-10,119.52
+cost:reform,工務店・リフォーム 理論コスト,cost,2024-04,119.9
+cost:reform,工務店・リフォーム 理論コスト,cost,2024-10,122.11
+cost:reform,工務店・リフォーム 理論コスト,cost,2025-04,122.54
+cost:reform,工務店・リフォーム 理論コスト,cost,2025-10,125.48
+cost:reform,工務店・リフォーム 理論コスト,cost,2026-04,126.18
+actual:cramschool,学習塾・予備校 実売,actual,2021-04,100
+actual:cramschool,学習塾・予備校 実売,actual,2021-10,100.1
+actual:cramschool,学習塾・予備校 実売,actual,2022-04,101.3
+actual:cramschool,学習塾・予備校 実売,actual,2022-10,101.3
+actual:cramschool,学習塾・予備校 実売,actual,2023-04,104.9
+actual:cramschool,学習塾・予備校 実売,actual,2023-10,105
+actual:cramschool,学習塾・予備校 実売,actual,2024-04,107.5
+actual:cramschool,学習塾・予備校 実売,actual,2024-10,107.5
+actual:cramschool,学習塾・予備校 実売,actual,2025-04,110.4
+actual:cramschool,学習塾・予備校 実売,actual,2025-10,110.5
+actual:cramschool,学習塾・予備校 実売,actual,2026-04,113.1
+cost:cramschool,学習塾・予備校 理論コスト,cost,2021-04,100
+cost:cramschool,学習塾・予備校 理論コスト,cost,2021-10,102.44
+cost:cramschool,学習塾・予備校 理論コスト,cost,2022-04,103.59
+cost:cramschool,学習塾・予備校 理論コスト,cost,2022-10,106.3
+cost:cramschool,学習塾・予備校 理論コスト,cost,2023-04,105.46
+cost:cramschool,学習塾・予備校 理論コスト,cost,2023-10,108.05
+cost:cramschool,学習塾・予備校 理論コスト,cost,2024-04,108.28
+cost:cramschool,学習塾・予備校 理論コスト,cost,2024-10,112.03
+cost:cramschool,学習塾・予備校 理論コスト,cost,2025-04,112.66
+cost:cramschool,学習塾・予備校 理論コスト,cost,2025-10,116.7
+cost:cramschool,学習塾・予備校 理論コスト,cost,2026-04,116.85
+actual:salon,理美容室 実売,actual,2021-04,100
+actual:salon,理美容室 実売,actual,2021-10,100.1
+actual:salon,理美容室 実売,actual,2022-04,100.2
+actual:salon,理美容室 実売,actual,2022-10,100.7
+actual:salon,理美容室 実売,actual,2023-04,102
+actual:salon,理美容室 実売,actual,2023-10,102.8
+actual:salon,理美容室 実売,actual,2024-04,103.5
+actual:salon,理美容室 実売,actual,2024-10,104.1
+actual:salon,理美容室 実売,actual,2025-04,104.8
+actual:salon,理美容室 実売,actual,2025-10,105.4
+actual:salon,理美容室 実売,actual,2026-04,106.1
+cost:salon,理美容室 理論コスト,cost,2021-04,100
+cost:salon,理美容室 理論コスト,cost,2021-10,102.23
+cost:salon,理美容室 理論コスト,cost,2022-04,103.72
+cost:salon,理美容室 理論コスト,cost,2022-10,107.18
+cost:salon,理美容室 理論コスト,cost,2023-04,107.79
+cost:salon,理美容室 理論コスト,cost,2023-10,110
+cost:salon,理美容室 理論コスト,cost,2024-04,110.46
+cost:salon,理美容室 理論コスト,cost,2024-10,115.86
+cost:salon,理美容室 理論コスト,cost,2025-04,116.69
+cost:salon,理美容室 理論コスト,cost,2025-10,122.57
+cost:salon,理美容室 理論コスト,cost,2026-04,122.73
+actual:rental,レンタル・リース 実売,actual,2021-04,100
+actual:rental,レンタル・リース 実売,actual,2021-10,100.6
+actual:rental,レンタル・リース 実売,actual,2022-04,103.3
+actual:rental,レンタル・リース 実売,actual,2022-10,107.1
+actual:rental,レンタル・リース 実売,actual,2023-04,107.6
+actual:rental,レンタル・リース 実売,actual,2023-10,110.1
+actual:rental,レンタル・リース 実売,actual,2024-04,113.3
+actual:rental,レンタル・リース 実売,actual,2024-10,114.5
+actual:rental,レンタル・リース 実売,actual,2025-04,115.1
+actual:rental,レンタル・リース 実売,actual,2025-10,115.9
+actual:rental,レンタル・リース 実売,actual,2026-04,131.7
+cost:rental,レンタル・リース 理論コスト,cost,2021-04,100
+cost:rental,レンタル・リース 理論コスト,cost,2021-10,101.45
+cost:rental,レンタル・リース 理論コスト,cost,2022-04,102.9
+cost:rental,レンタル・リース 理論コスト,cost,2022-10,105.95
+cost:rental,レンタル・リース 理論コスト,cost,2023-04,108
+cost:rental,レンタル・リース 理論コスト,cost,2023-10,109.98
+cost:rental,レンタル・リース 理論コスト,cost,2024-04,110.6
+cost:rental,レンタル・リース 理論コスト,cost,2024-10,114.58
+cost:rental,レンタル・リース 理論コスト,cost,2025-04,119.8
+cost:rental,レンタル・リース 理論コスト,cost,2025-10,122.29
+cost:rental,レンタル・リース 理論コスト,cost,2026-04,123.9
+actual:hotel,ホテル・旅館 実売,actual,2021-04,100
+actual:hotel,ホテル・旅館 実売,actual,2021-10,103.1
+actual:hotel,ホテル・旅館 実売,actual,2022-04,106.1
+actual:hotel,ホテル・旅館 実売,actual,2022-10,92.7
+actual:hotel,ホテル・旅館 実売,actual,2023-04,114.7
+actual:hotel,ホテル・旅館 実売,actual,2023-10,132.3
+actual:hotel,ホテル・旅館 実売,actual,2024-04,136.2
+actual:hotel,ホテル・旅館 実売,actual,2024-10,142.4
+actual:hotel,ホテル・旅館 実売,actual,2025-04,144.6
+actual:hotel,ホテル・旅館 実売,actual,2025-10,154.4
+actual:hotel,ホテル・旅館 実売,actual,2026-04,151.2
+cost:hotel,ホテル・旅館 理論コスト,cost,2021-04,100
+cost:hotel,ホテル・旅館 理論コスト,cost,2021-10,102.74
+cost:hotel,ホテル・旅館 理論コスト,cost,2022-04,105.55
+cost:hotel,ホテル・旅館 理論コスト,cost,2022-10,109.34
+cost:hotel,ホテル・旅館 理論コスト,cost,2023-04,108.2
+cost:hotel,ホテル・旅館 理論コスト,cost,2023-10,109.93
+cost:hotel,ホテル・旅館 理論コスト,cost,2024-04,110.48
+cost:hotel,ホテル・旅館 理論コスト,cost,2024-10,113.7
+cost:hotel,ホテル・旅館 理論コスト,cost,2025-04,115.7
+cost:hotel,ホテル・旅館 理論コスト,cost,2025-10,118.29
+cost:hotel,ホテル・旅館 理論コスト,cost,2026-04,119.2
+actual:supermarket,スーパー・小売 実売,actual,2021-04,100
+actual:supermarket,スーパー・小売 実売,actual,2021-10,101.8
+actual:supermarket,スーパー・小売 実売,actual,2022-04,104
+actual:supermarket,スーパー・小売 実売,actual,2022-10,108.2
+actual:supermarket,スーパー・小売 実売,actual,2023-04,112.7
+actual:supermarket,スーパー・小売 実売,actual,2023-10,117.5
+actual:supermarket,スーパー・小売 実売,actual,2024-04,117.6
+actual:supermarket,スーパー・小売 実売,actual,2024-10,121.6
+actual:supermarket,スーパー・小売 実売,actual,2025-04,125.3
+actual:supermarket,スーパー・小売 実売,actual,2025-10,129.4
+actual:supermarket,スーパー・小売 実売,actual,2026-04,129.7
+cost:supermarket,スーパー・小売 理論コスト,cost,2021-04,100
+cost:supermarket,スーパー・小売 理論コスト,cost,2021-10,101.86
+cost:supermarket,スーパー・小売 理論コスト,cost,2022-04,104.71
+cost:supermarket,スーパー・小売 理論コスト,cost,2022-10,109.51
+cost:supermarket,スーパー・小売 理論コスト,cost,2023-04,111.61
+cost:supermarket,スーパー・小売 理論コスト,cost,2023-10,113.39
+cost:supermarket,スーパー・小売 理論コスト,cost,2024-04,114.23
+cost:supermarket,スーパー・小売 理論コスト,cost,2024-10,116.27
+cost:supermarket,スーパー・小売 理論コスト,cost,2025-04,119.54
+cost:supermarket,スーパー・小売 理論コスト,cost,2025-10,121.65
+cost:supermarket,スーパー・小売 理論コスト,cost,2026-04,124.13
+actual:carecenter,介護(自費サービス) 実売,actual,2021-04,100
+actual:carecenter,介護(自費サービス) 実売,actual,2021-10,100.6
+actual:carecenter,介護(自費サービス) 実売,actual,2022-04,100.6
+actual:carecenter,介護(自費サービス) 実売,actual,2022-10,102.1
+actual:carecenter,介護(自費サービス) 実売,actual,2023-04,102.1
+actual:carecenter,介護(自費サービス) 実売,actual,2023-10,102.1
+actual:carecenter,介護(自費サービス) 実売,actual,2024-04,102.6
+actual:carecenter,介護(自費サービス) 実売,actual,2024-10,103.8
+actual:carecenter,介護(自費サービス) 実売,actual,2025-04,103.8
+actual:carecenter,介護(自費サービス) 実売,actual,2025-10,103.8
+actual:carecenter,介護(自費サービス) 実売,actual,2026-04,103.8
+cost:carecenter,介護(自費サービス) 理論コスト,cost,2021-04,100
+cost:carecenter,介護(自費サービス) 理論コスト,cost,2021-10,102.86
+cost:carecenter,介護(自費サービス) 理論コスト,cost,2022-04,104.42
+cost:carecenter,介護(自費サービス) 理論コスト,cost,2022-10,107.62
+cost:carecenter,介護(自費サービス) 理論コスト,cost,2023-04,106.79
+cost:carecenter,介護(自費サービス) 理論コスト,cost,2023-10,109.71
+cost:carecenter,介護(自費サービス) 理論コスト,cost,2024-04,110.16
+cost:carecenter,介護(自費サービス) 理論コスト,cost,2024-10,114.26
+cost:carecenter,介護(自費サービス) 理論コスト,cost,2025-04,115.38
+cost:carecenter,介護(自費サービス) 理論コスト,cost,2025-10,119.44
+cost:carecenter,介護(自費サービス) 理論コスト,cost,2026-04,119.77
+actual:adagency,広告・制作(専門サービス) 実売,actual,2021-04,100
+actual:adagency,広告・制作(専門サービス) 実売,actual,2021-10,101.5
+actual:adagency,広告・制作(専門サービス) 実売,actual,2022-04,103.1
+actual:adagency,広告・制作(専門サービス) 実売,actual,2022-10,103.8
+actual:adagency,広告・制作(専門サービス) 実売,actual,2023-04,104.5
+actual:adagency,広告・制作(専門サービス) 実売,actual,2023-10,106.1
+actual:adagency,広告・制作(専門サービス) 実売,actual,2024-04,105.4
+actual:adagency,広告・制作(専門サービス) 実売,actual,2024-10,110.5
+actual:adagency,広告・制作(専門サービス) 実売,actual,2025-04,107.4
+actual:adagency,広告・制作(専門サービス) 実売,actual,2025-10,112
+actual:adagency,広告・制作(専門サービス) 実売,actual,2026-04,108.5
+cost:adagency,広告・制作(専門サービス) 理論コスト,cost,2021-04,100
+cost:adagency,広告・制作(専門サービス) 理論コスト,cost,2021-10,100.47
+cost:adagency,広告・制作(専門サービス) 理論コスト,cost,2022-04,101.23
+cost:adagency,広告・制作(専門サービス) 理論コスト,cost,2022-10,103.2
+cost:adagency,広告・制作(専門サービス) 理論コスト,cost,2023-04,103.66
+cost:adagency,広告・制作(専門サービス) 理論コスト,cost,2023-10,106.97
+cost:adagency,広告・制作(専門サービス) 理論コスト,cost,2024-04,106.93
+cost:adagency,広告・制作(専門サービス) 理論コスト,cost,2024-10,111.18
+cost:adagency,広告・制作(専門サービス) 理論コスト,cost,2025-04,110.63
+cost:adagency,広告・制作(専門サービス) 理論コスト,cost,2025-10,116.17
+cost:adagency,広告・制作(専門サービス) 理論コスト,cost,2026-04,115.29

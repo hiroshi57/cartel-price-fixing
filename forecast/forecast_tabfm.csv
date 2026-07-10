@@ -1,0 +1,107 @@
+series_id,series_name,group,step,date,tabfm
+commodity:wheat,輸入小麦 政府売渡価格,commodity,+1,2026-10,100.79
+commodity:wheat,輸入小麦 政府売渡価格,commodity,+2,2027-04,101.52
+commodity:crude,石油・石炭製品 企業物価指数（日銀CGPI実測）,commodity,+1,2026-10,131.15
+commodity:crude,石油・石炭製品 企業物価指数（日銀CGPI実測）,commodity,+2,2027-04,149.24
+commodity:sugar,粗糖 輸入物価指数（円ベース・日銀CGPI実測）,commodity,+1,2026-10,149.49
+commodity:sugar,粗糖 輸入物価指数（円ベース・日銀CGPI実測）,commodity,+2,2027-04,161.62
+commodity:cacao,コーヒー豆・カカオ豆 輸入物価指数（円ベース・日銀CGPI実測）,commodity,+1,2026-10,402.73
+commodity:cacao,コーヒー豆・カカオ豆 輸入物価指数（円ベース・日銀CGPI実測）,commodity,+2,2027-04,448.8
+commodity:milk,原乳 企業物価指数（日銀CGPI実測）,commodity,+1,2026-10,123.28
+commodity:milk,原乳 企業物価指数（日銀CGPI実測）,commodity,+2,2027-04,125.64
+commodity:pulp,パルプ・紙・同製品 企業物価指数（日銀CGPI実測）,commodity,+1,2026-10,137.17
+commodity:pulp,パルプ・紙・同製品 企業物価指数（日銀CGPI実測）,commodity,+2,2027-04,143.23
+input:rice,米,input,+1,2026-10,214.47
+input:rice,米,input,+2,2027-04,215.69
+input:vegetable,野菜,input,+1,2026-10,138.59
+input:vegetable,野菜,input,+2,2027-04,130.93
+input:meat,食肉,input,+1,2026-10,131.33
+input:meat,食肉,input,+2,2027-04,134.62
+input:oil,食用油,input,+1,2026-10,157.32
+input:oil,食用油,input,+2,2027-04,155.72
+input:flour,小麦粉,input,+1,2026-10,139.09
+input:flour,小麦粉,input,+2,2027-04,140.14
+input:detergent,洗剤・溶剤,input,+1,2026-10,176.31
+input:detergent,洗剤・溶剤,input,+2,2027-04,185.78
+input:energy,光熱費(電気・ガス),input,+1,2026-10,118.66
+input:energy,光熱費(電気・ガス),input,+2,2027-04,119.09
+input:water,水道,input,+1,2026-10,102.47
+input:water,水道,input,+2,2027-04,102.56
+input:labor,人件費,input,+1,2026-10,136.19
+input:labor,人件費,input,+2,2027-04,138.19
+input:rent,家賃,input,+1,2026-10,101.33
+input:rent,家賃,input,+2,2027-04,101.65
+input:packaging,包装・物流,input,+1,2026-10,127.44
+input:packaging,包装・物流,input,+2,2027-04,131.22
+input:misc,その他,input,+1,2026-10,124.66
+input:misc,その他,input,+2,2027-04,123.11
+input:fuel,燃料(軽油・ガソリン),input,+1,2026-10,120.11
+input:fuel,燃料(軽油・ガソリン),input,+2,2027-04,119.2
+input:vehicle,車両・整備,input,+1,2026-10,110.62
+input:vehicle,車両・整備,input,+2,2027-04,111.67
+input:material,建材・資材,input,+1,2026-10,134.41
+input:material,建材・資材,input,+2,2027-04,134.11
+input:goods,商品仕入れ(卸),input,+1,2026-10,131.77
+input:goods,商品仕入れ(卸),input,+2,2027-04,136.23
+input:telecom,通信費,input,+1,2026-10,98.47
+input:telecom,通信費,input,+2,2027-04,98.78
+input:ad,広告・媒体費,input,+1,2026-10,112.64
+input:ad,広告・媒体費,input,+2,2027-04,109.83
+input:textbook,教材・コンテンツ,input,+1,2026-10,111.21
+input:textbook,教材・コンテンツ,input,+2,2027-04,109.49
+input:finance,調達金利コスト,input,+1,2026-10,128.73
+input:finance,調達金利コスト,input,+2,2027-04,132.6
+input:medsupply,医療・衛生材料,input,+1,2026-10,110.43
+input:medsupply,医療・衛生材料,input,+2,2027-04,110.4
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,+1,2026-10,116.47
+actual:restaurant,飲食(定食・大衆食堂) 実売,actual,+2,2027-04,117.17
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,+1,2026-10,134.57
+cost:restaurant,飲食(定食・大衆食堂) 理論コスト,cost,+2,2027-04,136.03
+actual:cleaning,クリーニング 実売,actual,+1,2026-10,127.65
+actual:cleaning,クリーニング 実売,actual,+2,2027-04,131.38
+cost:cleaning,クリーニング 理論コスト,cost,+1,2026-10,123.33
+cost:cleaning,クリーニング 理論コスト,cost,+2,2027-04,124.24
+actual:greengrocer,八百屋・生鮮小売 実売,actual,+1,2026-10,138.59
+actual:greengrocer,八百屋・生鮮小売 実売,actual,+2,2027-04,130.93
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,+1,2026-10,133.91
+cost:greengrocer,八百屋・生鮮小売 理論コスト,cost,+2,2027-04,127.34
+actual:delivery,運送(宅配・軽貨物) 実売,actual,+1,2026-10,112.89
+actual:delivery,運送(宅配・軽貨物) 実売,actual,+2,2027-04,116.74
+cost:delivery,運送(宅配・軽貨物) 理論コスト,cost,+1,2026-10,118.91
+cost:delivery,運送(宅配・軽貨物) 理論コスト,cost,+2,2027-04,118.69
+actual:taxi,タクシー 実売,actual,+1,2026-10,130.09
+actual:taxi,タクシー 実売,actual,+2,2027-04,144.98
+cost:taxi,タクシー 理論コスト,cost,+1,2026-10,118.88
+cost:taxi,タクシー 理論コスト,cost,+2,2027-04,118.76
+actual:reform,工務店・リフォーム 実売,actual,+1,2026-10,143.14
+actual:reform,工務店・リフォーム 実売,actual,+2,2027-04,145.62
+cost:reform,工務店・リフォーム 理論コスト,cost,+1,2026-10,128.81
+cost:reform,工務店・リフォーム 理論コスト,cost,+2,2027-04,130.61
+actual:cramschool,学習塾・予備校 実売,actual,+1,2026-10,114.4
+actual:cramschool,学習塾・予備校 実売,actual,+2,2027-04,117.45
+cost:cramschool,学習塾・予備校 理論コスト,cost,+1,2026-10,121.57
+cost:cramschool,学習塾・予備校 理論コスト,cost,+2,2027-04,122.96
+actual:salon,理美容室 実売,actual,+1,2026-10,107.25
+actual:salon,理美容室 実売,actual,+2,2027-04,108.19
+cost:salon,理美容室 理論コスト,cost,+1,2026-10,130.72
+cost:salon,理美容室 理論コスト,cost,+2,2027-04,132.51
+actual:rental,レンタル・リース 実売,actual,+1,2026-10,152.11
+actual:rental,レンタル・リース 実売,actual,+2,2027-04,169.51
+cost:rental,レンタル・リース 理論コスト,cost,+1,2026-10,127.9
+cost:rental,レンタル・リース 理論コスト,cost,+2,2027-04,133.24
+actual:hotel,ホテル・旅館 実売,actual,+1,2026-10,155.83
+actual:hotel,ホテル・旅館 実売,actual,+2,2027-04,158.12
+cost:hotel,ホテル・旅館 理論コスト,cost,+1,2026-10,120.88
+cost:hotel,ホテル・旅館 理論コスト,cost,+2,2027-04,122.08
+actual:supermarket,スーパー・小売 実売,actual,+1,2026-10,132.72
+actual:supermarket,スーパー・小売 実売,actual,+2,2027-04,135.22
+cost:supermarket,スーパー・小売 理論コスト,cost,+1,2026-10,129.71
+cost:supermarket,スーパー・小売 理論コスト,cost,+2,2027-04,133.17
+actual:carecenter,介護(自費サービス) 実売,actual,+1,2026-10,103.94
+actual:carecenter,介護(自費サービス) 実売,actual,+2,2027-04,104.19
+cost:carecenter,介護(自費サービス) 理論コスト,cost,+1,2026-10,124.53
+cost:carecenter,介護(自費サービス) 理論コスト,cost,+2,2027-04,125.81
+actual:adagency,広告・制作(専門サービス) 実売,actual,+1,2026-10,112.64
+actual:adagency,広告・制作(専門サービス) 実売,actual,+2,2027-04,109.83
+cost:adagency,広告・制作(専門サービス) 理論コスト,cost,+1,2026-10,122.17
+cost:adagency,広告・制作(専門サービス) 理論コスト,cost,+2,2027-04,123.66
